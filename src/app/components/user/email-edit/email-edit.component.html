@@ -1,0 +1,75 @@
+<corpo-header>Modificar email</corpo-header>
+<section class="wrapper">
+	<form [formGroup]="modificationForm">
+		<div class="row">
+			<div class="col-12 form-group">
+				<label class="col-sm-12 control-label">Email actual:</label>
+				<div class="formValidators">
+					<input
+						type="text"
+						class="form-control"
+						readonly
+						formControlName="email"
+					/>
+				</div>
+			</div>
+			<div class="col-12 form-group">
+				<label class="col-12 control-label">Nueva Dirección de Email:</label>
+				<div class="formValidators">
+					<input type="text" class="form-control" formControlName="newEmail" />
+					<p *ngIf="sendForm && f.newEmail.errors?.required">
+						*el campo es requerido
+					</p>
+					<p *ngIf="sendForm && f.newEmail.errors?.email">
+						*ingresar email valido
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 form-group">
+			<label class="col-sm-12 control-label"
+				>Confirma tu nueva dirección de Email:</label
+			>
+			<div class="formValidators">
+				<input
+					type="text"
+					class="form-control"
+					formControlName="repeatNewEmail"
+				/>
+				<p *ngIf="sendForm && f.repeatNewEmail.errors?.mustMatch">
+					*los email no coinciden
+				</p>
+			</div>
+		</div>
+		<div class="col-12 form-group">
+			<label class="col-sm-12 control-label">Contraseña:</label>
+			<div class="formValidators">
+				<input
+					type="password"
+					class="form-control"
+					formControlName="password"
+				/>
+				<p *ngIf="sendForm && f.password.errors?.required">
+					*el campo es requerido
+				</p>
+			</div>
+		</div>
+	</form>
+	<div class="mt-4">
+		<ion-button
+			expand="block"
+			color="medium"
+			class="main-center"
+			[routerLink]="['/my-account']"
+			>Volver</ion-button
+		>
+
+		<ion-button
+			expand="block"
+			color="success"
+			class="main-center"
+			(click)="submit()"
+			>Guardar</ion-button
+		>
+	</div>
+</section>

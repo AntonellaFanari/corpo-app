@@ -1,0 +1,23 @@
+<header class="modal-header">
+	<h3 class="mb text-center text-white">Crear cuenta</h3>
+</header>
+<section class="wrapper">
+	<app-member-form></app-member-form>
+	<div class="mt-4">
+		<ion-button
+			expand="block"
+			color="medium"
+			class="main-center"
+			[routerLink]="['/login']"
+			>Cancelar</ion-button
+		>
+
+		<ion-button
+			expand="block"
+			color="success"
+			class="main-center"
+			(click)="submit()"
+			>Guardar</ion-button
+		>
+	</div>
+</section>

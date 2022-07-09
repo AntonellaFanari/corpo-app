@@ -1,0 +1,75 @@
+.wrapper{
+  background-color: white;
+}
+
+tr.span-margin > td > span {
+    margin-left: 15px;
+  }
+  
+  td.text-ajust {
+    text-overflow: ellipsis;
+  }
+  
+  
+  .marginLabel {
+    margin-top: 2px;
+    margin-left: 4px;
+  }
+  
+  #select {
+    text-decoration: none !important;
+    color: white !important;
+  } 
+  
+  a {
+    text-decoration: underline !important;
+    color: #0d6efd !important;
+    cursor: pointer;
+  }
+  
+  .download-icon{
+      margin-left: 6px;
+  }
+  
+  .btn-action {
+    align-items: center;
+    margin-top: 2px;
+  }
+  
+  .btn-action-add {
+    margin-top: 33px;
+  }
+
+  .color-link {
+    color: #2dd36f !important;
+    text-decoration: none !important;
+}
+
+.main-center{
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+  @media only screen and (max-width: 990px) {
+    .btn-action-add {
+      margin-top: 7px;
+    }
+  }
+  
+  @media only screen and (max-width: 800px) {
+    #no-more-tables td {
+      padding-left: 30%;
+    }
+  
+    .detail-table {
+      font-size: 13px;
+      border: 1px solid #808080;
+      margin-top: 2px;
+    }
+  
+  
+    .btn-action-add {
+      margin-top: 3px;
+    }
+  }
+  

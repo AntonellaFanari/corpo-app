@@ -1,0 +1,154 @@
+<div class="row">
+	<form [formGroup]="formCreate">
+		<div class="col-12">
+			<div class="row">
+				<div class="col-6 col-lg-4 col-md-4 pull-left mt-2 form-group">
+					<label class="col-sm-12 control-label">Edad:</label>
+					<div class="col-sm-12">
+						<input type="text" class="form-control" formControlName="age" />
+					</div>
+				</div>
+				<div class="col-6 col-lg-4 col-md-4 mt-2 form-group">
+					<label class="col-sm-12 control-label">Peso:</label>
+					<div class="col-sm-12">
+						<input type="text" class="form-control" formControlName="weight" />
+						<p
+							class="text-danger"
+							*ngIf="sendForm && f.weight.errors?.required"
+						>
+							* el campo es requerido
+						</p>
+					</div>
+				</div>
+				<div class="col-6 col-lg-4 col-md-4 pull-left mt-2 form-group">
+					<label class="col-sm-12 control-label">Sexo:</label>
+					<select
+						class="form-control"
+						formControlName="gender"
+						(change)="selectGender($event.target.value)"
+					>
+						<option value="" disabled>Seleccionar...</option>
+						<option value="man">Hombre</option>
+						<option value="woman">Mujer</option>
+					</select>
+					<p class="text-danger" *ngIf="sendForm && f.gender.errors?.required">
+						* el campo es requerido
+					</p>
+				</div>
+				<div class="col-6 col-lg-4 col-md-4 pull-right mt-2 form-group">
+					<label class="col-sm-12 control-label">Periodo:</label>
+					<input type="text" class="form-control" formControlName="period" />
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-6 form-group box-radio-title">
+				<label class="control-label">Alergias:</label>
+			</div>
+			<div class="col-6 group-radio-label">
+				<ion-toggle
+					formControlName="allergiesChecked"
+					color="success"
+					(ionChange)="enableInput($event.detail.checked, 'allergies')"
+				></ion-toggle>
+			</div>
+			<div class="formValidators col-12">
+				<input type="text" class="form-control" formControlName="allergies" />
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-6 form-group box-radio-title">
+				<label class="control-label">Cirugias:</label>
+			</div>
+			<div class="col-6 group-radio-label">
+				<ion-toggle
+					formControlName="surgicalInterventionChecked"
+					color="success"
+					(ionChange)="
+						enableInput($event.detail.checked, 'surgicalIntervention')
+					"
+				></ion-toggle>
+			</div>
+			<div class="formValidators col-12">
+				<input
+					type="text"
+					class="form-control"
+					formControlName="surgicalIntervention"
+				/>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-6 form-group box-radio-title">
+				<label class="control-label">Enf. cardiaca:</label>
+			</div>
+			<div class="col-6 group-radio-label">
+				<ion-toggle
+					formControlName="heartDiseaseChecked"
+					color="success"
+					(ionChange)="enableInput($event.detail.checked, 'heartDisease')"
+				></ion-toggle>
+			</div>
+			<div class="formValidators col-12">
+				<input
+					type="text"
+					class="form-control"
+					formControlName="heartDisease"
+				/>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-6 form-group box-radio-title">
+				<label class="control-label">Enf. respiratoria:</label>
+			</div>
+			<div class="col-6 group-radio-label">
+				<ion-toggle
+					formControlName="respiratoryDiseaseChecked"
+					color="success"
+					(ionChange)="enableInput($event.detail.checked, 'respiratoryDisease')"
+				></ion-toggle>
+			</div>
+			<div class="formValidators col-12">
+				<input
+					type="text"
+					class="form-control"
+					formControlName="respiratoryDisease"
+				/>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-6 form-group box-radio-title">
+				<label class="control-label">Medicación hab.:</label>
+			</div>
+			<div class="col-6 group-radio-label">
+				<ion-toggle
+					formControlName="habitualMedicationChecked"
+					color="success"
+					(ionChange)="enableInput($event.detail.checked, 'habitualMedication')"
+				></ion-toggle>
+			</div>
+			<div class="formValidators col-12">
+				<input
+					type="text"
+					class="form-control"
+					formControlName="habitualMedication"
+				/>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="row">
+				<div class="col-12 pull-left mt-2 form-group">
+					<div class="col-12 form-group formMargin">
+						<label class="col-12 control-label">Observaciones:</label>
+						<div class="formValidators">
+							<input
+								type="text"
+								class="form-control"
+								formControlName="observations"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

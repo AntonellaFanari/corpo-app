@@ -1,0 +1,65 @@
+.formBorder {
+  border: 1px solid #adb5bd;
+}
+
+.margLabelForm {
+  margin-top: 15px;
+}
+
+.formMargin {
+  margin-left: 1px;
+}
+
+.radio-button {
+  margin-right: 7px;
+  margin-left: 15px;
+}
+
+.group-radio-label{
+  padding: 10px;
+  text-align: right;
+}
+
+div.group-radio-label span {
+  color: white;
+}
+
+div.group-radio-label label {
+  color: white;
+}
+
+div.box-radio-title{
+  display: flex;
+  align-items: center;
+}
+
+.main-center{
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.height-large {
+  height: 60px;
+
+  --border-radius: 4px;
+  --handle-border-radius: 4px;
+
+  --handle-width: 50%;
+}
+
+.handle-height-large {
+  height: 60px;
+
+  /*
+   * The max height of the handle is 100% of the track height - handle spacing
+   * so this will never show as being 150%
+   */
+  --handle-height: 150%;
+  --handle-width: 23px;
+  --handle-border-radius: 14px 4px 4px 14px;
+  --handle-transition: border-radius 120ms ease-in-out 80ms;
+}
+
+.handle-height-large.toggle-checked {
+  --handle-border-radius: 4px 14px 14px 4px;
+}

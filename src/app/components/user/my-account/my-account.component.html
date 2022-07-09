@@ -1,0 +1,104 @@
+<corpo-header>Datos personales</corpo-header>
+<section class="wrapper">
+	<ion-spinner *ngIf="requesting"></ion-spinner>
+	<div class="row" *ngIf="user">
+		<div class="card-account">
+			<div class="row card-body dataUserBox">
+				<div class="col-6 form-group">
+					<label class="control-label label">Apellido:</label>
+				</div>
+				<div class="col-6 form-group">
+					<p>{{ user.lastName }}</p>
+				</div>
+				<div class="col-6 form-group">
+					<label class="control-label label">Nombre:</label>
+				</div>
+				<div class="col-6 form-group">
+					<p>{{ user.name }}</p>
+				</div>
+			</div>
+			<div class="row card-body dataUserBox">
+				<div class="col-6 form-group">
+					<label class="control-label label">Domicilio:</label>
+				</div>
+				<div class="col-6 form-group">
+					<p>{{ user.address }}</p>
+				</div>
+				<div class="col-6 form-group">
+					<label class="control-label label">Teléfono:</label>
+				</div>
+				<div class="col-6 form-group">
+					<p>{{ user.phone }}</p>
+				</div>
+			</div>
+			<div *ngIf="userType == 2" class="row card-body dataUserBox">
+				<div class="col-6 form-group">
+					<label class="control-label label">Cont. de emergencia</label>
+				</div>
+				<div class="col-6 form-group">
+					<p>{{ user.emergencyContact }}</p>
+				</div>
+				<div class="col-6 form-group">
+					<label class="control-label label">Tel. de emergencia</label>
+				</div>
+				<div class="col-6 form-group">
+					<p>{{ user.emergencyPhone }}</p>
+				</div>
+			</div>
+			<div class="row card-body dataUserBox">
+				<div class="col-6 form-group">
+					<label class="control-label label">Email:</label>
+				</div>
+				<div class="col-6 form-group">
+					<p>{{ user.email }}</p>
+				</div>
+			</div>
+		</div>
+		<div class="mt-2">
+			<ion-button
+				expand="block"
+				color="success"
+				class="main-center"
+				(click)="modifyPersonalInformation()"
+			>
+				Modificar datos personales
+			</ion-button>
+			<ion-button
+				*ngIf="userType == 2 && !existsMedicalHistory"
+				expand="block"
+				color="success"
+				class="main-center"
+				[routerLink]="['/medical-history-create']"
+				[queryParams]="{ id: id }"
+			>
+				Crear historia médica
+			</ion-button>
+			<ion-button
+				*ngIf="userType == 2 && existsMedicalHistory"
+				expand="block"
+				color="success"
+				class="main-center"
+				[routerLink]="['/medical-history-edit']"
+				[queryParams]="{ id: id }"
+			>
+				Modificar historia médica
+			</ion-button>
+			<ion-button
+				expand="block"
+				color="success"
+				class="main-center"
+				[routerLink]="['/email-edit']"
+			>
+				Modificar email
+			</ion-button>
+			<ion-button
+			expand="block"
+			color="success"
+			class="main-center"
+			[routerLink]="['/password-edit']"
+		>
+			Modificar contraseña
+		</ion-button>
+		</div>
+	</div>
+</section>

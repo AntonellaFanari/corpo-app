@@ -1,0 +1,20 @@
+<corpo-header>Editar datos personales</corpo-header>
+<section class="wrapper">
+	<app-member-form></app-member-form>
+	<div class="mt-4">
+		<ion-button
+			expand="block"
+			color="medium"
+			class="main-center"
+			[routerLink]="['/my-account']"
+			>Volver</ion-button
+		>
+		<ion-button
+			expand="block"
+			color="success"
+			class="main-center"
+			(click)="submit()"
+			>Guardar</ion-button
+		>
+	</div>
+</section>

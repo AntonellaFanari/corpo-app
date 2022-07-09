@@ -1,0 +1,29 @@
+@import "../../../../global.scss";
+
+ion-card-content {
+  background-color: $background-color;
+  border: none;
+}
+
+.btn-submit {
+  background-color:  #86b686;
+  color: white;
+  border:solid, 1px, #32ac32;
+}
+
+.main-center{
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.div-title {
+  background-color: #32ac32;
+  color: white;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 22px;
+}

@@ -1,0 +1,15 @@
+<corpo-header>Crear cuenta</corpo-header>
+<div class="conte">
+
+  <ion-card scrollY="true">
+    <ion-card-content fullscreen="true" overflow-scroll="true">
+      <div class="">
+        <app-member-form *ngIf="step == 1"></app-member-form>
+        <app-medical-history-create  *ngIf="step == 2"></app-medical-history-create>
+        <button class="btn btn-secondary pull-left mt-2" type="button" [routerLink]="['/user-list']">Cancelar</button>
+        <button class="btn btn-success pull-right mt-2" type="submit" (click)="submit()">Siguiente</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</div>
