@@ -1,0 +1,22 @@
+<ion-content>
+  <ion-button fill="solid" class="text-white pull-rigth" (click)="close()">x</ion-button>
+  
+  <ion-item>
+    <ion-label>Filtrar por clases:</ion-label>
+    <ion-select [interfaceOptions]="customActionSheetOptions" cancelText="Cancelar" okText="Ok" (ionChange)="selectClass($event.target.value)">
+      <ion-select-option value="0">Todas</ion-select-option>
+      <ion-select-option *ngFor="let class of classes" value="{{class.id}}">{{class.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+<ion-calendar
+	[(ngModel)]="this.dateRange"
+	(change)="onChange($event)"
+	[options]="option"
+	type="string"
+	format="YYYY-MM-DD"
+>
+</ion-calendar>
+<div class="text-center">
+	<ion-button class="mt-2" color="success" (click)="filterResults()">Filtrar</ion-button>
+</div>
+</ion-content>

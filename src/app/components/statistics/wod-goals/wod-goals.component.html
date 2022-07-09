@@ -1,0 +1,52 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button (click)=return()>
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>    
+  </ion-buttons>
+  <ion-title>
+    Objetivos por WOD
+  </ion-title>
+</ion-toolbar>
+
+
+
+<div class="card-body" *ngIf="periodizationWeek">
+  <div class="month text-center" >
+    <div class="text-white">Semana {{periodizationWeek.weekNumber}}</div>
+    <div class="text-white">Objetivo: {{periodizationWeek.goal}}</div>
+  </div>
+  <div class="volume mt-3 text-center" >
+    <div class="text-white">Volumen planificado</div>
+    <div class="text-white">{{periodizationWeek.volume}}</div>
+  </div>
+  <div class="row mt-3 week-container" *ngIf="wods.length>0">
+    <div class="col-12 mt-3"  *ngFor="let wod of wods">
+      <div class="week text-center">
+        <h6 class="text-white">WOD - Día Nº {{wod.wodNumber}}</h6>
+        <p class="goal-text">Objetivo: {{wod.goal}}</p>
+      </div>
+    </div>   
+  </div>
+</div>
+
+
+<section class="wrapper" *ngIf="displayChart">
+  <ion-card class="card-chart">
+    <ion-card-content>
+      <canvas #barCanvas1 style="position: relative; height:20vh; width:40vw"></canvas>
+    </ion-card-content>
+  </ion-card>
+
+</section>
+
+
+<section class="wrapper" *ngIf="displayChart">
+  
+  <ion-card class="card-chart">
+    <ion-card-content>
+      <canvas #barCanvas2 style="position: relative; height:20vh; width:40vw"></canvas>
+    </ion-card-content>
+  </ion-card>
+
+</section>

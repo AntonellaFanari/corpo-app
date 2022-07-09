@@ -1,0 +1,107 @@
+<corpo-header>Mis Resultados</corpo-header>
+<section class="wrapper" *ngIf="!requestingResult && testResults">
+	<div class="container-fluid p-0">
+		<div class="">
+			<h3 class="text-white">Test Nivel 0 - Resultados de Lopez Lucas</h3>
+		</div>
+		<hr />
+		<div class="card card-exercise mt-3" *ngFor="let result of testResults">
+			<div class="row m-2">
+				<div class="card-header col-12 div-title">
+					<h5 class="h-title">
+						Ejercicio: <strong>{{ result.name }}</strong>
+					</h5>
+				</div>
+				<div *ngIf="result.testHeartRateExercise">
+					<div class="col-12 col-lg-6 mt-2 text-white">
+						<label class="form-label"
+							>Tiempo:
+							<strong>{{ result.testHeartRateExercise.time }}</strong></label
+						>
+					</div>
+					<div class="col-12 col-lg-6 mt-2 text-white">
+						<label class="form-label"
+							>Frecuencia Cardíaca Inicial:
+							<strong>{{
+								result.testHeartRateExercise.initialHeartRate
+							}}</strong></label
+						>
+					</div>
+					<div class="col-12 col-lg-6 mt-2 text-white">
+						<label class="form-label"
+							>Frecuencia Cardíaca Final:
+							<strong>{{
+								result.testHeartRateExercise.finalHeartRate
+							}}</strong></label
+						>
+					</div>
+				</div>
+				<div *ngIf="result.testRepetitionExercise">
+					<div class="col-12 col-lg-6 mt-2 text-white">
+						<label class="form-label"
+							>Repeticiones:
+							<strong>{{
+								result.testRepetitionExercise.repetitions
+							}}</strong></label
+						>
+					</div>
+					<div class="col-12 col-lg-6 mt-2 text-white">
+						<label class="form-label"
+							>Frecuencia Cardíaca Inicial:
+							<strong>{{
+								result.testRepetitionExercise.initialHeartRate
+							}}</strong></label
+						>
+					</div>
+					<div class="col-12 col-lg-6 mt-2 text-white">
+						<label class="form-label"
+							>Frecuencia Cardíaca Final:
+							<strong>{{
+								result.testRepetitionExercise.finalHeartRate
+							}}</strong></label
+						>
+					</div>
+				</div>
+				<div *ngIf="result.testVideoExercise">
+					<div class="row mt-3 justify-content-center align-items-center">
+						<div
+							class="row col-12 justify-content-center align-items-center text-center mt-1 mb-3"
+						>
+							<h4 class="text-white">
+								Mi calificación: {{ result.testVideoExercise.rate }}
+							</h4>
+						</div>
+						<div
+							class="row col-12 justify-content-center align-items-center text-center mt-1 mb-3"
+						>
+							<video
+								src="{{ urlBase }}{{ result.testVideoExercise.pathVideo }}"
+								controls
+							>
+								Vídeo no es soportado...
+							</video>
+						</div>
+						<div
+							class="row col-12 justify-content-center align-items-center text-center mt-1 mb-3"
+						>
+							<img src="{{ urlBase }}{{ result.testVideoExercise.pathImg }}" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="button-box col-12">
+			<button class="btn btn-secondary btn-width" routerLink="/mis-tests">
+				Volver
+			</button>
+		</div>
+	</div>
+</section>
+<section class="wrapper">
+	<div class="w-100 text-center" *ngIf="requestingResult && !exercise">
+		<div class="spinner-border text-success" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+</section>

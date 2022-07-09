@@ -1,0 +1,54 @@
+<corpo-header>Turnos</corpo-header>
+
+
+
+<!-- Use a trigger -->
+<ion-button id="trigger-button">Click to open modal</ion-button>
+<ion-modal trigger="trigger-button">
+  <ng-template>
+    <ion-content>Modal ion-content
+
+
+      <ion-button id="trigger-button" (click)="close()">Click to open modal</ion-button>
+
+      <app-shift-create (getAllShifts)="getAll()"></app-shift-create>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+
+
+<section class="wrapper">
+  <div *ngIf="shifts.length>0; else elseBlock" class="col-md-12">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table class="table table-bordered table-condensed cf mb-0 user-table">
+        <thead class="cf">
+          <tr>
+            <th class="numeric">Fecha</th>
+            <th class="numeric">Nº</th>
+            <th class="numeric">Tipo</th>
+            <th class="numeric"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="scrollme span-margin" *ngFor="let shift of shifts">
+            <td class="td-title" data-title="Fecha"><span>{{shift.day}} {{shift.hour}}</span></td>
+            <td class="td-title" data-title="Turnos"><span>{{shift.available}}</span></td>
+            <td class="td-title text-ajust" data-title="Tipo"><span>{{shift.className}}</span></td>
+            <td class="td-title" data-title="Acción">
+              <span class="btn-action-container">
+                <button class="btn btn-success btn-xs btn-action-list" (click)="goToAttendances(shift.id)">ver</button>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <ng-template #elseBlock>
+    <h5>No hay turnos disponibles</h5>
+  </ng-template>
+</section>
+

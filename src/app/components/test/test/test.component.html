@@ -1,0 +1,29 @@
+<corpo-header>Mis Test</corpo-header>
+<section class="wrapper" *ngIf="testMember">
+	<div class="month text-center mb-3">
+		<strong>Test: {{ testMember.name }}</strong>
+	</div>
+	<div
+		class="margin-btn"
+		*ngFor="let exercise of testMember.testExercisesMember; index as i"
+	>
+		<ion-button
+		[disabled]="exercise.status == 1"
+			expand="block"
+			color="success"
+			class="main-center"
+			[routerLink]="['/exercise']"
+			[queryParams]="{ id: exercise.id, type: exercise.testType, testId: id }"
+		>
+			Ejercicio Nº {{ i + 1 }}
+		</ion-button>
+	</div>
+	<ion-button
+		expand="block"
+		color="medium"
+		class="margin-btn"
+		[routerLink]="['/mis-tests']"
+		>Volver</ion-button
+	>
+</section>
+

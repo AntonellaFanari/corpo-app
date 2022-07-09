@@ -1,0 +1,51 @@
+<corpo-header>Esfuerzo percibido</corpo-header>
+
+<section class="wrapper" *ngIf="periodization">
+  <div class="card bg-dark">
+	<div class="card-body">
+		<div class="month text-center text-white">
+			{{ getMonth(periodization.month) }}
+		</div>
+		<div class="row mt-3">
+			<div
+				*ngFor="let periodizationWeek of periodization.periodizationWeeks; index as i"
+				class="col-3"
+			>
+				<div
+					[ngClass]="
+						periodizationWeek.planned == 'true'
+							? 'week-planned cursor-pointer'
+							: 'week-not-planned'
+					"
+          class="text-center text-white"
+          (click)="getChart(i)"
+				>
+					Semana {{ periodizationWeek.weekNumber }}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="displayChart">
+		<ion-card class="card-chart">
+			<ion-card-header>
+				Semana {{ periodizationWeek.weekNumber }}
+			</ion-card-header>
+			<ion-card-content>
+				<canvas
+					#barCanvas
+					style="position: relative; height: 20vh; width: 40vw"
+				></canvas>
+			</ion-card-content>
+    </ion-card>
+    <div class="mt-4">
+      <ion-button
+        expand="block"
+        color="success"
+              class="main-center"
+              (click)="hideChart()">Aceptar</ion-button
+      >
+    </div>
+  </div>
+</div>
+
+</section>

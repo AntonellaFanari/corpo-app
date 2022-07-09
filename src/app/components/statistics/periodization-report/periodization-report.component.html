@@ -1,0 +1,20 @@
+<corpo-header>Reporte anual</corpo-header>
+<div class="card-body" *ngFor="let periodization of periodizations">
+  <div class="month text-center text-white cursor-pointer" [routerLink]="['/goals']" [queryParams]="{id: periodization.id}">
+    {{getMonth(periodization.month)}}
+  </div>
+  <div class="row mt-3">
+    <div  *ngFor="let periodizationWeek of periodization.periodizationWeeks" class="col-3" [routerLink]="['/wod-goals']" [queryParams]="{id: periodizationWeek.id}">
+      <div [ngClass]="periodizationWeek.planned == 'true' ? 'week-planned': 'week-not-planned'" class="text-center cursor-pointer">Semana {{periodizationWeek.weekNumber}}</div>
+    </div>
+  </div>
+</div>
+
+<section class="wrapper">
+
+  <ion-card class="card-chart">
+    <ion-card-content>
+      <canvas #barCanvas1 style="position: relative; height:20vh; width:40vw"></canvas>
+    </ion-card-content>
+  </ion-card>
+</section>

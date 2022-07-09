@@ -1,0 +1,65 @@
+<button id="modal-attendance" data-toggle="modal" href="#myModalAttendance" class="d-none"></button>
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Abrir ventana de diálogo</button>-->
+hola
+<section>
+  <div class="container-fluid modal-content modal-lg p-0">
+
+    <!-- cabecera del diálogo -->
+    <div class="modal-header modal-title bg-success d-block">
+      <h4 class="modal-title text-white text-center">Asistencias - {{quotaAvailable}} disponible </h4>
+      <!--<button type="button" class="close" data-dismiss="modal">X</button>-->
+    </div>
+
+
+    <!-- cuerpo del diálogo -->
+    <div class="modal-body">
+      <table *ngIf="attendances.length>0; else: elseBlock" class="table table-bordered table-condensed cf scrollme user-table">
+        <thead class="cf">
+          <tr>
+            <th class="numeric">{{shift.day}} {{shift.hour}}</th>
+            <th class="numeric">Créditos restantes</th>
+            <th class="numeric">Vencimiento</th>
+            <th class="numeric">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attendance of attendances">
+            <td data-title="Turno"><span>{{attendance.name}}</span></td>
+            <td data-title="Créditos restantes"><span>{{(attendance.remainingCredit)}}</span></td>
+            <td data-title="Vencimiento"><span>{{attendance.expiration | date: 'dd/MM/yyyy'}}</span></td>
+            <td data-title="Acción">
+              <button *ngIf="attendance.status == 1" class="btn btn-danger btn-xs btn-action-list" (click)="cancell(attendance.id, attendance.memberId)"><i class="fa fa-trash-o "></i></button>
+              <button *ngIf="attendance.status == 3" class="btn btn-warning btn-xs btn-action-list text-white">Cancelado</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #elseBlock><h5>No hay socios agregados</h5></ng-template>
+      <div *ngIf="viewBtnAddMember" class="row justify-content-center align-items-center">
+        <div class="text-center mb-2">
+          <button type="button" class="btn btn-info col-3 text-white" (click)="viewSelectListMember()">Agregar socio</button>
+        </div>
+      </div>
+      <div *ngIf="viewSelectAddMember" class="card card-body">
+        <a class="dropdown-toggle" id="dropdown1" data-toggle="dropdown">
+          <label class="form-label text-black">Socio:</label>
+          <input type="text" class="form-control" placeholder="Buscar Socio" [(ngModel)]="filterMember" (click)="clearInput()" (blur)="completeInput()" />
+        </a>
+        <div class="dropdown-menu form-control">
+          <a *ngFor="let member of members  | searchFilterMember: filterMember " class="dropdown-item" (click)="selectMember(member)">{{member.lastName}} {{member.name}}</a>
+        </div>
+        <div>
+          <button type="button" class="btn btn-outline-success btn-block col-12 mb-2" (click)="addMember()">Confirmar</button>
+          <button type="button" class="btn btn-outline-danger btn-block col-12" (click)="viewSelectListMember()">Cancelar</button>
+        </div>
+      </div>
+
+      <!-- pie del diálogo -->
+
+      <div class="modal-footer p-0">
+        <button type="button" class="btn btn-success col-3 col-lg-2" data-dismiss="modal">Aceptar</button>
+      </div>
+
+    </div>
+  </div>
+</section>

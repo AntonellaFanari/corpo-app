@@ -1,0 +1,149 @@
+<corpo-header>Periodización</corpo-header>
+
+<ion-spinner *ngIf="requesting"></ion-spinner>
+
+<section class="wrapper">
+	<div *ngIf="periodization" class="wod-container wrapper">
+		<div class="card mb-2">
+			<div class="card-body">
+				<label class="label-goal">Objetivo Mensual: </label
+				><label class="goal">{{ periodization.goal }}</label>
+			</div>
+		</div>
+		<div
+			class="card mb-2"
+			*ngFor="let week of periodization.periodizationWeeks"
+		>
+			<h6 class="week-number m-2">Semana {{ week.weekNumber }}</h6>
+			<div class="card-body">
+				<label class="label-goal">Objetivo: </label
+				><label class="goal">{{ week.goal }}</label>
+				<div class="row">
+					<section id="no-more-tables" class="tab-pane fade show active col-4">
+						<table
+							class="table table-bordered table-condensed cf scrollme predominance"
+							id="week2"
+							week="week2"
+						>
+							<thead class="cf">
+								<tr>
+									<th>M</th>
+									<th>S</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td data-title="M" day="monday">
+										{{ week.m != "0" ? week.m + "%" : "-" }}
+									</td>
+									<td data-title="S" day="monday">
+										{{ week.s != "0" ? week.s + "%" : "-" }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!--<div class="col-12 chart" [style.display]="chartweek2 ? 'block' : 'none'">
+                        <canvas id="week2-chart"></canvas>
+                    </div>
+                    -->
+					</section>
+					<section id="no-more-tables" class="tab-pane fade show active col-8">
+						<table
+							class="table table-bordered table-condensed cf scrollme periodization"
+							id="week1"
+							week="week1"
+						>
+							<thead class="cf">
+								<tr>
+									<th>Lun</th>
+									<th>Mar</th>
+									<th>Mie</th>
+									<th>Jue</th>
+									<th>Vie</th>
+									<th>Sab</th>
+									<th>Dom</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td data-title="Lun" day="monday" class="first-td">
+										{{ week.monday }}
+									</td>
+									<td data-title="Mar" day="tuesday">{{ week.tuesday }}</td>
+									<td data-title="Mie" day="wednesday">{{ week.wednesday }}</td>
+									<td data-title="Jue" day="thursday">{{ week.thursday }}</td>
+									<td data-title="Vie" day="friday">{{ week.friday }}</td>
+									<td data-title="Sab" day="saturday">{{ week.saturday }}</td>
+									<td data-title="Dom" day="sunday">{{ week.sunday }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="row card-body justify-content-center align-items-center">
+	<div class="col-12 col-lg-4 form-group text-center">
+		<button
+			type="button"
+			class="btn btn-secondary w-100"
+			[routerLink]="['/wod-week']"
+		>
+			Atrás
+		</button>
+	</div>
+</div>
+
+<!-- <ion-accordion-group>
+	<ion-accordion value="colors">
+		<ion-item slot="header">
+			<ion-label>Semana {{ week.weekNumber }}</ion-label>
+		</ion-item>
+
+		<ion-list slot="content">
+			<ion-item>
+				<ion-label>Objetivos: {{ week.goal }}</ion-label>
+			</ion-item>
+			<ion-item>
+				<ion-grid>
+					<ion-row>
+						<ion-col> M </ion-col>
+						<ion-col> S </ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col> {{ week.m != "0" ? week.m + "%" : "-" }} </ion-col>
+						<ion-col> {{ week.s != "0" ? week.s + "%" : "-" }} </ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-item>
+			<ion-item>
+				<ion-grid>
+					<ion-row>
+						<ion-col> Lun </ion-col>
+						<ion-col> Mar </ion-col>
+						<ion-col> Mie </ion-col>
+						<ion-col> Jue </ion-col>
+						<ion-col> Vie </ion-col>
+						<ion-col> Sab </ion-col>
+						<ion-col> Dom </ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col> {{ week.monday }} </ion-col>
+                        <ion-col> {{ week.tuesday }} </ion-col>                        
+						<ion-col> Sab </ion-col>
+						<ion-col> {{ week.thursday }} </ion-col>
+						<ion-col> {{ week.friday }} </ion-col>
+						<ion-col> {{ week.saturday }} </ion-col>
+						<ion-col> Dom </ion-col>
+					</ion-row>
+				</ion-grid>
+            </ion-item>
+            <ion-item>
+				<ion-label>Intensidad: 8</ion-label>
+			</ion-item>
+		</ion-list>
+	</ion-accordion>
+
+</ion-accordion-group> -->

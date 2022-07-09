@@ -1,0 +1,80 @@
+<corpo-header>WOD</corpo-header>
+
+<ion-spinner *ngIf="requesting"></ion-spinner>
+
+<!--
+<ion-content *ngIf="!wod">
+    <ion-calendar 
+        [(ngModel)]="date" 
+        (change)="onChange($event)" 
+        [type]="type" 
+        [format]="'YYYY-MM-DD'"
+        [options]="options">
+    </ion-calendar>
+</ion-content>
+-->
+
+<section class="wrapper" *ngIf="!wod">
+	<!-- <div class="card">
+
+        <table class="table table-bordered table-condensed cf">
+            <tbody>
+                <tr *ngFor="let day of days" [class.active-day]="day == getActiveDay()">
+                    <td data-title="{{day}}" class="align-middle">
+                        {{day}}
+                    </td>
+                    <td data-title="{{day}}">
+                        <button class="btn btn-success w-100" (click)="viewWod(day)">ver</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+       
+	</div> -->
+	<div *ngIf="!requesting && wods.length > 0">
+		<div class="">
+			<h6 class="text-center text-white">Semana Nº {{ weekNumber }}</h6>
+		</div>
+		<div class="card" *ngIf="wods.length > 0">
+			<table class="table bg-light table-bordered table-condensed cf">
+				<tbody>
+					<tr *ngFor="let wod of wods; index as i">
+						<td data-title="wod.wodNumber" class="align-middle">
+							<strong>Dia Nº {{ wod.wodNumber }}</strong>
+						</td>
+						<td data-title="{{ wod.wodNumber }}">
+							<ion-button
+								expand="block"
+								color="success"
+								class="main-center"
+								(click)="viewWod(i)"
+								>ver</ion-button
+							>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div *ngIf="!requesting && wods.length == 0" class="card-body text-center bg-dark">
+		<h6 class="text-white">No exite planificación para esta semana.</h6>
+	</div>
+
+	<div
+		class="mt-4"
+		*ngIf="!requesting"
+	>
+		<div class="mt-1">
+			<ion-button
+				expand="block"
+				color="success"
+				class="main-center"
+				[routerLink]="['/periodization']"
+				>Periodización</ion-button
+			>
+		</div>
+	</div>
+</section>
+
+<app-wod [wod]="wod" (wodEventEmitter)="closeWod()"></app-wod>

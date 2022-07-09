@@ -1,0 +1,35 @@
+<ion-toolbar *ngIf="periodization">
+  <ion-buttons slot="start">
+    <ion-button [routerLink]="['/periodization-report']">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>    
+  </ion-buttons>
+  <ion-title>
+    Reporte {{getMonth(periodization.month)}}
+  </ion-title>
+</ion-toolbar>
+
+
+
+<div class="card-body" *ngIf="periodization">
+  <div class="month text-center" >
+    <div class="text-white">Objetivo: {{periodization.goal}}</div>
+  </div>
+  <div class="row mt-3 week-container">
+    <div class="col-12 mt-3"  *ngFor="let periodizationWeek of periodization.periodizationWeeks">
+      <div [ngClass]="periodizationWeek.planned == 'true' ? 'week-planned': 'week-not-planned'"
+      class="text-center cursor-pointer" [routerLink]="['/wod-goals']" [queryParams]="{id: periodizationWeek.id}">
+        <h6 class="text-white">Semana {{periodizationWeek.weekNumber}}</h6>
+        <p class="goal-text">Objetivo: {{periodizationWeek.goal}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="wrapper" *ngIf="periodization">
+
+      <ion-card class="card-chart">
+        <ion-card-content>
+          <canvas #barCanvas1 style="position: relative; height:20vh; width:40vw"></canvas>
+        </ion-card-content>
+      </ion-card>  
+</section>

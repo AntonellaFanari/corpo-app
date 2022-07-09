@@ -1,0 +1,60 @@
+.week {
+  padding-top: 5px;
+  background-color: #008b24;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.week-container {
+  display: flex;
+}
+
+.month {
+  background-color: #23b023;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.goal-text {
+  font-size: small;
+  color: #dbd2d2;
+  margin-bottom: 5px !important;
+}
+
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+.previous {
+  background-color: #6a6868;
+  color: black;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+ion-card.card-chart {
+  background-color: #e6e6e6;
+}
+
+.week-planned {
+  padding-top: 5px;
+  background-color: #008b24;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.week-not-planned {
+  padding-top: 5px;
+  background-color: #d20e0ed9;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

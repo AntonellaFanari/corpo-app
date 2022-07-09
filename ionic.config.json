@@ -1,0 +1,7 @@
+{
+  "name": "corpo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

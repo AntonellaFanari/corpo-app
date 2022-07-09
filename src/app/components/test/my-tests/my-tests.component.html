@@ -1,0 +1,98 @@
+<corpo-header>Mis Tests</corpo-header>
+<section class="wrapper" *ngIf="!requestingTest && !displayTests">
+	<ion-button
+		*ngIf="toTest"
+		expand="block"
+		color="success"
+		class="main-center"
+		[routerLink]="['/test']"
+		[queryParams]="{ id: id }"
+		>Realizar Test</ion-button
+	>
+	<h5 *ngIf="!toTest" class="text-white main-center">No tiene Test pendientes.</h5>
+
+	<ion-button
+		expand="block"
+		color="success"
+		class="main-center"
+		(click)="getTestHistory()"
+		>Historial</ion-button
+	>
+</section>
+<section class="wrapper" *ngIf="!displayTests">
+	<div class="w-100 text-center" *ngIf="requestingTest">
+		<div class="spinner-border text-success" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+
+	
+
+</section>
+
+<section class="wrapper" *ngIf="displayTests">
+	<div class="row mt" *ngIf="!requestingTestList && tests.length > 0">
+		<div class="col-md-12">
+			<section id="no-more-tables">
+				<table class="table table-bordered table-condensed cf user-table">
+					<thead class="cf bg-success text-white">
+						<tr>
+							<th class="numeric">Test</th>
+							<th class="numeric">Estado</th>
+							<th class="numeric">Fecha</th>
+							<th class="numeric"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="scrollme" *ngFor="let test of tests">
+							<td data-title="Test" class="row-title">{{ test.name }}</td>
+							<td data-title="Estado">
+								<span *ngIf="test.status == 2" class="badge bg-success"
+									>Pendiente</span
+								>
+								<span *ngIf="test.status == 1" class="badge bg-secondary"
+									>Realizado</span
+								>
+							</td>
+
+							<td data-title="Fecha">
+								<span>{{ test.date | date: "dd/MM/yyyy" }}</span>
+							</td>
+							<td data-title="">
+								<span>
+									<ion-button
+										expand="block"
+										color="success"
+										class="w-100 btn-action-list"
+										[disabled] = "test.status == 2" 
+										[routerLink]="['/resultados']"
+										[queryParams]="{ id: test.id }"
+									>
+										Resultado
+									</ion-button>
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</div>
+	</div>
+
+	<div class="w-100 text-center" *ngIf="requestingTestList && tests.length == 0">
+		<div class="spinner-border text-success" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+	<h5 *ngIf="!requestingTestList && tests.length == 0" class="text-white">No hay tests para mostrar</h5>
+	<ion-button
+	*ngIf="displayTests && !requestingTestList"
+	expand="block"
+	color="medium"
+	class="margin-btn"
+	(click)="hideTests()"
+	>Volver</ion-button
+>
+</section>
+
+

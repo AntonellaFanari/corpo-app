@@ -1,0 +1,238 @@
+<ion-toolbar>
+	<ion-buttons slot="start">
+		<ion-button [routerLink]="['/anamnesis']">
+			<ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+		</ion-button>
+	</ion-buttons>
+	<ion-title> Resultados</ion-title>
+</ion-toolbar>
+<section class="wrapper" *ngIf="resultAnamnesis">
+	<div class="card card-header div-header text-center">
+		<h4 class="text-white">Evalución de Condición Física</h4>
+	</div>
+
+	<div class="card bg-ligth mb-4 text-center mt-4">
+		<div class="div-question text-white">
+			Nivel: {{ resultAnamnesis.level }}
+		</div>
+	</div>
+
+	<div class="card card-body bg-dark mt-3">
+		<div class="card bg-ligth row mb-2 text-center">
+			<div class="div-question text-white col-12">
+				¿Realiza actividad física actualmente?
+			</div>
+			<div class="div-response col-12">
+				<span [class.d-none]="!resultAnamnesis.currentlyPhysicalActivity"
+					>Si</span
+				><span [class.d-none]="resultAnamnesis.currentlyPhysicalActivity"
+					>No</span
+				>
+			</div>
+		</div>
+		<div
+			class="card bg-ligth row mb-2 text-center"
+			[class.d-none]="resultAnamnesis.currentlyPhysicalActivity"
+		>
+			<div class="div-question text-white col-12">
+				¿Realizó alguna vez actividad física?
+			</div>
+			<div class="div-response col-12">
+				<span [class.d-none]="!resultAnamnesis.physicalActivityInThePast"
+					>Si</span
+				><span [class.d-none]="resultAnamnesis.physicalActivityInThePast"
+					>No</span
+				>
+			</div>
+		</div>
+
+		<div
+			[class.d-none]="
+      (!resultAnamnesis.currentlyPhysicalActivity &&
+      !resultAnamnesis.physicalActivityInThePast)
+  "
+		>
+			<div class="card bg-ligth row mb-2 text-center">
+				<div class="div-question text-white col-12">
+					¿De forma competitiva-deporte?
+				</div>
+				<div class="div-response col-12">
+					<span [class.d-none]="!resultAnamnesis.competitive">Si</span
+					><span [class.d-none]="resultAnamnesis.competitive">No</span>
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="resultAnamnesis.competitive"
+			>
+				<div class="div-question text-white col-12">
+					¿De forma constante con una planilla de seguimiento?
+				</div>
+				<div class="div-response col-12">
+					<span [class.d-none]="!resultAnamnesis.constantfollowUpSpreadsheet"
+						>Si</span
+					><span [class.d-none]="resultAnamnesis.constantfollowUpSpreadsheet"
+						>No</span
+					>
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="!resultAnamnesis.competitive"
+			>
+				<div class="div-question text-white col-12">¿Qué deporte?</div>
+				<div class="div-response col-12">{{ resultAnamnesis.sport }}</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="
+					resultAnamnesis.competitive ||
+					resultAnamnesis.physicalActivityInThePast
+				"
+			>
+				<div class="div-question text-white col-12">
+					¿Qué tipo de entrenamiento realiza?
+				</div>
+				<div class="div-response col-12">
+					<span [class.d-none]="resultAnamnesis.trainingType != 'aerobic'"
+						>Aeróbico</span
+					><span [class.d-none]="resultAnamnesis.trainingType != 'strength'"
+						>Fuerza</span
+					><span
+						[class.d-none]="resultAnamnesis.trainingType != 'aerobic-strength'"
+						>Aeróbico-Fuerza</span
+					>
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="
+        !(
+          resultAnamnesis.physicalActivityInThePast &&
+          !resultAnamnesis.competitive
+        )
+      "
+			>
+				<div class="div-question text-white col-12">
+					¿Qué tipo de entrenamiento realizó?
+				</div>
+				<div class="div-response col-12">
+					<span [class.d-none]="resultAnamnesis.trainingType != 'aerobic'"
+						>Aeróbico</span
+					><span [class.d-none]="resultAnamnesis.trainingType != 'strength'"
+						>Fuerza</span
+					><span
+						[class.d-none]="resultAnamnesis.trainingType != 'aerobic-strength'"
+						>Aeróbico-Fuerza</span
+					>
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="!resultAnamnesis.currentlyPhysicalActivity"
+			>
+				<div class="div-question text-white col-12">
+					¿Cuántas veces a la semana entrena?
+				</div>
+				<div class="div-response col-12">
+					<span
+						[class.d-none]="resultAnamnesis.numberTrainingSessionsWeek == 0"
+						>{{ resultAnamnesis.numberTrainingSessionsWeek }}</span
+					><span
+						[class.d-none]="
+							resultAnamnesis.numberStrengthTrainingSessionsWeek == 0 ||
+							resultAnamnesis.trainingType == 'aerobic-strength' ||
+							resultAnamnesis.numberTrainingSessionsWeek != 0
+						"
+						>{{ resultAnamnesis.numberStrengthTrainingSessionsWeek }}</span
+					>
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="!resultAnamnesis.currentlyPhysicalActivity"
+			>
+				<div class="div-question text-white col-12">
+					¿Cuántas horas a la semana entrena?
+				</div>
+				<div class="div-response col-12">
+					<span
+						[class.d-none]="resultAnamnesis.hoursTrainingSessionsWeek == 0"
+						>{{ resultAnamnesis.hoursTrainingSessionsWeek }}</span
+					><span
+						[class.d-none]="
+							resultAnamnesis.hoursStrengthTrainingSessionsWeek == 0
+						"
+						>{{ resultAnamnesis.hoursStrengthTrainingSessionsWeek }}</span
+					>
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="
+        !(
+          resultAnamnesis.currentlyPhysicalActivity &&
+          resultAnamnesis.competitive
+        )
+      "
+			>
+				<div class="div-question text-white col-12">
+					¿Realiza entrenamiento de fuerza?
+				</div>
+				<div class="div-response col-12">
+					<span [class.d-none]="!resultAnamnesis.currentlyStrengthTraining"
+						>Si</span
+					><span [class.d-none]="resultAnamnesis.currentlyStrengthTraining"
+						>No</span
+					>
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="
+					resultAnamnesis.numberStrengthTrainingSessionsWeek == 0 ||
+					(resultAnamnesis.trainingType == 'strength' &&
+						resultAnamnesis.numberTrainingSessionsWeek == 0) ||
+					!resultAnamnesis.currentlyStrengthTraining
+				"
+			>
+				<div class="div-question text-white col-12">
+					¿Cuántas veces a la semana entrena fuerza?
+				</div>
+				<div class="div-response col-12">
+					{{ resultAnamnesis.numberStrengthTrainingSessionsWeek }}
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="
+					resultAnamnesis.currentlyStrengthTraining ||
+					!resultAnamnesis.currentlyPhysicalActivity
+				"
+			>
+				<div class="div-question text-white col-12">
+					¿Realizó alguna vez entrenamiento de fuerza?
+				</div>
+				<div class="div-response col-12">
+					<span [class.d-none]="!resultAnamnesis.strengthTrainingInThePast"
+						>Si</span
+					><span [class.d-none]="resultAnamnesis.strengthTrainingInThePast"
+						>No</span
+					>
+				</div>
+			</div>
+			<div
+				class="card bg-ligth row mb-2 text-center"
+				[class.d-none]="
+					!resultAnamnesis.strengthTrainingInThePast &&
+					!resultAnamnesis.timeSinceLastTraining
+				"
+			>
+				<div class="div-question text-white col-12">¿Hace cuánto?</div>
+				<div class="div-response col-12">
+					{{ resultAnamnesis.timeSinceLastTraining }}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,66 @@
+.btn-exercise {
+    background-color:  #86b686;
+    color: white;
+    border:solid, 1px, #32ac32;
+}
+
+.main-center{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+.month {
+  background-color:#348d4b;
+  border-radius: 4px;
+  padding: 10px;
+  height: 50px;
+  color: white;
+}
+
+  ion-accordion {
+    margin: 0 auto;
+  }
+  
+  ion-accordion.accordion-expanding,
+  ion-accordion.accordion-expanded {
+    width: calc(100% - 32px);
+    margin: 16px auto;
+  }
+
+  .margin-btn{
+    margin-left: 0rem;
+    margin-right: 0rem;
+}
+
+table{
+  color:white;
+}
+
+.row-title{
+  background-color:#414a42;
+}
+
+.content-modal{
+  margin: 10px;
+}
+
+.main-center{
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 95% !important;
+}
+
+.main-center .button-native{
+  background-color: #198754 !important;    
+  border: none;
+  box-shadow: none;
+}
+
+.label-total{
+  margin-right: 10px;
+}
+
+.total-container{
+  padding-right: 3px;
+}

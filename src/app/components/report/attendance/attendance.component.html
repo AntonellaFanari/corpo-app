@@ -1,0 +1,11 @@
+<corpo-header>Asistencias</corpo-header>
+<ion-content>
+    <ion-calendar 
+        [(ngModel)]="date" 
+        (change)="onChange($event)" 
+        [type]="type" 
+        (monthChange)="onChangeMonth($event.newMonth.months)"
+       
+        [options]="options">
+    </ion-calendar>
+</ion-content>

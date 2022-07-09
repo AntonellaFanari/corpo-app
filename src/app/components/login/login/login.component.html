@@ -1,0 +1,76 @@
+<ion-grid style="height: 100%">
+	<ion-row justify-content-center align-items-center style="height: 100%">
+		<ion-card>
+			<section class="wrapper">
+				<div id="login-page">
+					<form class="container login-container" [formGroup]="formLogin">
+						<div class="form-login">
+							<h2 class="form-login-heading">Iniciar Sesión</h2>
+							<div class="login-wrap">
+								<input
+									type="text"
+									class="form-control"
+									placeholder="Email"
+									autofocus
+									formControlName="email"
+								/>
+								<p
+									class="formValidators"
+									*ngIf="sent && f.email.errors?.required"
+								>
+									*Ingrese el email.
+								</p>
+								<p class="formValidators" *ngIf="sent && f.email.errors?.email">
+									*Ingrese un email correcto.
+								</p>
+								<br />
+								<input
+									type="password"
+									class="form-control"
+									placeholder="Contraseña"
+									formControlName="password"
+								/>
+								<p
+									class="formValidators"
+									*ngIf="sent && f.password.errors?.required"
+								>
+									*Ingrese la contraseña.
+								</p>
+								<div class="row justify-content-center align-items-center">
+									<div class="text-center col-12 mt-2">
+										<a class="color-recover-password" (click)="presentModal()"
+											>Olvidaste tu contraseña?</a
+										>
+									</div>
+									<ion-spinner *ngIf="requesting"></ion-spinner>
+									<div class="text-center col-12 mt-2">
+										<ion-button
+											expand="block"
+											color="success"
+											class="main-center"
+											(click)="logIn()"
+											*ngIf="!requesting"
+											>INICIAR SESIÓN</ion-button
+										>
+									</div>
+								</div>
+								<hr />
+								<div class="registration">
+									¿Aún no tienes una cuenta?<br />
+									<a class="" [routerLink]="['/member-create']">
+										Registrarse
+									</a>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+			<ion-card class="logo">
+				<ion-card-content class="box">
+					<img src="../../../assets/img/corpo.png" />
+				</ion-card-content>
+			</ion-card>
+		</ion-card>
+	</ion-row>
+</ion-grid>

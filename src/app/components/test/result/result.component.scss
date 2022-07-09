@@ -1,0 +1,73 @@
+.color-result {
+    background-color: #418954a6;
+  }
+  
+  .div-title {
+    height: 50px !important;
+    text-align: center;
+    background-color: #008b24;
+  }
+  
+  .h-title {
+      margin-bottom: 0px;
+      margin-top: 3px;
+      font-size: 1.25rem;
+      color: white;
+      text-align: center;
+  }
+  
+  .btn-width {
+    width: 100%;
+  }
+  
+  .button-box {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .color-link {
+    color: #2dd36f ;
+    text-decoration: none;
+    font-size: 17px;
+} 
+
+  .video-style{
+    height: 200px;
+    width: 300px;
+    margin-left: 65px;
+  }
+
+  .card-exercise {
+      background-color: #2e2d2d;
+      border-color: white;
+  }
+
+  .card-result {
+    border-color: white;
+  }
+  
+  .hr-width {
+      width: -webkit-fill-available;;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .video-style{
+        height: 200px;
+        width: 300px;
+        margin-left: 65px;
+    }
+  
+    .div-title {
+      height: 35px !important;
+      text-align: center;
+      background-color: #008b24;
+    }
+  
+    .h-title {
+      margin-bottom: 0px;
+      margin-top: 0px;
+      font-size: 1rem;
+      color: white;
+      text-align: center;
+    }
+  }
+  

@@ -1,0 +1,125 @@
+<div *ngIf="wod && !displayRest" class="wod-container wrapper">
+	<div class="">
+		<h6 class="text-center text-white">Wod Nº {{ wod.wodNumber }}</h6>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<label class="label-goal">Objetivos </label>
+
+			<ul class="goal">
+				<li *ngFor="let goal of getGoals(wod.wod.goal)">{{ goal }}</li>
+			</ul>
+		</div>
+		<div class="card-body">
+			<label class="label-goal"
+				>Intensidad:
+				<span class="text-black">{{ wod.wod.intensity }}</span>
+				<span [ngClass]="{ 'hide-percentage': wod.wod.intensityType == '1' }"
+					>%</span
+				></label
+			>
+		</div>
+	</div>
+	<div
+		class="card wod-group mt-2"
+		*ngFor="let group of wod.wod.wodGroups; let i = index"
+		[attr.data-index]="i"
+	>
+		<label class="group-detail">
+			{{ group.detail }}
+		</label>
+
+		<div class="">
+			<table class="table table-bordered wod-table">
+				<tbody>
+					<tr *ngFor="let exerciseItem of group.exercises; let ei = index">
+						<td class="col-8">
+							{{ exerciseItem.units }} {{ exerciseItem.exercise.name }}
+							{{
+								exerciseItem.modality.name != "Repeticiones"
+									? exerciseItem.modality.name
+									: ""
+							}}
+						</td>
+						<td class="col-2 mode-value" *ngIf="exerciseItem.value">
+							{{ getValue(exerciseItem) }}
+						</td>
+						<td class="col-2">
+							<div class="row justify-content-center aling-items-center">
+								<div class="col-12 text-center">
+									<img
+										src="../../../../assets/icon/youtube.ico"
+										(click)="openVideo(exerciseItem.exercise.video)"
+										class="video-icon"
+									/>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="mt-4">
+		<ion-button
+			expand="block"
+			color="medium"
+			class="main-center"
+			(click)="goBack()"
+			>Cancelar</ion-button
+		>
+
+		<ion-button
+			[disabled]="wod.wod.rate > 0"
+			expand="block"
+			color="success"
+			class="main-center"
+			[routerLink]="['/workout-rating']"
+			[queryParams]="{ id: wod.wod.id }"
+		>
+			Calificar</ion-button
+		>
+		<ion-button
+			[disabled]="wod.wod.rest > 0"
+			expand="block"
+			color="primary"
+			class="main-center"
+			(click)="restDisplay()"
+			>Hs Descanso</ion-button
+		>
+	</div>
+</div>
+
+<div *ngIf="displayRest" class="wod-container wrapper">
+	<div class="">
+		<h6 class="text-center text-white">Tiempo de Descanso</h6>
+	</div>
+	<div class="card">
+		<div class="card-body row justify-content-center aling-items-center">
+			<div class="col-4 text-center">
+				<label class="label-goal">Horas:</label>
+				<input type="number"  class="form-control" [(ngModel)]="rest" />
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-4">
+		<ion-button
+			expand="block"
+			color="medium"
+			class="main-center"
+			(click)="cancelRest()"
+			>Cancelar</ion-button
+		>
+
+		<ion-button
+			expand="block"
+			color="success"
+			class="main-center"
+			(click)="saveRest()"
+		>
+			Guardar</ion-button
+		>
+	</div>
+</div>

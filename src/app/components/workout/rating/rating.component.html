@@ -1,0 +1,29 @@
+<corpo-header>Calificar esfuerzo</corpo-header>
+<!--<ngb-rating [max]="5" [(rate)]="starRating" [readonly]="false"></ngb-rating>-->
+<div class="wrapper">
+    <div class="form-group">
+        <input [(ngModel)]="rate" class="form-control w-100 rate-value">
+    </div>
+    <input type="range" value="5" class="w-100" min="0" max="10" step="1" [(ngModel)]="rate">
+    
+    <div class="mt-4">
+		<ion-button
+			expand="block"
+			color="medium"
+			class="main-center"
+			[routerLink]="['/wod-week']"
+			>Cancelar</ion-button
+		>
+
+		<ion-button
+			expand="block"
+			color="success"
+            class="main-center"
+            (click)="effortRate()">Aceptar</ion-button
+		>
+	</div>
+</div>
+<div class="wrapper">
+    
+</div>
+<!--<mat-slider min="1" max="10" step="1" value="5"></mat-slider>-->

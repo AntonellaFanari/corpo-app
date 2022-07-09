@@ -1,0 +1,34 @@
+.btn-exercise {
+    background-color:  #86b686;
+    color: white;
+    border:solid, 1px, #32ac32;
+}
+
+.main-center{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+.month {
+  background-color:#348d4b;
+  border-radius: 4px;
+  padding: 10px;
+  height: 50px;
+  color: white;
+}
+
+  ion-accordion {
+    margin: 0 auto;
+  }
+  
+  ion-accordion.accordion-expanding,
+  ion-accordion.accordion-expanded {
+    width: calc(100% - 32px);
+    margin: 16px auto;
+  }
+
+  .margin-btn{
+    margin-left: 0rem;
+    margin-right: 0rem;
+}
