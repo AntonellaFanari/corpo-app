@@ -69,4 +69,9 @@ export class TestService {
   public getExerciseFms(id: number){
     return this.http.get<DomainResponse<any>>(this.url + 'api/test-member/exercise-fms?id='+ id);
   }
+
+  getExistsTestPending(){
+    return this.http.get<DomainResponse<any>>(this.url + 'api/test-member/exists-test-pending')
+  }
+
 }

@@ -337,11 +337,26 @@
 			<ion-button
 				id="button-next"
 				expand="block"
-				color="success"
 				class="main-center"
 				[routerLink]="['/evaluation-detail']"
 				>Ver resultados de evaluación</ion-button
 			>
+		</div>
+
+		<div class="card card-body" *ngIf="testPending">
+			<div class="card card-body result-evaluation text-center">
+				<h5 class="text-white">Tienes asignado un test de Nivel {{ levelTestPending }}</h5>
+			</div>
+			<div class="mt-4">
+				<ion-button
+				expand="block"
+				color="success"
+				class="main-center"
+				[routerLink]="['/test']"
+				[queryParams]="{ id: testId }"
+				>Realizar Test</ion-button
+			>
+			</div>
 		</div>
 	</section>
 </div>

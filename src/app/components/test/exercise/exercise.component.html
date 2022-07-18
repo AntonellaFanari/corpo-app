@@ -184,14 +184,14 @@
 
 				<ion-toolbar
 					color="dark"
-					onclick="document.getElementById('video-button').click();"
+					
 				>
 					<ion-buttons slot="secondary">
 						<ion-button color="primary">
 							<ion-icon slot="icon-only" name="film-outline"></ion-icon>
 						</ion-button>
 					</ion-buttons>
-					<ion-buttons slot="primary">
+					<ion-buttons slot="primary" onclick="document.getElementById('video-button').click();">
 						<ion-button color="primary">
 							<ion-icon
 								slot="icon-only"
@@ -200,7 +200,8 @@
 						</ion-button>
 					</ion-buttons>
 					<ion-title
-						><a id="selectVideo" class="color-link">
+						><a id="selectVideo" class="color-link"
+						onclick="document.getElementById('video-button').click();">
 							<!--<i class="fas fa-upload"></i>-->
 							Mi video
 						</a></ion-title
@@ -229,14 +230,14 @@
 
 				<ion-toolbar
 					color="dark"
-					onclick="document.getElementById('file-button').click();"
+					
 				>
 					<ion-buttons slot="secondary">
 						<ion-button color="primary">
 							<ion-icon slot="icon-only" name="image"></ion-icon>
 						</ion-button>
 					</ion-buttons>
-					<ion-buttons slot="primary">
+					<ion-buttons slot="primary" onclick="document.getElementById('file-button').click();">
 						<ion-button color="primary">
 							<ion-icon
 								slot="icon-only"
@@ -245,7 +246,7 @@
 						</ion-button>
 					</ion-buttons>
 					<ion-title
-						><a id="selectImg" class="color-link">
+						><a id="selectImg" class="color-link"  onclick="document.getElementById('file-button').click();">
 							<!--<i class="fas fa-upload"></i>-->
 							Mi imagen
 						</a></ion-title
@@ -384,6 +385,7 @@
 
 		<div class="container">
 			<ion-button
+			[disabled]="!selectedRate"
 				expand="block"
 				color="success"
 				class="margin-btn"

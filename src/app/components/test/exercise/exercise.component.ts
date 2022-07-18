@@ -35,6 +35,7 @@ export class ExerciseComponent implements OnInit {
   hours: number;
   minutes: number;
   seconds: number;
+  selectedRate: boolean;
 
   constructor(private testService: TestService,
     private route: ActivatedRoute,
@@ -219,6 +220,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   selectRate(rate, j) {
+    this.selectedRate = true;
     console.log("calificación: ", rate);
     console.log("indece: ", j);
     this.rate = rate;

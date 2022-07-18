@@ -3,6 +3,8 @@ import { identity } from 'rxjs';
 import { Anamnesis } from 'src/app/domain/anamnesis/anamnesis';
 import { AnamnesisService } from 'src/app/services/anamnesis.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
+import { MemberService } from 'src/app/services/member.service';
+import { TestService } from 'src/app/services/test.service';
 
 @Component({
   selector: 'app-anamnesis-phisical-condition',
@@ -39,9 +41,14 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
   cuurrenthlyStrengthChecked: boolean;
   isError: boolean;
   question = "";
+  testId: number;
+  testPending: boolean;
+  levelTestPending: number;
 
   constructor(private anamnesisService: AnamnesisService,
-    private customAlertService: CustomAlertService) { }
+    private customAlertService: CustomAlertService,
+    private testService: TestService,
+    private memberService: MemberService) { }
 
   ngOnInit() {
     this.evaluationExists();
@@ -52,8 +59,36 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
       response => {
         console.log("resultados: ", response.result);
         if (response.result != null) {
-          this.level = response.result.level;
-          this.displayResult = true;
+          this.displayResult = true;          
+          this.getLevel();
+          this.getExistsTestPending();
+        }
+      },
+      error => console.error(error)
+    )
+  }
+
+  getLevel(){
+    this.memberService.getLevel().subscribe(
+      response => {
+        console.log("nivel: ", response.result);
+        this.level = response.result.level;
+      },
+      error => console.error(error)
+    )
+  }
+
+  getExistsTestPending(){
+    this.testService.getExistsTestPending().subscribe(
+      response => {
+        console.log("existe test pendiente: ", response.result);
+        if(response.result != null) {
+          this.levelTestPending = response.result.level;
+          this.testId = response.result.id;
+          this.testPending = true;
+        }
+        else{
+         this.testPending = false;
         }
       },
       error => console.error(error)
@@ -348,6 +383,8 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
       response => {
         this.level = response.result.level;
         this.memberId = response.result.memberId;
+        this.testId = response.result.testId;
+        this.testPending = true;
         this.displayResult = true;
         if (this.displayPreview) {
           this.displayPreview = false;
@@ -358,7 +395,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
           this.customAlertService.display("Gestión de Anamnesis", error.error.errores);
         }
         if (error.status === 500) {
-          this.customAlertService.display("Gestión de Anamnesis", ["Hubo un problema al guardar."]);
+          this.customAlertService.display("Gestión de Anamnesis", ["Hubo un problema al guardar, contacte al administrador."]);
         }
       })
   }

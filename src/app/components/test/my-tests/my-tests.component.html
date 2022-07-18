@@ -45,7 +45,7 @@
 					</thead>
 					<tbody>
 						<tr class="scrollme" *ngFor="let test of tests">
-							<td data-title="Test" class="row-title">{{ test.name }}</td>
+							<td data-title="Test" class="row-title">Test nivel {{ test.level }}</td>
 							<td data-title="Estado">
 								<span *ngIf="test.status == 2" class="badge bg-success"
 									>Pendiente</span

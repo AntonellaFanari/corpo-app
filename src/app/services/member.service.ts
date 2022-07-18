@@ -110,4 +110,8 @@ export class MemberService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
+
+  public getLevel() {
+    return this.http.get<DomainResponse<any>>(this.url + 'api/member/level');
+  }
 }

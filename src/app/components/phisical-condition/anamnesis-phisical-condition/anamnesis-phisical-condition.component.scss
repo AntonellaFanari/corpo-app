@@ -2,9 +2,11 @@
     display: block;
 }
 
-.main-center{
+.main-center .button-native{
     width: 100%;
     margin-bottom: 10px;
+    background: var(--ion-color-primary-ligth) !important;
+   
   }
 
   .result-evaluation {
