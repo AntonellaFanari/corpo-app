@@ -25,7 +25,7 @@
 					<select
 						class="form-control"
 						formControlName="gender"
-						(change)="selectGender($event.target.value)"
+						(change)="selectGender($event)"
 					>
 						<option value="" disabled>Seleccionar...</option>
 						<option value="man">Hombre</option>
@@ -49,7 +49,7 @@
 				<ion-toggle
 					formControlName="allergiesChecked"
 					color="success"
-					(ionChange)="enableInput($event.detail.checked, 'allergies')"
+					(ionChange)="enableInput($event, 'allergies')"
 				></ion-toggle>
 			</div>
 			<div class="formValidators col-12">
@@ -65,7 +65,7 @@
 					formControlName="surgicalInterventionChecked"
 					color="success"
 					(ionChange)="
-						enableInput($event.detail.checked, 'surgicalIntervention')
+						enableInput($event, 'surgicalIntervention')
 					"
 				></ion-toggle>
 			</div>
@@ -85,7 +85,7 @@
 				<ion-toggle
 					formControlName="heartDiseaseChecked"
 					color="success"
-					(ionChange)="enableInput($event.detail.checked, 'heartDisease')"
+					(ionChange)="enableInput($event, 'heartDisease')"
 				></ion-toggle>
 			</div>
 			<div class="formValidators col-12">
@@ -104,7 +104,7 @@
 				<ion-toggle
 					formControlName="respiratoryDiseaseChecked"
 					color="success"
-					(ionChange)="enableInput($event.detail.checked, 'respiratoryDisease')"
+					(ionChange)="enableInput($event, 'respiratoryDisease')"
 				></ion-toggle>
 			</div>
 			<div class="formValidators col-12">
@@ -123,7 +123,7 @@
 				<ion-toggle
 					formControlName="habitualMedicationChecked"
 					color="success"
-					(ionChange)="enableInput($event.detail.checked, 'habitualMedication')"
+					(ionChange)="enableInput($event, 'habitualMedication')"
 				></ion-toggle>
 			</div>
 			<div class="formValidators col-12">

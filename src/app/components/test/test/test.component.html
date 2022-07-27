@@ -8,7 +8,7 @@
 		*ngFor="let exercise of testMember.testExercisesMember; index as i"
 	>
 		<ion-button
-		[disabled]="exercise.status == 1"
+		[disabled]="exercise.status === 1"
 			expand="block"
 			color="success"
 			class="main-center"

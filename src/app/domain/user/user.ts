@@ -7,6 +7,8 @@ export class User {
   email: string;
   password: string;
   address: string;
-  roleId: number
+  roleId: number;
+  emergencyPhone: number;
+  emergencyContact: number;
 }
 

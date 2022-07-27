@@ -3,7 +3,7 @@
   
   <ion-item>
     <ion-label>Filtrar por clases:</ion-label>
-    <ion-select [interfaceOptions]="customActionSheetOptions" cancelText="Cancelar" okText="Ok" (ionChange)="selectClass($event.target.value)">
+    <ion-select [interfaceOptions]="customActionSheetOptions" cancelText="Cancelar" okText="Ok" (ionChange)="selectClass($event)">
       <ion-select-option value="0">Todas</ion-select-option>
       <ion-select-option *ngFor="let class of classes" value="{{class.id}}">{{class.name}}</ion-select-option>
     </ion-select>

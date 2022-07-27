@@ -65,17 +65,20 @@ export class InjuryHistoryComponent implements OnInit {
 
 
   checkedInjury(event) {
-    this.injury = (event == 1);
+    let value = (<any>event).target.value;
+    this.injury = (value == 1);
 
   }
 
   selectLimb(event) {
-    this.nameInjury = event;
+    let value = (<any>event).target.value;
+    this.nameInjury = value;
   }
 
   checkedLimbs(event) {
+    let value = (<any>event).target.value;
     this.optionsLimbs = !this.optionsLimbs;
-    this.checkedClear(event);
+    this.checkedClear(value);
   }
 
   public onFileSelection(event: any): void {
@@ -106,10 +109,11 @@ export class InjuryHistoryComponent implements OnInit {
 
   selectInjury(event) {
     console.log(event);
-    if (event == "all") {
+    let value = (<any>event).target.value
+    if (value == "all") {
       this.getAllInjuries(this.medicalHistoryId);
     } else {
-      this.injuryFiles = this.injuries[event].files;
+      this.injuryFiles = this.injuries[value].files;
     }
 
   }

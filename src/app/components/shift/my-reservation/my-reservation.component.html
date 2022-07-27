@@ -49,7 +49,7 @@
 								<td class="td-title" data-title="Acción">
 									<span class="btn-action-container">
 										<ion-button
-											*ngIf="attendance.status == 1"
+											*ngIf="attendance.status === 1"
 											expand="block"
 											color="danger"
 											class="main-center"
@@ -57,21 +57,21 @@
 											>Cancelar</ion-button
 										>
 										<ion-button
-											*ngIf="attendance.status == 2"
+											*ngIf="attendance.status === 2"
 											expand="block"
 											color="warning"
 											class="main-center"
 											>Cancelado</ion-button
 										>
 										<ion-button
-											*ngIf="attendance.status == 3"
+											*ngIf="attendance.status === 3"
 											expand="block"
 											color="success"
 											class="main-center"
 											>Asistido</ion-button
 										>
 										<ion-button
-											*ngIf="attendance.status == 4"
+											*ngIf="attendance.status === 4 "
 											expand="block"
 											color="secondary"
 											class="main-center"

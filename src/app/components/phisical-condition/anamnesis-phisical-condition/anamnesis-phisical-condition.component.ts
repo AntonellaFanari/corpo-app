@@ -44,6 +44,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
   testId: number;
   testPending: boolean;
   levelTestPending: number;
+  requesting: boolean;
 
   constructor(private anamnesisService: AnamnesisService,
     private customAlertService: CustomAlertService,
@@ -52,6 +53,8 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
 
   ngOnInit() {
     this.evaluationExists();
+    
+    this.requesting = true;
   }
 
   evaluationExists() {
@@ -62,19 +65,30 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
           this.displayResult = true;          
           this.getLevel();
           this.getExistsTestPending();
+      
+        }else{
+          
+        this.requesting = false;
         }
       },
-      error => console.error(error)
+      error => {
+        console.error(error);
+        this.requesting = false;
+      }
     )
   }
 
   getLevel(){
     this.memberService.getLevel().subscribe(
       response => {
+        this.requesting = false;
         console.log("nivel: ", response.result);
         this.level = response.result.level;
       },
-      error => console.error(error)
+      error => {
+        console.error(error);
+        this.requesting = false;
+      }
     )
   }
 
@@ -96,7 +110,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
   }
 
 
-  selectOption(question, value) {
+  selectOption(question) {
     this.question = question;
     switch (question) {
       case 'currentlyPhysicalActivity':
@@ -142,20 +156,28 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
         break;
 
       case 'currentlyStrengthTraining':
-        if (this.currentlyStrengthTraining != "") { this.previusSteps = [1, 2, 3]; this.displayNext = false };
+        if (this.currentlyStrengthTraining != "" && this.trainingType == "")
+         { this.previusSteps = [1, 2, 3]; 
+          this.displayNext = false
+         }else if(this.currentlyStrengthTraining != "" && this.trainingType != "")
+         {
+          this.previusSteps = [1, 2, 7, 8];
+          this.finish = true;
+          this.displayNext = false;
+         };
         this.validation();
         if (this.isError) {
           this.currentlyStrengthTraining = "yy";
           console.log("llegue");
         } else {
           this.removeValidators();
-          if (this.currentlyStrengthTraining == "yes") {
+          if (this.currentlyStrengthTraining == "yes" && this.trainingType =="aerobic-strength") {
             this.step = 4;
             this.question = "numberTimesStrength";
             this.previusSteps.push(this.step);
             this.finish = true;
 
-          } else {
+          } else if(this.currentlyStrengthTraining == "yes" && this.trainingType =="aerobic"){
             this.step = 5;
             this.previusSteps.push(this.step);
           }
@@ -307,10 +329,9 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
     this.strengthTrainingInThePast = "";
   }
 
-  selectTrainingType(value) {
-    console.log("tipo: ", value);
-    this.trainingType = value
-    if (value != "") {
+  selectTrainingType() {
+    console.log("tipo: ", this.trainingType);
+    if (this.trainingType != "") {
       this.previusSteps = [];
       if (this.currentlyPhysicalActivity == "yes") {
         this.previusSteps = [1, 2, 7, 8];
@@ -381,10 +402,10 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
     let anamnesis = this.createAnamnesis();
     this.anamnesisService.add(anamnesis).subscribe(
       response => {
-        this.level = response.result.level;
         this.memberId = response.result.memberId;
         this.testId = response.result.testId;
         this.testPending = true;
+        this.levelTestPending = response.result.level;
         this.displayResult = true;
         if (this.displayPreview) {
           this.displayPreview = false;
@@ -404,7 +425,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
   goToNext() {
     let index = this.previusSteps.indexOf(this.step);
     this.step = this.previusSteps[index + 1];
-    if (this.step == 6 || this.step == 4 || this.step == 10 || (this.step == 5 && this.strengthTrainingInThePast == "no")) {
+    if (this.step == 6 || this.step == 4 || this.step == 10 || (this.step == 5 && this.strengthTrainingInThePast == "no") || (this.step == 8 && this.currentlyStrengthTraining == "yes" && this.trainingType =="strength")) {
       this.finish = true;
       this.displayNext = false;
     }

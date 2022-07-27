@@ -61,7 +61,8 @@ export class MedicalHistoryFormComponent implements OnInit {
   
 
   selectGender(event) {
-    if (event == 'woman') {
+    let value = (<any>event).target.value;
+    if (value == 'woman') {
       this.formCreate.get('period').enable();
     } else {
       this.formCreate.get('period').disable();
@@ -69,11 +70,12 @@ export class MedicalHistoryFormComponent implements OnInit {
   }
 
   enableInput(event, name) {
+    let value = (<any>event).detail.checked;
     console.log("enableInput")
-    console.log("event", event)
+    console.log("event", value)
     console.log("name", name);
     console.log("valor checked: ",this.formCreate.value.allergiesChecked)
-    let isCheckedToggle = event;
+    let isCheckedToggle = value;
     if (!isCheckedToggle) {
       this.formCreate.get(name).disable();
     } else {

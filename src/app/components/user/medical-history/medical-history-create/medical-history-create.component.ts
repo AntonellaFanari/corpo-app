@@ -26,7 +26,7 @@ export class MedicalHistoryCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.memberService.getById(this.id).subscribe(
+    this.memberService.getById().subscribe(
       result => {
         console.log(result);
         this.member = result;

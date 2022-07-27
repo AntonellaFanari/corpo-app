@@ -50,7 +50,6 @@ import { CalendarFilterModalComponent } from './components/shift/calendar-filter
 import { AnamnesisPhisicalConditionComponent } from './components/phisical-condition/anamnesis-phisical-condition/anamnesis-phisical-condition.component';
 import { EvaluationDetailComponent } from './components/phisical-condition/evaluation-detail/evaluation-detail.component';
 import { EvaluationPreviewComponent } from './components/phisical-condition/evaluation-preview/evaluation-preview.component';
-import { FmsEvaluationComponent } from './components/test/fms-evaluation/fms-evaluation.component';
 //import { MatSliderModule } from '@angular/material/slider'; 
 
 @NgModule({
@@ -93,8 +92,7 @@ import { FmsEvaluationComponent } from './components/test/fms-evaluation/fms-eva
     CalendarFilterModalComponent,
     AnamnesisPhisicalConditionComponent,
     EvaluationDetailComponent,
-    EvaluationPreviewComponent,
-    FmsEvaluationComponent
+    EvaluationPreviewComponent
   //  MatSliderModule
   ],
   entryComponents: [MyDebtsComponent],

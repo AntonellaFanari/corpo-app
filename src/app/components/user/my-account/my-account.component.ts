@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoggedUser } from 'src/app/domain/user/logged-user';
+import { User } from 'src/app/domain/user/user';
 import { AccountService } from 'src/app/services/account.service';
 import { MemberService } from 'src/app/services/member.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/domain/interfaces/iuser';
 
 @Component({
   selector: 'app-my-account',
@@ -28,29 +28,20 @@ export class MyAccountComponent implements OnInit {
 
   ngOnInit() {
     this.requesting = true;
-    if (this.userType == 1) {
-      this.userService.getById(this.id).subscribe(
-        result => {
-          console.log("user getById", result);
-          this.user = result;
-        },
-        error => console.error(error)
-      );
-    } else {
-      this.memberService.getById(this.id).subscribe(
+    if (this.userType === 2) {
+      this.memberService.getById().subscribe(
         result => {
           this.requesting = false;
           console.log("getById", result);
           this.user = result;
-          this.getExistsMedicalHistory();
-
+          this.getExistsMedicalHistory();          
         },
         error => {
           this.requesting = false;
           console.error(error)
         }
-      );
-    };
+        );
+    }
   }
 
   getExistsMedicalHistory(){

@@ -83,7 +83,7 @@
 								<th>Creditos</th>
 							</tr>
 							<tr>
-								<th *ngIf="fee.promotion">Promoción</th>
+								<th *ngIf="fee.promotionId">Promoción</th>
 							</tr>
 							<tr>
 								<th>Total</th>
@@ -93,7 +93,7 @@
 						<tbody>
 							<tr *ngFor="let fee of feeDetail" class="scrollme">
 								<td class="td-title row-title" data-title="Plan">
-									{{ fee.member.plan.name }}
+									{{ fee.planName }}
 								</td>
 								<td class="td-title" data-title="Alta">
 									{{ fee.from | date: "dd/MM/yyyy" }}
@@ -105,11 +105,11 @@
 									{{ fee.credits }}
 								</td>
 								<td
-									*ngIf="fee.promotion"
+									*ngIf="fee.promotionId"
 									class="td-title"
 									data-title="Promoción"
 								>
-									{{ fee.promotion }}
+									{{ fee.promotion.name }}
 								</td>
 								<td class="td-title" data-title="Total">{{ fee.total }}</td>
 							</tr>
@@ -143,7 +143,7 @@
 						<tbody>
 							<tr *ngFor="let detail of detailsSale" class="scrollme">
 								<td class="td-title row-title" data-title="Descripcion">
-									{{ detail.product.description }}
+									{{ detail.description }}
 								</td>
 								<td class="td-title" data-title="Cantidad">
 									{{ detail.quantity }}

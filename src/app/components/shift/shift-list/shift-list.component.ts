@@ -124,4 +124,6 @@ async presentModal() {
     this.shiftCreateComponent.modalClick();
     this.shiftCreateComponent.getShift(id);
   }
+
+  close(){}
 }

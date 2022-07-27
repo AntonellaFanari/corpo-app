@@ -22,11 +22,19 @@
 				<div class="pt-2 pb-3 border-div-input">
 					<div class="row justify-content-center aling-items-center">
 						<div class="col-4 text-center">
-							<ion-label class="col-2 label-input">(en minutos)</ion-label>
+							<ion-label class="col-2 label-input">(minutos)</ion-label>
 							<ion-input
 								class="color-input"
 								type="number"
-								[(ngModel)]="time"
+								[(ngModel)]="minutes"
+							></ion-input>
+						</div>
+						<div class="col-4 text-center">
+							<ion-label class="col-2 label-input">(segundos)</ion-label>
+							<ion-input
+								class="color-input"
+								type="number"
+								[(ngModel)]="seconds"
 							></ion-input>
 						</div>
 					</div>

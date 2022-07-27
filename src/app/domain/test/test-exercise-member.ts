@@ -1,3 +1,5 @@
+import { StatusTest } from './test-member';
+
 export class TestExerciseMember {
     id: number;
     name: string;
@@ -5,7 +7,8 @@ export class TestExerciseMember {
     video: string;
     minutes: number;
     seconds: number;
-    exerciseFmsId?: number
+    exerciseFmsId?: number;
+    status: StatusTest;
   }
   
   

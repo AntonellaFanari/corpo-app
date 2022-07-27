@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { DomainResponse } from '../domain/domain-response';
 import { Fee } from '../domain/finance/fee';
 import { FeeDto } from '../domain/finance/fee-dto';
 
@@ -25,7 +26,7 @@ export class FeeService {
   }
 
   public getById(id: number) {
-    return this.http.get<Fee>(this.url + 'api/fee/getById?id=' + id);
+    return this.http.get<DomainResponse<Fee>>(this.url + 'api/fee/getById?id=' + id);
   }
 
   public add(feeDto: FeeDto) {

@@ -9,7 +9,7 @@
 				name="limbs"
 				value="1"
 				checked
-				(change)="checkedLimbs($event.target.value)"
+				(change)="checkedLimbs($event)"
 			/>
 			<label
 				for="upperLimbs"
@@ -20,7 +20,7 @@
 				<select
 					id="UpperLimb"
 					class="form-control"
-					(change)="selectLimb($event.target.value)"
+					(change)="selectLimb($event)"
 					[disabled]="!optionsLimbs"
 				>
 					<option value="" disabled>Seleccionar...</option>
@@ -37,7 +37,7 @@
 				type="radio"
 				name="limbs"
 				value="2"
-				(change)="checkedLimbs($event.target.value)"
+				(change)="checkedLimbs($event)"
 			/>
 			<label
 				for="lowerLimbs"
@@ -48,7 +48,7 @@
 				<select
 					id="LowerLimb"
 					class="form-control"
-					(change)="selectLimb($event.target.value)"
+					(change)="selectLimb($event)"
 					[disabled]="optionsLimbs"
 				>
 					<option value="" disabled>Seleccionar...</option>
@@ -101,7 +101,7 @@
 									<select
 										class="form-control mt-2"
 										data-style="btn-success"
-										(change)="selectInjury($event.target.value)"
+										(change)="selectInjury($event)"
 									>
 										<option value="" disabled>Seleccionar...</option>
 										<option value="all">Todos</option>

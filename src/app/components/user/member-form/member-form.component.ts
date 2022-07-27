@@ -70,8 +70,9 @@ export class MemberFormComponent implements OnInit {
   }
 
   selectPlan(event) {
-    this.formCreate.value.planId = event;
-    this.planType = this.plans.find(x => x.id == event).type;
+    let value = (<any>event).target.value;
+    this.formCreate.value.planId = value;
+    this.planType = this.plans.find(x => x.id == value).type;
   }
 
   fillInEmptyFormFields() {
@@ -124,7 +125,7 @@ export class MemberFormComponent implements OnInit {
   }
 
   getMemberUpdate(id) {
-    this.memberService.getById(id).subscribe(
+    this.memberService.getById().subscribe(
       result => {
         this.member = result;
         console.log(this.member);

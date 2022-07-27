@@ -46,7 +46,7 @@ hola
           <input type="text" class="form-control" placeholder="Buscar Socio" [(ngModel)]="filterMember" (click)="clearInput()" (blur)="completeInput()" />
         </a>
         <div class="dropdown-menu form-control">
-          <a *ngFor="let member of members  | searchFilterMember: filterMember " class="dropdown-item" (click)="selectMember(member)">{{member.lastName}} {{member.name}}</a>
+          <a *ngFor="let member of members" class="dropdown-item" (click)="selectMember(member)">{{member.lastName}} {{member.name}}</a>
         </div>
         <div>
           <button type="button" class="btn btn-outline-success btn-block col-12 mb-2" (click)="addMember()">Confirmar</button>

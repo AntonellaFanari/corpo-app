@@ -1,8 +1,11 @@
 export class TestHeartRateExercise{
     id: number;
-    time: string;
+    minutes: number;
+    seconds: number;
     initialHeartRate: number;
     finalHeartRate: number;
     testMemberId: number;
-    testExerciseMemberId: number
+    testExerciseMemberId: number;
+    level?: string;
+    v02Maximum?: number;
 }

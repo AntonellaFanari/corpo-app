@@ -47,8 +47,7 @@
             <div class="margLeft formValidators">
               <select class="form-control" formControlName="roleId">
                 <option value="" disabled>Seleccionar...</option>
-                <option *ngFor="let role of roles" value={{role.id}}>{{role.name}}</option>
-                <option value="7">Contador</option>
+                <option *ngFor="let role of roles" value={{role.id}}>{{role.role}}</option>
               </select>
               <p class="text-danger" *ngIf="sendForm && f.roleId.errors?.required">*el campo es requerido</p>
             </div>

@@ -81,7 +81,8 @@ export class CalendarFilterModalComponent implements OnInit {
     );
   }
 
-  selectClass(id) {
+  selectClass(event) {
+    let id = (<any>event).target.value;
     console.log("clase seleccionada: ", id);
     this.selectedClass = id;
   }

@@ -2,8 +2,8 @@
 
 <ion-spinner *ngIf="requesting"></ion-spinner>
 
-<section class="wrapper">
-	<div *ngIf="periodization" class="wod-container wrapper">
+<section class="wrapper" *ngIf="!requesting && periodization">
+	<div  class="wod-container wrapper">
 		<div class="card mb-2">
 			<div class="card-body">
 				<label class="label-goal">Objetivo Mensual: </label
@@ -84,14 +84,19 @@
 		</div>
 	</div>
 </section>
-<div class="row card-body justify-content-center align-items-center">
+<section class="wrapper" *ngIf="!requesting && !periodization">
+	<div  class="card-body text-center bg-dark">
+		<h6 class="text-white">No exite periodización vigente.</h6>
+	</div>
+</section>
+<div *ngIf="!requesting" class="row card-body justify-content-center align-items-center">
 	<div class="col-12 col-lg-4 form-group text-center">
 		<button
 			type="button"
 			class="btn btn-secondary w-100"
 			[routerLink]="['/wod-week']"
 		>
-			Atrás
+			Volver
 		</button>
 	</div>
 </div>

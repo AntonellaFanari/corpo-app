@@ -17,7 +17,8 @@ export class ExerciseComponent implements OnInit {
   id: number;
   testId: number;
   exercise: TestExerciseMember;
-  time = "";
+  minutes = 0;
+  seconds = 0;
   initialHeartRate = 0;
   finalHeartRate = 0;
   repetitions = 0;
@@ -33,8 +34,6 @@ export class ExerciseComponent implements OnInit {
   urlBase: string;
   rate: number;
   hours: number;
-  minutes: number;
-  seconds: number;
   selectedRate: boolean;
 
   constructor(private testService: TestService,
@@ -70,7 +69,8 @@ export class ExerciseComponent implements OnInit {
     let exerciseResult = new TestHeartRateExercise();
     exerciseResult.initialHeartRate = this.initialHeartRate;
     exerciseResult.finalHeartRate = this.finalHeartRate;
-    exerciseResult.time = this.time;
+    exerciseResult.minutes = this.minutes;
+    exerciseResult.seconds = this.seconds;
     exerciseResult.testMemberId = this.testId;
     exerciseResult.testExerciseMemberId = this.id;
     return exerciseResult;

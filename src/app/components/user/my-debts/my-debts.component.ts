@@ -108,8 +108,9 @@ export class MyDebtsComponent implements OnInit {
   getFee(id) {
     this.feeService.getById(id).subscribe(
       result => {
+        console.log("fee: ", result.result)
         document.getElementById("trigger-button").click();
-        this.fee = result;
+        this.fee = result.result;
         this.feeDetail = [this.fee];
       },
       error => console.error(error)

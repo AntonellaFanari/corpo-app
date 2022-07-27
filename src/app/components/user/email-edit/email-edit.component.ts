@@ -56,7 +56,7 @@ export class EmailEditComponent implements OnInit {
         error => console.error(error)
       );
     } else {
-      this.memberService.getById(this.user.id).subscribe(
+      this.memberService.getById().subscribe(
         result => {
           console.log(result);
           this.email = result.email;

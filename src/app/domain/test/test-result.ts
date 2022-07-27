@@ -1,3 +1,4 @@
+import { ResultTestVideoExercise } from './result-test-video-exercise';
 import { TestHeartRateExercise } from './test-heart-rate-exercise';
 import { TestRepetitionExercise } from './test-repetition-exercise';
 import { TestVideoExercise } from './test-video-exercise';
@@ -11,7 +12,7 @@ export class TestResult{
     seconds: number
     testHeartRateExercise?: TestHeartRateExercise;
     testRepetitionExercise?: TestRepetitionExercise;
-    testVideoExercise?: TestVideoExercise;
+    testVideoExercise?: ResultTestVideoExercise;
 
     
 }

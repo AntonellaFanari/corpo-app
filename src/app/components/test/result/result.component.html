@@ -1,8 +1,10 @@
 <corpo-header>Mis Resultados</corpo-header>
-<section class="wrapper" *ngIf="!requestingResult && testResults">
+<section class="wrapper" *ngIf="!requestingResult && testResults && member">
 	<div class="container-fluid p-0">
 		<div class="">
-			<h3 class="text-white">Test Nivel 0 - Resultados de Lopez Lucas</h3>
+			<h3 class="text-white">
+				Test Nivel {{ levelTest }} - Resultados de {{member}}
+			</h3>
 		</div>
 		<hr />
 		<div class="card card-exercise mt-3" *ngFor="let result of testResults">
@@ -16,7 +18,10 @@
 					<div class="col-12 col-lg-6 mt-2 text-white">
 						<label class="form-label"
 							>Tiempo:
-							<strong>{{ result.testHeartRateExercise.time }}</strong></label
+							<strong
+								>{{ result.testHeartRateExercise.minutes }}min,
+								{{ result.testHeartRateExercise.seconds }}seg.</strong
+							></label
 						>
 					</div>
 					<div class="col-12 col-lg-6 mt-2 text-white">
@@ -33,6 +38,26 @@
 							<strong>{{
 								result.testHeartRateExercise.finalHeartRate
 							}}</strong></label
+						>
+					</div>
+					<div
+						class="col-12 col-lg-6 mt-2 text-white"
+						*ngIf="result.testHeartRateExercise.v02Maximum > 0"
+					>
+						<label class="form-label"
+							>V02 Máximo:
+							<strong>{{
+								result.testHeartRateExercise.v02Maximum
+							}}</strong></label
+						>
+					</div>
+					<div
+						class="col-12 col-lg-6 mt-2 text-white"
+						*ngIf="result.testHeartRateExercise.level"
+					>
+						<label class="form-label"
+							>Nivel:
+							<strong>{{ result.testHeartRateExercise.level }}</strong></label
 						>
 					</div>
 				</div>
@@ -74,9 +99,9 @@
 						<div
 							class="row col-12 justify-content-center align-items-center text-center mt-1 mb-3"
 						>
-						<label class="form-label">
-							<strong class="text-white">Mi video:</strong>
-						  </label>
+							<label class="form-label">
+								<strong class="text-white">Mi video:</strong>
+							</label>
 							<video
 								src="{{ urlBase }}{{ result.testVideoExercise.pathVideo }}"
 								controls
@@ -87,10 +112,13 @@
 						<div
 							class="row col-12 justify-content-center align-items-center text-center mt-1 mb-3"
 						>
-						<label class="form-label text-white">
-							<strong>Mi imagen:</strong>
-						  </label>
-							<img src="{{ urlBase }}{{ result.testVideoExercise.pathImg }}" class="img-result"/>
+							<label class="form-label text-white">
+								<strong>Mi imagen:</strong>
+							</label>
+							<img
+								src="{{ urlBase }}{{ result.testVideoExercise.pathImg }}"
+								class="img-result"
+							/>
 						</div>
 					</div>
 				</div>
@@ -104,10 +132,4 @@
 		</div>
 	</div>
 </section>
-<section class="wrapper">
-	<div class="w-100 text-center" *ngIf="requestingResult && !exercise">
-		<div class="spinner-border text-success" role="status">
-			<span class="sr-only">Loading...</span>
-		</div>
-	</div>
-</section>
+<ion-spinner *ngIf="requestingResult"></ion-spinner>

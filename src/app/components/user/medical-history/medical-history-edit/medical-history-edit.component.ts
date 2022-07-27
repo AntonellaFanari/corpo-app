@@ -22,7 +22,7 @@ export class MedicalHistoryEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.memberService.getById(this.id).subscribe(
+    this.memberService.getById().subscribe(
       result => {
         console.log(result);
         this.planType = result.planType;

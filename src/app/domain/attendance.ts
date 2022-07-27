@@ -8,6 +8,7 @@ export class Attendance {
   export enum Status {
     reserved = 1,
     attended = 2,
-    cancelled = 3
+    cancelled = 3,
+    notAttended = 4
   }
   
