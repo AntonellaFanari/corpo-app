@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoggedUser } from 'src/app/domain/user/logged-user';
 import { User } from 'src/app/domain/user/user';
 import { AccountService } from 'src/app/services/account.service';
+import { InformationAccountService } from 'src/app/services/information-account.service';
 import { MemberService } from 'src/app/services/member.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -16,35 +17,48 @@ export class MyAccountComponent implements OnInit {
   id: number;
   userLogged: LoggedUser;
   userType: number;
-  requesting: boolean;
+  requesting: boolean;s
   existsMedicalHistory: boolean;
 
-  constructor(private userService: UserService, private memberService: MemberService, private router: Router, private accountService: AccountService) {
+  constructor(private userService: UserService,
+    private memberService: MemberService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private accountService: AccountService) {
     this.userLogged = this.accountService.getLoggedUser();
     console.log("userLogged", this.userLogged);
     this.id = this.userLogged.id;
-    this.userType = this.userLogged.userType
+    this.userType = this.userLogged.userType;
+    let userNew = localStorage.getItem('newUser');
+    console.log('usuario nuevo: ', userNew);
   }
 
+
   ngOnInit() {
+    console.log("onInit");
     this.requesting = true;
     if (this.userType === 2) {
-      this.memberService.getById().subscribe(
-        result => {
-          this.requesting = false;
-          console.log("getById", result);
-          this.user = result;
-          this.getExistsMedicalHistory();          
-        },
-        error => {
-          this.requesting = false;
-          console.error(error)
-        }
-        );
+      this.getMember();
     }
   }
 
-  getExistsMedicalHistory(){
+
+  getMember() {
+    this.memberService.getById().subscribe(
+      result => {
+        this.requesting = false;
+        console.log("getById", result);
+        this.user = result;
+        this.getExistsMedicalHistory();
+      },
+      error => {
+        this.requesting = false;
+        console.error(error)
+      }
+    );
+  }
+
+  getExistsMedicalHistory() {
     this.memberService.getExistsMedicalHistory(this.id).subscribe(
       response => {
         console.log(response);
@@ -61,5 +75,6 @@ export class MyAccountComponent implements OnInit {
       this.router.navigate(['/member-edit']);
     }
   }
+
 
 }

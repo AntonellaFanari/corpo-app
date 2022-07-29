@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router';import { NavController } from '@ionic/angular';
+;
 import { Account } from 'src/app/domain/user/account';
 import { LoggedUser } from 'src/app/domain/user/logged-user';
 import { ControlEqual } from 'src/app/validations/control.equal';
@@ -27,7 +28,8 @@ export class EmailEditComponent implements OnInit {
     private userService: UserService,
     private memberService: MemberService,
     private router: Router,
-    private customAlertService: CustomAlertService) {
+    private customAlertService: CustomAlertService,
+    private navCtrl: NavController) {
     this.user = this.accountService.getLoggedUser();
     this.getUser();
     this.accountId = this.user.accountId;
@@ -88,7 +90,7 @@ export class EmailEditComponent implements OnInit {
       this.accountService.updateEmail(account).subscribe(
         result => {
           console.log(result);
-          window.location.href = '/my-account';
+          this.navCtrl.navigateForward('/my-account');
         },
         error => {
           console.error(error);

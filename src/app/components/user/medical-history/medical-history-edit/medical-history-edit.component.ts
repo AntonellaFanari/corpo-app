@@ -15,7 +15,10 @@ export class MedicalHistoryEditComponent implements OnInit {
   age: number;
   planType: number;
   @ViewChild(MedicalHistoryFormComponent, { static: true }) formMedicalHistory: MedicalHistoryFormComponent;
-  constructor(private router: Router, private route: ActivatedRoute, private customAlertService: CustomAlertService, private memberService: MemberService) {
+  constructor(private router: Router,
+     private route: ActivatedRoute,
+      private customAlertService: CustomAlertService,
+       private memberService: MemberService) {
     this.route.queryParams.subscribe(
       params => { this.id = parseInt(params['id']) }
     )
@@ -30,7 +33,7 @@ export class MedicalHistoryEditComponent implements OnInit {
       },
       error => console.error(error)
     );
-    this.memberService.getAge(this.id).subscribe(
+    this.memberService.getAge().subscribe(
       result => {
         this.age = result.result.age;
         console.log(this.age)

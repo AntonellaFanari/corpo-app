@@ -24,7 +24,7 @@ export class MemberCreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(){
+  login() {
     let account = this.formMember.createAccount();
     this.accountService.logIn(account).subscribe(
       result => {
@@ -54,10 +54,15 @@ export class MemberCreateComponent implements OnInit {
         result => {
           console.log(result.result.id);
           let id = result.result.id;
+          console.log("nuevo: ", this.memberService.newMember);
           this.login();
           this.customAlertService.display("Gestión de Socios", ["¿Desea cargar la historia médica?"], () => {
-            window.location.href = '/historia-medica-crear?id='+ id; 
-          }, true, () => {  window.location.href = '/home' })
+          localStorage.setItem('newUser', 'true');
+            this.router.navigate(['/historia-medica-crear'], { queryParams: { id: this.id } });
+          }, true, () => {
+            localStorage.setItem('newUser', 'false');
+            this.router.navigate(['/home'])
+          })
         },
         error => {
           console.error(error);
@@ -69,7 +74,7 @@ export class MemberCreateComponent implements OnInit {
           }
         })
     }
-    else{
+    else {
       console.log("por aquí no");
     }
   }

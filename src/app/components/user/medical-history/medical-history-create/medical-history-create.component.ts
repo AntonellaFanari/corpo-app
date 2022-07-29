@@ -18,41 +18,63 @@ export class MedicalHistoryCreateComponent implements OnInit {
   planType: number;
   basicMedicalHistory: boolean = true;
   medicalHistoryId: number;
+  newUser: boolean;
 
   @ViewChild(MedicalHistoryFormComponent, { static: false }) formMedicalHistory: MedicalHistoryFormComponent;
-  constructor(private memberService: MemberService, private route: ActivatedRoute, private router: Router, private customAlertService: CustomAlertService) {
+  constructor(private memberService: MemberService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private customAlertService: CustomAlertService) {
     this.route.queryParams.subscribe(
       params => { this.id = parseInt(params['id']) });
+      let newUser = localStorage.getItem('newUser');
+      (newUser == 'true')? this.newUser = true : this.newUser = false;
+    this.getMember();
+    console.log("edad: ", this.age);
   }
 
   ngOnInit() {
+
+  }
+
+  getMember() {
     this.memberService.getById().subscribe(
       result => {
         console.log(result);
         this.member = result;
         this.planType = this.member.planType
         console.log(this.planType);
+        this.getAge();
+        this.getMedicalHistory();
       },
       error => console.error(error)
     );
-    this.memberService.getAge(this.id).subscribe(
+  }
+
+  getAge() {
+    this.memberService.getAge().subscribe(
       result => {
+        console.log("edad: ", result);
         this.age = result.result.age;
         console.log(this.age);
       },
       error => console.error(error)
     );
-    this.memberService.getMedicalHistoryByIdMember(this.id).subscribe(
+  }
+
+  getMedicalHistory() {
+    this.memberService.getMedicalHistoryByIdMember().subscribe(
       result => {
         console.log(result);
         this.medicalHistoryId = result.result.id;
-        this.router.navigate(["/historia-médica-editar"], { queryParams: { id: this.id, medicalHistoryId: this.medicalHistoryId } });
+        this.router.navigate(["/historia-médica-editar"], { queryParams: { medicalHistoryId: this.medicalHistoryId } });
       },
-      error => {console.error(error);
+      error => {
+        console.error(error);
         if (error.status == 400) {
           console.log("no existe");
         }
-    })
+      })
   }
 
   create() {
@@ -61,13 +83,13 @@ export class MedicalHistoryCreateComponent implements OnInit {
 
   submit() {
     var newMedicalHistory = this.formMedicalHistory.createMedicalHistory();
-    this.memberService.addMedicalHistory(this.id, newMedicalHistory).subscribe(
+    this.memberService.addMedicalHistory(newMedicalHistory).subscribe(
       result => {
         if (this.planType == 2) {
-          this.router.navigate(['/my-account']);
+          window.location.href = '/my-account'; 
         } else {
           this.medicalHistoryId = result.result.id;
-          this.router.navigate(['/injury-history'], { queryParams: { id: this.id, medicalHistoryId: this.medicalHistoryId } });
+          this.router.navigate(['/injury-history'], { queryParams: { medicalHistoryId: this.medicalHistoryId } });
         }
       },
       error => {
@@ -79,5 +101,11 @@ export class MedicalHistoryCreateComponent implements OnInit {
           this.customAlertService.displayAlert("Gestión de Socios", ["No se pudo guardar la historia médica."]);
         }
       });
+  }
+
+  returnNewUser(){
+    localStorage.removeItem('newUser');
+    localStorage.setItem('newUser', 'false');
+    this.router.navigate(['/home']);
   }
 }

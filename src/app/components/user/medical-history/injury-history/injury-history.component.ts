@@ -27,21 +27,25 @@ export class InjuryHistoryComponent implements OnInit {
   injuryId: number;
   memberId: number;
   fileTransfer: FileTransferObject;
+  selectedFile: boolean;
 
   constructor(private memberService: MemberService,
-    private route: ActivatedRoute, private router: Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private customAlertService: CustomAlertService,
-    private transfer: FileTransfer, private file: File) {
+    private transfer: FileTransfer,
+    private file: File,) {
     this.route.queryParams.subscribe(params => {
       this.memberId = parseInt(params['id']),
         this.medicalHistoryId = parseInt(params['medicalHistoryId'])
     });
+   
     this.fileTransfer = this.transfer.create();
   }
 
   ngOnInit() {
     this.getAllInjuries(this.medicalHistoryId);
-    
+
     this.checkedClear(3);
   }
 
@@ -105,6 +109,7 @@ export class InjuryHistoryComponent implements OnInit {
       }
     }
     console.log(this.urls);
+    this.selectedFile = true;
   }
 
   selectInjury(event) {
@@ -153,6 +158,7 @@ export class InjuryHistoryComponent implements OnInit {
           this.memberService.addFile(id, this.files).subscribe(
             result => {
               console.log(result);
+              this.selectedFile = false;
               this.getAllInjuries(this.medicalHistoryId);
             },
             error => {
@@ -173,6 +179,18 @@ export class InjuryHistoryComponent implements OnInit {
 
   return() {
     this.router.navigate(['/medical-history-edit'], { queryParams: { id: this.memberId, medicalHistoryId: this.medicalHistoryId } });
+  }
+
+  toGo() {
+    console.log("nuevo: ", this.memberService.newMember);
+    let newUser = localStorage.getItem('newUser');
+    if (newUser == 'false') {
+      window.location.href = '/my-account'; 
+    } else {
+      localStorage.removeItem('newUser');
+      localStorage.setItem('newUser', 'false');
+      this.router.navigate(['/home']);
+    }
   }
 
   // downloadDeprecated(i) {

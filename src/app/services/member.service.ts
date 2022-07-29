@@ -19,6 +19,7 @@ const httpOptions = {
 })
 export class MemberService {
   url: string;
+  newMember: boolean;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') url: string) {
     this.url = url;
@@ -38,7 +39,7 @@ export class MemberService {
 
   public update(id: number, memberUpdate: Member) {
     console.log(memberUpdate);
-    return this.http.put<any>(this.url + 'api/member/update?id=' + id, memberUpdate, httpOptions);
+    return this.http.put<DomainResponse<any>>(this.url + 'api/member/update?id=' + id, memberUpdate, httpOptions);
   }
 
   public delete(id: number) {
@@ -50,25 +51,25 @@ export class MemberService {
   }
 
   //medicalHistory
-  public addMedicalHistory(memberId: number, medicalHistory: MedicalHistory) {
+  public addMedicalHistory(medicalHistory: MedicalHistory) {
     console.log(medicalHistory);
-    return this.http.post<any>(this.url + 'api/member/addMedicalHistory?memberId=' + memberId, medicalHistory, httpOptions);
+    return this.http.post<any>(this.url + 'api/member/addMedicalHistory', medicalHistory, httpOptions);
   }
 
   public updateMedicalHistory(id: number, medicalHistory: MedicalHistory) {
     return this.http.put<any>(this.url + 'api/member/updateMedicalHistory?id=' + id, medicalHistory, httpOptions);
   }
 
-  public getMedicalHistoryByIdMember(id: number) {
-    return this.http.get<any>(this.url + 'api/member/getMedicalHistoryByIdMember?id=' + id);
+  public getMedicalHistoryByIdMember() {
+    return this.http.get<any>(this.url + 'api/member/getMedicalHistoryByIdMember');
   }
 
   public getMedicalHistoryById(id: number) {
     return this.http.get<any>(this.url + 'api/member/getMedicalHistoryById?id=' + id);
   }
 
-  public getAge(id: number) {
-    return this.http.get<any>(this.url + 'api/member/getAge?id=' + id);
+  public getAge() {
+    return this.http.get<DomainResponse<any>>(this.url + 'api/member/getAge');
   }
 
   public getExistsMedicalHistory(id: number){

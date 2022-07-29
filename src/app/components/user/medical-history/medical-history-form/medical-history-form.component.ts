@@ -107,7 +107,7 @@ export class MedicalHistoryFormComponent implements OnInit {
 
 
   getMedicalHistoryUpdate(id) {
-    this.memberService.getMedicalHistoryByIdMember(id).subscribe(
+    this.memberService.getMedicalHistoryByIdMember().subscribe(
       result => {
         this.medicalHistory = result.result;
         this.toCompleteForm();

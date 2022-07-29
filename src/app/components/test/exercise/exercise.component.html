@@ -5,6 +5,10 @@
 			<div class="month text-center mb-3">
 				<strong>Ejercicio - {{ exercise.name }}</strong>
 			</div>
+			<div *ngIf="exercise.protocol" class="month text-center mb-3">
+				<strong>Protocolo:</strong> <br>
+				<p>{{exercise.protocol}}</p>
+			</div>
 
 			<div *ngIf="type == 1" class="bg-dark">
 				<div class="pt-1">
@@ -173,12 +177,12 @@
 
 			<div *ngIf="type == 3">
 				<ion-toolbar color="dark">
-					<ion-buttons slot="secondary">
+					<ion-buttons slot="start">
 						<ion-button color="primary">
 							<ion-icon slot="icon-only" name="film-outline"></ion-icon>
 						</ion-button>
 					</ion-buttons>
-					<ion-buttons slot="primary">
+					<ion-buttons slot="end">
 						<ion-button color="primary">
 							<ion-icon slot="icon-only" name="eye"></ion-icon>
 						</ion-button>
@@ -194,12 +198,12 @@
 					color="dark"
 					
 				>
-					<ion-buttons slot="secondary">
+					<ion-buttons slot="start">
 						<ion-button color="primary">
 							<ion-icon slot="icon-only" name="film-outline"></ion-icon>
 						</ion-button>
 					</ion-buttons>
-					<ion-buttons slot="primary" onclick="document.getElementById('video-button').click();">
+					<ion-buttons slot="end" onclick="document.getElementById('video-button').click();">
 						<ion-button color="primary">
 							<ion-icon
 								slot="icon-only"
@@ -240,12 +244,12 @@
 					color="dark"
 					
 				>
-					<ion-buttons slot="secondary">
+					<ion-buttons slot="start">
 						<ion-button color="primary">
 							<ion-icon slot="icon-only" name="image"></ion-icon>
 						</ion-button>
 					</ion-buttons>
-					<ion-buttons slot="primary" onclick="document.getElementById('file-button').click();">
+					<ion-buttons slot="end" onclick="document.getElementById('file-button').click();">
 						<ion-button color="primary">
 							<ion-icon
 								slot="icon-only"
