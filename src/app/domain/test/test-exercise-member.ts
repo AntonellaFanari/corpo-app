@@ -3,6 +3,7 @@ import { StatusTest } from './test-member';
 export class TestExerciseMember {
     id: number;
     name: string;
+    protocol: string;
     testType: TestType;
     video: string;
     minutes: number;
