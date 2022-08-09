@@ -1,5 +1,5 @@
 <corpo-header>Modificar email</corpo-header>
-<section class="wrapper">
+<section class="wrapper" *ngIf="!requesting && user">
 	<form [formGroup]="modificationForm">
 		<div class="row">
 			<div class="col-12 form-group">
@@ -73,3 +73,4 @@
 		>
 	</div>
 </section>
+<ion-spinner *ngIf="requesting"></ion-spinner>

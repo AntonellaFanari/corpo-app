@@ -1,7 +1,7 @@
 <corpo-header>Ficha de aptitud médica</corpo-header>
-<section class="wrapper">
-  <app-medical-history-form [age]="age"></app-medical-history-form>
-    <div class="mt-3">
+<section class="wrapper"  >
+  <app-medical-history-form [class.d-none]="requesting && !age" [age]="age" (requesting)="finishRequesting()"></app-medical-history-form>
+    <div class="mt-3" *ngIf="!requesting">
       <ion-button
         expand="block"
         color="medium"
@@ -28,3 +28,5 @@
       >
   </div>
 </section>
+
+<ion-spinner *ngIf="requesting"></ion-spinner>

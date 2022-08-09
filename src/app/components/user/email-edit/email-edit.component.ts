@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router'; import { NavController } from '@ionic/angular';
 ;
 import { Account } from 'src/app/domain/user/account';
 import { LoggedUser } from 'src/app/domain/user/logged-user';
@@ -22,6 +22,7 @@ export class EmailEditComponent implements OnInit {
   user: LoggedUser;
   email: string;
   accountId: number;
+  requesting: boolean;
 
   constructor(private formBuilder: FormBuilder,
     private accountService: AccountService,
@@ -33,7 +34,7 @@ export class EmailEditComponent implements OnInit {
     this.getUser();
     this.accountId = this.user.accountId;
     this.modificationForm = this.formBuilder.group({
-      email:'' ,
+      email: '',
       newEmail: ['', [Validators.required, Validators.email]],
       repeatNewEmail: '',
       password: ['', [Validators.required]]
@@ -44,30 +45,22 @@ export class EmailEditComponent implements OnInit {
 
   }
 
-  getUser(){
-    if (this.user.userType == 1) {
-      this.userService.getById(this.user.id).subscribe(
-        result => {
-          console.log(result)
-          this.email = result.email;
-          this.modificationForm.patchValue({
-            email: this.email
-          });
-        },
-        error => console.error(error)
-      );
-    } else {
-      this.memberService.getById().subscribe(
-        result => {
-          console.log(result);
-          this.email = result.email;
-          this.modificationForm.patchValue({
-            email: this.email
-          });
-        },
-        error => console.error(error)
-      )
-    }
+  getUser() {
+    this.requesting = true;
+    this.memberService.getById().subscribe(
+      result => {
+        console.log(result);
+        this.email = result.email;
+        this.modificationForm.patchValue({
+          email: this.email
+        });
+        this.requesting = false;
+      },
+      error => {
+        console.error(error);
+        this.requesting = false;
+      }
+    )
   }
 
   get f() {

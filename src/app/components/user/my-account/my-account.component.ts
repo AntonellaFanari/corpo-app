@@ -43,23 +43,19 @@ export class MyAccountComponent implements OnInit {
     console.log('usuario nuevo: ', userNew);
 
     console.log("onInit");
-    this.requesting = true;
-    if (this.userType === 2) {
       this.getMember();
-    }
   }
 
 
   getMember() {
+    this.requesting = true;
     this.memberService.getById().subscribe(
       result => {
-        this.requesting = false;
         console.log("getById", result);
         this.user = result;
         this.getExistsMedicalHistory();
       },
       error => {
-        this.requesting = false;
         console.error(error)
       }
     );
@@ -67,11 +63,15 @@ export class MyAccountComponent implements OnInit {
 
   getExistsMedicalHistory() {
     this.memberService.getExistsMedicalHistory(this.id).subscribe(
-      response => {
+      response => {        
+        this.requesting = false;
         console.log(response);
         this.existsMedicalHistory = response.result;
       },
-      error => console.error(error)
+      error => {
+        console.error(error);
+        this.requesting = false;
+      }
     )
   }
 

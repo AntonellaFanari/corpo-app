@@ -20,71 +20,71 @@ export class MemberEditComponent implements OnInit {
   id: number;
   user: LoggedUser;
   step = 1;
+  requesting: boolean;
   @ViewChild(MemberFormComponent, { static: true }) formMember: MemberFormComponent;
+
   constructor(private memberService: MemberService,
     private route: ActivatedRoute,
     private router: Router,
     private customAlertService: CustomAlertService,
     private accountService: AccountService) {
     this.user = this.accountService.getLoggedUser();
-    if (this.user.userType == 2) {
-      this.id = this.user.id;
-    } else {
-      this.route.queryParams.subscribe(params => {
-        this.id = parseInt(params['id']);        
-    this.formMember.getMemberUpdate(this.id);
-      });
-    }
+    this.route.queryParams.subscribe(params => {
+      this.id = parseInt(params['id']);
+      console.log("formulario1: ", this.formMember);
+    });
+}
+
+
+ngOnInit() {
+  this.requesting = true;
+  this.formMember.getMemberUpdate(this.id);
+}
+
+
+
+finishRequesting(event){
+  this.requesting = false;
+}
+
+next() {
+  if (this.step != 2) {
+    let valid = this.formMember.validatorsForm();
+    console.log("es valido?", valid);
+    if (valid) this.step++;
   }
+}
 
-  ionViewWillEnter(){
-    console.log("id:", this.id);
-    this.formMember.getMemberUpdate(this.id);
+return () {
+  if (this.step == 1) {
+    this.router.navigate(['/my-account']);
+  } else {
+    this.step--;
   }
-
-
-  ngOnInit() {
-  }
-
-
-  next() {
-    if (this.step != 2) {
-      let valid = this.formMember.validatorsForm();
-      console.log("es valido?", valid);
-      if (valid) this.step++;
-    }
-  }
-
-  return() {
-    if (this.step == 1) {
-      this.router.navigate(['/my-account']);
-    } else {
-      this.step--;
-    }
-  }
+}
 
   public submit() {
-    let valid = this.formMember.validatorsForm();
-    if (valid) {
-      var memberUpdate = this.formMember.createMember();
-      console.log(memberUpdate);
-      this.memberService.update(this.id, memberUpdate).subscribe(
-        result => {
-          console.log("guarde cambios");
-          this.router.navigate(['/my-account']);
-        },
-        error => {
-          console.error(error);
-          if (error.status === 400) {
-            this.customAlertService.display("Gestión de Socios", error.error.errores);
-          }
-          if (error.status === 500) {
-            this.customAlertService.display("Gestión de Socios", ["No se pudo modificar los datos."]);
-          }
-        });
-    }
-
+  let valid = this.formMember.validatorsForm();
+  if (valid) {
+    var memberUpdate = this.formMember.createMember();
+    console.log(memberUpdate);
+    this.memberService.update(this.id, memberUpdate).subscribe(
+      result => {
+        console.log("guarde cambios");
+        this.router.navigate(['/my-account']);
+      },
+      error => {
+        console.error(error);
+        if (error.status === 400) {
+          this.customAlertService.display("Gestión de Socios", error.error.errores);
+        }
+        if (error.status === 500) {
+          this.customAlertService.display("Gestión de Socios", ["No se pudo modificar los datos."]);
+        }
+      });
   }
+
+}
 
 
 }

@@ -1,5 +1,5 @@
 <corpo-header>Ficha de lesiones</corpo-header>
-<section class="wrapper bg-dark">
+<section class="wrapper bg-dark" [class.d-none]="requesting">
 	<div class="row card bg-dark">
 		<div class="col-lg-3 form-group">
 			<input
@@ -83,7 +83,7 @@
 
 		<ion-button
 			expand="block"
-			color="success"
+			color="warning"
 			class="main-center"
 			(click)="addInjury()"
 			>Agregar Lesión</ion-button
@@ -170,7 +170,9 @@
 			color="success"
 			class="main-center"
 			(click)="toGo()"
-			>Guardar</ion-button
+			>Finalizar</ion-button
 		>
 	</div>
 </section>
+
+<ion-spinner *ngIf="requesting"></ion-spinner>

@@ -19,6 +19,7 @@ export class MedicalHistoryCreateComponent implements OnInit {
   basicMedicalHistory: boolean = true;
   medicalHistoryId: number;
   newUser: boolean;
+  requesting: boolean;
 
   @ViewChild(MedicalHistoryFormComponent, { static: false }) formMedicalHistory: MedicalHistoryFormComponent;
   constructor(private memberService: MemberService,
@@ -40,6 +41,7 @@ export class MedicalHistoryCreateComponent implements OnInit {
   }
 
   getMember() {
+    this.requesting = true;
     this.memberService.getById().subscribe(
       result => {
         console.log(result);
@@ -59,8 +61,12 @@ export class MedicalHistoryCreateComponent implements OnInit {
         console.log("edad: ", result);
         this.age = result.result.age;
         console.log(this.age);
+        this.requesting = false;
       },
-      error => console.error(error)
+      error => {
+        console.error(error);
+        this.requesting = false;
+      }
     );
   }
 

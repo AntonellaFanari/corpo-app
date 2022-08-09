@@ -14,33 +14,56 @@ export class MedicalHistoryEditComponent implements OnInit {
   medicalHistoryId: number;
   age: number;
   planType: number;
+  requesting: boolean;
   @ViewChild(MedicalHistoryFormComponent, { static: true }) formMedicalHistory: MedicalHistoryFormComponent;
+
   constructor(private router: Router,
-     private route: ActivatedRoute,
-      private customAlertService: CustomAlertService,
-       private memberService: MemberService) {
+    private route: ActivatedRoute,
+    private customAlertService: CustomAlertService,
+    private memberService: MemberService) {
     this.route.queryParams.subscribe(
       params => { this.id = parseInt(params['id']) }
     )
   }
 
   ngOnInit() {
+  }
+
+    
+  ionViewWillEnter(){
+    this.getMember();
+  }
+
+  getMember() {
+    this.age = null;
+    this.requesting = true;
     this.memberService.getById().subscribe(
       result => {
         console.log(result);
         this.planType = result.planType;
         console.log(this.planType);
+        this.getAge();
       },
       error => console.error(error)
-    );
+    )
+  }
+
+  getAge() {
     this.memberService.getAge().subscribe(
       result => {
         this.age = result.result.age;
-        console.log(this.age)
+        console.log(this.age);
+        this.formMedicalHistory.getMedicalHistoryUpdate(this.id);
       },
-      error => console.error(error)
+      error => {
+        console.error(error);
+        this.requesting = false;
+      }
     );
-    this.formMedicalHistory.getMedicalHistoryUpdate(this.id);
+  }
+
+  finishRequesting(){
+    this.requesting = false;
   }
 
   submit() {

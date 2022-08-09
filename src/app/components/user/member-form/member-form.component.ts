@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Member } from 'src/app/domain/member/member';
@@ -30,6 +30,7 @@ export class MemberFormComponent implements OnInit {
   sendFormPersonal: boolean;
   sendFormContact: boolean;
   sendFormAccount: boolean;
+  @Output() requesting = new EventEmitter();  
 
 
   constructor(private formBuilder: FormBuilder,
@@ -173,8 +174,12 @@ export class MemberFormComponent implements OnInit {
         this.member = result;
         console.log(this.member);
         this.toCompleteForm();
+        this.requesting.emit("false");
       },
-      error => console.error(error)
+      error => {
+        console.error(error);
+        this.requesting.emit("false");
+      }
     )
   }
 

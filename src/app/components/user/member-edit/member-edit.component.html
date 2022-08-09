@@ -1,6 +1,6 @@
 <corpo-header>Editar datos personales</corpo-header>
-<section class="wrapper">
-	<app-member-form [step]="step"></app-member-form>
+<section class="wrapper" [class.d-none]="requesting">
+	<app-member-form [step]="step" (requesting)="finishRequesting($event)"></app-member-form>
 	<div class="row justify-content-center aling-items-center mt-4">
 		<div class="row col-12">
 			<ion-button
@@ -28,3 +28,4 @@
 		</div>
 	</div>
 </section>
+<ion-spinner *ngIf="requesting"></ion-spinner>

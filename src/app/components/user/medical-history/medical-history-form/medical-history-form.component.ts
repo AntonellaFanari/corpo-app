@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MedicalHistory } from 'src/app/domain/member/medical-history';
 import { MemberService } from '../../../../services/member.service';
@@ -20,6 +20,7 @@ export class MedicalHistoryFormComponent implements OnInit {
   @Input() age: number;
   medicalHistory: MedicalHistory;
   sendForm: boolean = false;
+  @Output() requesting = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder, private memberService: MemberService) {
     console.log(this.age);
@@ -58,7 +59,7 @@ export class MedicalHistoryFormComponent implements OnInit {
     return this.formCreate.controls;
 
   }
-  
+
 
   selectGender(event) {
     let value = (<any>event).target.value;
@@ -74,7 +75,7 @@ export class MedicalHistoryFormComponent implements OnInit {
     console.log("enableInput")
     console.log("event", value)
     console.log("name", name);
-    console.log("valor checked: ",this.formCreate.value.allergiesChecked)
+    console.log("valor checked: ", this.formCreate.value.allergiesChecked)
     let isCheckedToggle = value;
     if (!isCheckedToggle) {
       this.formCreate.get(name).disable();
@@ -111,8 +112,12 @@ export class MedicalHistoryFormComponent implements OnInit {
       result => {
         this.medicalHistory = result.result;
         this.toCompleteForm();
+        this.requesting.emit();
       },
-      error => console.error(error)
+      error => {
+        console.error(error);
+        this.requesting.emit();
+      }
     )
   }
 

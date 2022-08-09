@@ -28,6 +28,7 @@ export class InjuryHistoryComponent implements OnInit {
   memberId: number;
   fileTransfer: FileTransferObject;
   selectedFile: boolean;
+  requesting: boolean;
 
   constructor(private memberService: MemberService,
     private route: ActivatedRoute,
@@ -44,12 +45,15 @@ export class InjuryHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    this.checkedClear(3);
     this.getAllInjuries(this.medicalHistoryId);
 
-    this.checkedClear(3);
+   
   }
 
   getAllInjuries(id: number) {
+    this.requesting = true;
     this.injuryFiles = [];
     this.memberService.getAllInjuries(id).subscribe(
       result => {
@@ -61,9 +65,13 @@ export class InjuryHistoryComponent implements OnInit {
             files[j].name = files[j].name.substr(0, 20);
             this.injuryFiles.push(files[j]);
           }
-        }
+        };
+        this.requesting = false;
+        
       },
-      error => console.error(error)
+      error => {console.error(error); 
+      this.requesting = false;
+    }
     )
   }
 

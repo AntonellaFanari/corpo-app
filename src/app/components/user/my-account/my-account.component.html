@@ -1,7 +1,6 @@
 <corpo-header>Datos personales</corpo-header>
-<section class="wrapper">
-	<ion-spinner *ngIf="requesting"></ion-spinner>
-	<div class="row" *ngIf="user">
+<section class="wrapper"  *ngIf="!requesting && user">
+	<div class="row">
 		<div class="card-account">
 			<div class="row card-body dataUserBox">
 				<div class="col-6 form-group">
@@ -64,7 +63,7 @@
 				Modificar datos personales
 			</ion-button>
 			<ion-button
-				*ngIf="userType == 2 && !existsMedicalHistory"
+				*ngIf="!existsMedicalHistory"
 				expand="block"
 				color="success"
 				class="main-center"
@@ -74,7 +73,7 @@
 				Crear historia médica
 			</ion-button>
 			<ion-button
-				*ngIf="userType == 2 && existsMedicalHistory"
+				*ngIf="existsMedicalHistory"
 				expand="block"
 				color="success"
 				class="main-center"
@@ -102,3 +101,4 @@
 		</div>
 	</div>
 </section>
+<ion-spinner *ngIf="requesting"></ion-spinner>
