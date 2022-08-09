@@ -19,6 +19,7 @@ import { MyAccountComponent } from '../my-account/my-account.component';
 export class MemberEditComponent implements OnInit {
   id: number;
   user: LoggedUser;
+  step = 1;
   @ViewChild(MemberFormComponent, { static: true }) formMember: MemberFormComponent;
   constructor(private memberService: MemberService,
     private route: ActivatedRoute,
@@ -30,32 +31,59 @@ export class MemberEditComponent implements OnInit {
       this.id = this.user.id;
     } else {
       this.route.queryParams.subscribe(params => {
-        this.id = parseInt(params['id'])
+        this.id = parseInt(params['id']);        
+    this.formMember.getMemberUpdate(this.id);
       });
     }
   }
 
-  ngOnInit() {
+  ionViewWillEnter(){
+    console.log("id:", this.id);
     this.formMember.getMemberUpdate(this.id);
   }
 
-   public submit() {
-    var memberUpdate = this.formMember.createMember();
-    console.log(memberUpdate);
-    this.memberService.update(this.id, memberUpdate).subscribe(
-      result => {
-        console.log("guarde cambios");
-        window.location.href = '/my-account'; 
-      },
-      error => {
-        console.error(error);
-        if (error.status === 400) {
-          this.customAlertService.display("Gestión de Socios", error.error.errores);
-        }
-        if (error.status === 500) {
-          this.customAlertService.display("Gestión de Socios", ["No se pudo modificar los datos."]);
-        }
-      });
+
+  ngOnInit() {
+  }
+
+
+  next() {
+    if (this.step != 2) {
+      let valid = this.formMember.validatorsForm();
+      console.log("es valido?", valid);
+      if (valid) this.step++;
+    }
+  }
+
+  return() {
+    if (this.step == 1) {
+      this.router.navigate(['/my-account']);
+    } else {
+      this.step--;
+    }
+  }
+
+  public submit() {
+    let valid = this.formMember.validatorsForm();
+    if (valid) {
+      var memberUpdate = this.formMember.createMember();
+      console.log(memberUpdate);
+      this.memberService.update(this.id, memberUpdate).subscribe(
+        result => {
+          console.log("guarde cambios");
+          this.router.navigate(['/my-account']);
+        },
+        error => {
+          console.error(error);
+          if (error.status === 400) {
+            this.customAlertService.display("Gestión de Socios", error.error.errores);
+          }
+          if (error.status === 500) {
+            this.customAlertService.display("Gestión de Socios", ["No se pudo modificar los datos."]);
+          }
+        });
+    }
+
   }
 
 

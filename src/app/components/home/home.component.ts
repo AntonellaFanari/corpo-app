@@ -8,11 +8,16 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  goTo(root){
+  ionViewWillEnter(){
+  }
+
+  goTo(root) {
     this.router.navigate([`/${root}`]);
   }
+
 }

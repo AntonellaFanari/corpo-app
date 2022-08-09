@@ -52,6 +52,17 @@ export class ExerciseComponent implements OnInit {
   ngOnInit() {
   }
 
+   
+  ionViewWillEnter(){
+    this.route.queryParams.subscribe(params => {
+      this.id = parseInt(params['id']);
+      this.type = parseInt(params['type']);
+      this.testId = parseInt(params['testId']);
+      this.getExerciseById();
+      this.urlBase = this.testService.url;
+  });
+}
+
   getExerciseById() {
     this.requestingExercise = true;
     this.testService.getExerciseById(this.id).subscribe(
@@ -146,9 +157,9 @@ export class ExerciseComponent implements OnInit {
     this.testService.getById(this.testId).subscribe(
       response => {
         if(response.result.status == StatusTest.executed){
-          window.location.href = '/mis-tests';
+          this.router.navigate(['/mis-tests']);
         }else{
-          window.location.href = '/test?id=' + this.testId;
+          this.router.navigate(['/test'], {queryParams: {id: this.testId}});
         }
       },
       error => console.error(error)

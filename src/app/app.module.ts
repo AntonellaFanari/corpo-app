@@ -51,6 +51,7 @@ import { AnamnesisPhisicalConditionComponent } from './components/phisical-condi
 import { EvaluationDetailComponent } from './components/phisical-condition/evaluation-detail/evaluation-detail.component';
 import { EvaluationPreviewComponent } from './components/phisical-condition/evaluation-preview/evaluation-preview.component';
 import { HomeComponent } from './components/home/home.component';
+
 //import { MatSliderModule } from '@angular/material/slider'; 
 
 @NgModule({
@@ -106,7 +107,7 @@ import { HomeComponent } from './components/home/home.component';
     FormsModule,
     ReactiveFormsModule,
     CalendarModule,
-    CommonModule  
+    CommonModule
   ],
   providers: [
     DatePipe,

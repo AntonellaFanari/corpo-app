@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Member } from 'src/app/domain/member/member';
@@ -16,7 +16,8 @@ import { MemberService } from '../../../services/member.service';
   styleUrls: ['./member-form.component.scss']
 })
 export class MemberFormComponent implements OnInit {
-  formCreate: FormGroup;
+  formPersonal: FormGroup;
+  formContact: FormGroup;
   formAccount: FormGroup;
   dt: Date = new Date();
   unamePattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,15}$";
@@ -25,24 +26,43 @@ export class MemberFormComponent implements OnInit {
   planType: number;
   member: MemberView;
   modeCreate: boolean = true;
+  @Input() step: number;
+  sendFormPersonal: boolean;
+  sendFormContact: boolean;
+  sendFormAccount: boolean;
 
-  constructor(private formBuilder: FormBuilder, 
-    private memberService: MemberService, 
-    private router: Router, 
+
+  constructor(private formBuilder: FormBuilder,
+    private memberService: MemberService,
+    private router: Router,
     private planService: PlanService) {
-      
-    this.formCreate = this.formBuilder.group({
+    this.getFormsGroup();
+  }
+
+  ionViewWillEnter() {
+    this.getFormsGroup();
+    this.sendFormAccount = false;
+    this.sendFormContact = false;
+    this.sendFormPersonal = false;
+  }
+
+
+  getFormsGroup() {    
+    this.dt = new Date();
+    this.formPersonal = this.formBuilder.group({
       lastName: ['', Validators.required],
       name: ['', Validators.required],
       birthDate: [this.dt, Validators.required],
-      phone: ['', Validators.required],
       socialSecurity: '',
       address: ['', Validators.required],
+      planId: ['', Validators.required]
+    });
+    this.formContact = this.formBuilder.group({
+      phone: ['', Validators.required],
       emergencyPhone: ['', Validators.required],
       emergencyContact: ['', Validators.required],
       instagram: '',
-      facebook: '',
-      planId: ['', Validators.required]
+      facebook: ''
     });
     this.formAccount = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -50,6 +70,7 @@ export class MemberFormComponent implements OnInit {
       repeatPassword: '',
     }, { validators: ControlEqual.mustMatch('password', 'repeatPassword') })
   }
+
   ngOnInit() {
     this.planService.getAll().subscribe(
       result => {
@@ -57,11 +78,18 @@ export class MemberFormComponent implements OnInit {
       },
       error => console.error(error)
     );
+
   }
 
-  get f() {
+  get fPersonal() {
 
-    return this.formCreate.controls;
+    return this.formPersonal.controls;
+
+  }
+
+  get fContact() {
+
+    return this.formContact.controls;
 
   }
 
@@ -71,49 +99,64 @@ export class MemberFormComponent implements OnInit {
 
   selectPlan(event) {
     let value = (<any>event).target.value;
-    this.formCreate.value.planId = value;
+    this.formPersonal.value.planId = value;
     this.planType = this.plans.find(x => x.id == value).type;
   }
 
   fillInEmptyFormFields() {
-    let form = this.formCreate.value;
-    for (const control in form) {
-      if (form[control] =='' || "") {
-        form[control] = "-";
+    let formPersonal = this.formPersonal.value;
+    for (const control in formPersonal) {
+      if (formPersonal[control] == '' || "") {
+        formPersonal[control] = "-";
+      }
+    };
+    let formContact = this.formContact.value;
+    for (const control in formContact) {
+      if (formContact[control] == '' || "") {
+        formContact[control] = "-";
       }
     }
   }
 
-  createMember() {
-    this.sendForm = true;
-    if (this.formCreate.valid) {
-      this.fillInEmptyFormFields();
-      let newMember = new Member();
-      newMember.lastName = this.formCreate.value.lastName;
-      newMember.name = this.formCreate.value.name;
-      newMember.birthDate = this.formCreate.value.birthDate;
-      newMember.address = this.formCreate.value.address;
-      newMember.phone = this.formCreate.value.phone;
-      newMember.socialSecurity = this.formCreate.value.socialSecurity;
-      newMember.emergencyPhone = this.formCreate.value.emergencyPhone;
-      newMember.emergencyContact = this.formCreate.value.emergencyContact;
-      newMember.instagram = this.formCreate.value.instagram;
-      newMember.facebook = this.formCreate.value.facebook;
-      newMember.planId = this.formCreate.value.planId;
-      if (this.modeCreate) {
-        var account = this.createAccount();
-        newMember.email = account.email;
-        newMember.password = account.password;
-      };
-      console.log(newMember);
-      return newMember;
+  validatorsForm() {
+    if (this.step == 1) {
+      this.sendFormPersonal = true;
+      return this.formPersonal.valid;
+    } else if (this.step == 2) {
+      this.sendFormContact = true;
+      return this.formContact.valid;
     } else {
-      return null;
+      this.sendFormAccount = true;
+      return this.formAccount.valid;
     }
   }
 
+
+  createMember() {
+    this.fillInEmptyFormFields();
+    let newMember = new Member();
+    newMember.lastName = this.formPersonal.value.lastName;
+    newMember.name = this.formPersonal.value.name;
+    newMember.birthDate = this.formPersonal.value.birthDate;
+    newMember.address = this.formPersonal.value.address;
+    newMember.phone = this.formContact.value.phone;
+    newMember.socialSecurity = this.formPersonal.value.socialSecurity;
+    newMember.emergencyPhone = this.formContact.value.emergencyPhone;
+    newMember.emergencyContact = this.formContact.value.emergencyContact;
+    newMember.instagram = this.formContact.value.instagram;
+    newMember.facebook = this.formContact.value.facebook;
+    newMember.planId = this.formPersonal.value.planId;
+    if (this.modeCreate) {
+      var account = this.createAccount();
+      newMember.email = account.email;
+      newMember.password = account.password;
+    };
+    console.log(newMember);
+    return newMember;
+  }
+
   createAccount() {
-    this.sendForm = true;
+    this.sendFormAccount = true;
     if (this.formAccount.valid) {
       var newAccount = new Account();
       newAccount.email = this.formAccount.value.email;
@@ -138,20 +181,23 @@ export class MemberFormComponent implements OnInit {
   toCompleteForm() {
     this.modeCreate = false;
     this.dt = new Date(this.member.birthDate);
-    this.formCreate.patchValue({
+    console.log("fecha de nacimiento:", this.dt);
+    this.formPersonal.patchValue({
       lastName: this.member.lastName,
       name: this.member.name,
       birthDate: new Date(this.member.birthDate),
-      phone: this.member.phone,
       email: this.member.email,
       address: this.member.address,
       socialSecurity: this.member.socialSecurity,
+      planId: this.member.planId
+    });
+    this.formContact.patchValue({
+      phone: this.member.phone,
       emergencyPhone: this.member.emergencyPhone,
       emergencyContact: this.member.emergencyContact,
       instagram: this.member.instagram,
-      facebook: this.member.facebook,
-      planId: this.member.planId
-    })
+      facebook: this.member.facebook
+    });
 
   }
 

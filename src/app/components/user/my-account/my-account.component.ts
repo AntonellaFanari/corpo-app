@@ -25,16 +25,23 @@ export class MyAccountComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService) {
+    
+  }
+
+
+  ngOnInit() {
+    
+  }
+
+  
+  ionViewWillEnter(){
     this.userLogged = this.accountService.getLoggedUser();
     console.log("userLogged", this.userLogged);
     this.id = this.userLogged.id;
     this.userType = this.userLogged.userType;
     let userNew = localStorage.getItem('newUser');
     console.log('usuario nuevo: ', userNew);
-  }
 
-
-  ngOnInit() {
     console.log("onInit");
     this.requesting = true;
     if (this.userType === 2) {

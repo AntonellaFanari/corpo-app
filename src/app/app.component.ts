@@ -5,6 +5,7 @@ import { LoggedUser } from './domain/user/logged-user';
 import { AccountService } from './services/account.service';
 import { Location } from '@angular/common';
 import OneSignal from 'onesignal-cordova-plugin';
+import { MemberService } from './services/member.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import OneSignal from 'onesignal-cordova-plugin';
 })
 export class AppComponent implements OnInit {
 
-  userLogged: LoggedUser;
+  userLogged: string;
   public appPages = [
     { title: 'Corpo', url: '/folder/Inbox', icon: 'mail' },
     { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
@@ -31,19 +32,46 @@ export class AppComponent implements OnInit {
   timePeriodToExit = 2000;
   guid: string;
   logueado: boolean;
+  viewLogin: boolean;
 
   constructor(private accountService: AccountService,
     private platform: Platform,
     private alertController: AlertController,
     private router: Router,
-    private location: Location) {
+    private location: Location,
+    private memberService: MemberService) {
     this.backButtonEvent();
     this.logueado = this.accountService.isAuthenticated();
-    if (!this.logueado) {
-      this.router.navigate(['/login']);
-    }
-    this.userLogged = this.accountService.getLoggedUser();
+    let userLogged = this.accountService.getLoggedUser();
+    if(userLogged){
+      this.userLogged = userLogged.lastName + " " + userLogged.name;}
+    this.getUserLogged(this.userLogged);
+   
 
+  }
+
+
+  getUserLogged(user){
+    this.logueado = this.accountService.isAuthenticated();
+    if (this.logueado) {
+      this.viewLogin = false;
+      this.userLogged = user;
+    }else{
+      if(user !== ""){
+        this.viewLogin = true; 
+      }else{
+        this.viewLogin = false;
+      }                                              
+    }
+  }
+
+  getMember(){
+    this.memberService.getById().subscribe(
+      response => {
+        console.log("socio: ", response.result);
+        this.userLogged
+      }
+    )
   }
 
   oneSignalInit(): void {
@@ -144,7 +172,6 @@ export class AppComponent implements OnInit {
   signOff() {
     localStorage.clear();
     this.accountService.setAuthenticated(false);
-    this.ngOnInit();
-    window.location.href = '/login';
+    this.viewLogin = false;
   }
 }

@@ -24,6 +24,11 @@ export class MyTestsComponent implements OnInit {
     this.getTest();
   }
 
+  
+  ionViewWillEnter(){
+    this.getTest();
+  }
+
   getTestHistory(){
     this.displayTests = true;
     this.requestingTestList = true;
@@ -55,8 +60,11 @@ export class MyTestsComponent implements OnInit {
       error => console.error(error)
     )
   }
+
   hideTests(){
     this.displayTests = false;
+    this.getTest();
+    this.getTestHistory();
   }
 
 

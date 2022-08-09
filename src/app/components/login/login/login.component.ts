@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   send: boolean;
   open = false;
   canDismiss = false;
+  @Output() logged = new EventEmitter(); 
 
   constructor(private formBuilder: FormBuilder,
     private accountService: AccountService,
@@ -38,6 +39,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  
+  ionViewWillEnter(){
+    this.logged.emit("dhfgjhfg")
+  }
+
 
   get f() {
     return this.formLogin.controls;
@@ -59,7 +66,10 @@ export class LoginComponent implements OnInit {
           this.accountService.setToken(result.token);
           this.accountService.setAuthenticated(true);
           this.accountService.setLoggedUser(result.user);
-          window.location.href = '/home';
+          let user = result.user.lastName + " " + result.user.name;
+          this.logged.emit(user);
+          console.log("pase por aquí");
+          this.router.navigate(['/home']);
         },
         error => {
           this.requesting = false;
@@ -98,5 +108,11 @@ export class LoginComponent implements OnInit {
       )
     }
   }
+
+  goToRegistration(){
+    this.logged.emit("")
+    this.router.navigate(['/member-create']);
+  }
+
 
 }

@@ -14,14 +14,21 @@ import { MemberFormComponent } from '../member-form/member-form.component';
 })
 export class MemberCreateComponent implements OnInit {
   id: number;
+  step = 1;
   @ViewChild(MemberFormComponent, { static: false }) formMember: MemberFormComponent;
   constructor(private memberService: MemberService,
     private router: Router,
     private customAlertService: CustomAlertService,
     private accountService: AccountService,
-    private alertController: AlertController) { }
+    private alertController: AlertController) {
+  }
 
   ngOnInit() {
+    console.log("hola");
+  }
+
+  ionViewWillEnter(){
+    this.formMember.getFormsGroup();
   }
 
   login() {
@@ -44,11 +51,50 @@ export class MemberCreateComponent implements OnInit {
       });
   }
 
+  next() {
+    if (this.step != 3) {
+      let valid = this.formMember.validatorsForm();
+      console.log("es valido?", valid);
+      if (valid){
+        this.setClassStep(this.step, 'next');
+         this.step++;
+        }
+    }
+  }
+
+  return() {
+    if (this.step == 1) {
+      this.router.navigate(['/login']);
+    } else {
+      this.setClassStep(this.step, 'return')
+      this.step--;
+    }
+  }
+
+  setClassStep(step, btn){
+    let index = step-1;
+    let progress = document.getElementById("progress");
+    let progressSteps = document.querySelectorAll('.progress-step');
+    console.log("lista: ", progressSteps);
+    if(btn === 'next'){
+      progressSteps[index+1].classList.add('progress-step-active');
+    }else{
+      progressSteps[index].classList.remove('progress-step-active');
+      progressSteps[index-1].classList.add('progress-step-active');
+    }
+
+    let progressActive = document.querySelectorAll(".progress-step-active");
+    progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+  }
+
+
+
   submit() {
     console.log("inicio");
-    const newMember = this.formMember.createMember();
-    console.log("newMember", newMember);
-    if (newMember !== null) {
+    let valid = this.formMember.validatorsForm();
+    if (valid) {
+      const newMember = this.formMember.createMember();
+      console.log("newMember", newMember);
       console.log("por aquí");
       this.memberService.add(newMember).subscribe(
         result => {
@@ -57,11 +103,11 @@ export class MemberCreateComponent implements OnInit {
           console.log("nuevo: ", this.memberService.newMember);
           this.login();
           this.customAlertService.display("Gestión de Socios", ["¿Desea cargar la historia médica?"], () => {
-          localStorage.setItem('newUser', 'true');
+            localStorage.setItem('newUser', 'true');
             this.router.navigate(['/historia-medica-crear'], { queryParams: { id: this.id } });
           }, true, () => {
             localStorage.setItem('newUser', 'false');
-            this.router.navigate(['/home'])
+            this.router.navigate(['/login'])
           })
         },
         error => {

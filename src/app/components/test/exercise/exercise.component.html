@@ -6,110 +6,75 @@
 				<strong>Ejercicio - {{ exercise.name }}</strong>
 			</div>
 			<div *ngIf="exercise.protocol" class="month text-center mb-3">
-				<strong>Protocolo:</strong> <br>
-				<p>{{exercise.protocol}}</p>
+				<strong>Protocolo:</strong> <br />
+				<p>{{ exercise.protocol }}</p>
 			</div>
 
 			<div *ngIf="type == 1" class="bg-dark">
-				<div class="pt-1">
-					<div class="row">
-						<ion-buttons slot="secondary" class="col-2 pull-left">
-							<ion-button color="primary">
-								<ion-icon slot="icon-only" name="alarm-outline"></ion-icon>
-							</ion-button>
-						</ion-buttons>
-						<ion-label class="text-white col-10 pull-rigth label-title"
-							>Tiempo</ion-label
-						>
-					</div>
-				</div>
-				<div class="pt-2 pb-3 border-div-input">
-					<div class="row justify-content-center aling-items-center">
-						<div class="col-4 text-center">
-							<ion-label class="col-2 label-input">(minutos)</ion-label>
+				<ion-card class="margin-card">
+					<ion-item>
+						<ion-icon
+							class="color-icon"
+							name="alarm-outline"
+							slot="start"
+						></ion-icon>
+						<ion-label>Tiempo</ion-label>
+					</ion-item>
+					<div class="p-3 row">
+						<div class="col-6">
+							<ion-label>Minutos</ion-label>
 							<ion-input
-								class="color-input"
 								type="number"
+								class="color-input ps-2"
 								[(ngModel)]="minutes"
 							></ion-input>
 						</div>
-						<div class="col-4 text-center">
-							<ion-label class="col-2 label-input">(segundos)</ion-label>
+						<div class="col-6">
+							<ion-label>Segundos</ion-label>
 							<ion-input
-								class="color-input"
 								type="number"
+								class="color-input ps-2"
 								[(ngModel)]="seconds"
 							></ion-input>
 						</div>
 					</div>
-					<!-- <div class="row">
-						<ion-label class="col-2 label-time">hs</ion-label>
-						<ion-input
-							class="color-input col-2 input-time"
-							type="number"
-							[(ngModel)]="hours"
-						></ion-input>
-						<ion-label class="col-2 label-time">min</ion-label>
-						<ion-input
-							class="color-input col-2 input-time"
-							type="number"
-							[(ngModel)]="minutes"
-						></ion-input>
-						<ion-label class="col-2 label-time">seg</ion-label>
-						<ion-input
-							class="color-input col-2 input-time"
-							type="number"
-							[(ngModel)]="seconds"
-						></ion-input>
-					</div> -->
-				</div>
-				<div class="mb-2">
-					<div class="row">
-						<ion-buttons slot="secondary" class="col-2 pull-left">
-							<ion-button color="primary">
-								<ion-icon slot="icon-only" name="fitness-outline"></ion-icon>
-							</ion-button>
-						</ion-buttons>
-						<ion-label class="text-white col-10 pull-rigth label-title"
-							>Frecuencia Cardíaca Inicial</ion-label
-						>
-					</div>
-				</div>
-				<div class="pb-3 border-div-input">
-					<div class="row justify-content-center aling-items-center">
-						<div class="col-4 text-center">
+
+					<ion-item>
+						<ion-icon
+							class="color-icon"
+							name="fitness-outline"
+							slot="start"
+						></ion-icon>
+						<ion-label>Frecuencia Cardíaca Inicial</ion-label>
+					</ion-item>
+					<div class="p-3 row justify-content-center align-items-center">
+						<div class="text-center col-6">
 							<ion-input
-								class="color-input"
 								type="number"
+								class="color-input ps-2"
 								[(ngModel)]="initialHeartRate"
 							></ion-input>
 						</div>
 					</div>
-				</div>
 
-				<div class="mb-2">
-					<div class="row">
-						<ion-buttons slot="secondary" class="col-2 pull-left">
-							<ion-button color="primary">
-								<ion-icon slot="icon-only" name="fitness-outline"></ion-icon>
-							</ion-button>
-						</ion-buttons>
-						<ion-label class="text-white col-10 pull-rigth label-title"
-							>Frecuencia Cardíaca Final</ion-label
-						>
-					</div>
-				</div>
-				<div class="pb-3 border-div-input">
-					<div class="row justify-content-center aling-items-center">
-						<div class="col-4 text-center">
+					<ion-item>
+						<ion-icon
+							class="color-icon"
+							name="fitness-outline"
+							slot="start"
+						></ion-icon>
+						<ion-label>Frecuencia Cardíaca Final</ion-label>
+					</ion-item>
+					<div class="p-3 row justify-content-center align-items-center">
+						<div class="text-center col-6">
 							<ion-input
-								class="color-input"
 								type="number"
+								class="color-input ps-2"
 								[(ngModel)]="finalHeartRate"
 							></ion-input>
 						</div>
 					</div>
-				</div>
+				</ion-card>
 			</div>
 
 			<div *ngIf="type == 2">
@@ -121,7 +86,8 @@
 							slot="start"
 						></ion-icon>
 						<ion-label
-							>Tiempo: {{ exercise.minutes }}:{{ exercise.seconds }}</ion-label
+							>Tiempo: {{ exercise.minutes }} min -
+							{{ exercise.seconds }} seg</ion-label
 						>
 					</ion-item>
 
@@ -131,15 +97,17 @@
 							name="barbell-outline"
 							slot="start"
 						></ion-icon>
-						<ion-label>Repeticiones:</ion-label>
+						<ion-label>Repeticiones</ion-label>
 					</ion-item>
-					<ion-item>
-						<ion-input
-							type="number"
-							class="color-input ps-2"
-							[(ngModel)]="repetitions"
-						></ion-input>
-					</ion-item>
+					<div class="p-3 row justify-content-center align-items-center">
+						<div class="text-center col-6">
+							<ion-input
+								type="number"
+								class="color-input ps-2"
+								[(ngModel)]="repetitions"
+							></ion-input>
+						</div>
+					</div>
 
 					<ion-item>
 						<ion-icon
@@ -147,15 +115,17 @@
 							name="fitness-outline"
 							slot="start"
 						></ion-icon>
-						<ion-label>Frecuencia Cardíaca Inicial:</ion-label>
+						<ion-label>Frecuencia Cardíaca Inicial</ion-label>
 					</ion-item>
-					<ion-item>
-						<ion-input
-							type="number"
-							class="color-input ps-2"
-							[(ngModel)]="initialHeartRate"
-						></ion-input>
-					</ion-item>
+					<div class="p-3 row justify-content-center align-items-center">
+						<div class="text-center col-6">
+							<ion-input
+								type="number"
+								class="color-input ps-2"
+								[(ngModel)]="initialHeartRate"
+							></ion-input>
+						</div>
+					</div>
 
 					<ion-item>
 						<ion-icon
@@ -163,72 +133,68 @@
 							name="fitness-outline"
 							slot="start"
 						></ion-icon>
-						<ion-label>Frecuencia Cardíaca Final:</ion-label>
+						<ion-label>Frecuencia Cardíaca Final</ion-label>
 					</ion-item>
-					<ion-item>
-						<ion-input
-							type="number"
-							class="color-input ps-2"
-							[(ngModel)]="finalHeartRate"
-						></ion-input>
-					</ion-item>
+					<div class="p-3 row justify-content-center align-items-center">
+						<div class="text-center col-6">
+							<ion-input
+								type="number"
+								class="color-input ps-2"
+								[(ngModel)]="finalHeartRate"
+							></ion-input>
+						</div>
+					</div>
 				</ion-card>
 			</div>
 
 			<div *ngIf="type == 3">
-				<ion-toolbar color="dark">
-					<ion-buttons slot="start">
-						<ion-button color="primary">
-							<ion-icon slot="icon-only" name="film-outline"></ion-icon>
-						</ion-button>
-					</ion-buttons>
-					<ion-buttons slot="end">
-						<ion-button color="primary">
-							<ion-icon slot="icon-only" name="eye"></ion-icon>
-						</ion-button>
-					</ion-buttons>
-					<ion-title
-						><a class="color-link" href="{{ exercise.video }}"
-							>Video ejemplo</a
-						></ion-title
-					>
-				</ion-toolbar>
+				<ion-card class="margin-card">
+					<ion-item>
+						<ion-icon
+							class="color-icon"
+							name="film-outline"
+							slot="start"
+						></ion-icon>
+						<ion-label
+							><a class="color-link cursor-pointer" href="{{ exercise.video }}"
+								>Video ejemplo</a
+							></ion-label
+						>
+						<ion-icon class="color-icon cursor-pointer" name="eye" slot="end"></ion-icon>
+					</ion-item>
 
-				<ion-toolbar
-					color="dark"
-					
-				>
-					<ion-buttons slot="start">
-						<ion-button color="primary">
-							<ion-icon slot="icon-only" name="film-outline"></ion-icon>
-						</ion-button>
-					</ion-buttons>
-					<ion-buttons slot="end" onclick="document.getElementById('video-button').click();">
-						<ion-button color="primary">
-							<ion-icon
-								slot="icon-only"
-								name="arrow-up-circle-outline"
-							></ion-icon>
-						</ion-button>
-					</ion-buttons>
-					<ion-title
-						><a id="selectVideo" class="color-link"
-						onclick="document.getElementById('video-button').click();">
-							<!--<i class="fas fa-upload"></i>-->
-							Mi video
-						</a></ion-title
-					>
-					<input
-						accept="video/mp4"
-						type="file"
-						id="video-button"
-						(change)="onFileSelectionVideo($event)"
-						style="display: none"
-					/>
-				</ion-toolbar>
+					<ion-item>
+						<ion-icon
+							class="color-icon"
+							name="film-outline"
+							slot="start"
+						></ion-icon>
+						<ion-label
+							><a
+								id="selectVideo"
+								class="color-link cursor-pointer"
+								onclick="document.getElementById('video-button').click();"
+							>
+								<!--<i class="fas fa-upload"></i>-->
+								Mi video
+							</a></ion-label
+						>
+						<ion-icon
+							class="color-icon cursor-pointer"
+							name="arrow-up-circle-outline"
+							slot="end"
+							onclick="document.getElementById('video-button').click();"
+						></ion-icon>
+						<input
+							accept="video/mp4"
+							type="file"
+							id="video-button"
+							(change)="onFileSelectionVideo($event)"
+							style="display: none"
+						/>
+					</ion-item>
 
-				<ion-toolbar [class.d-none]="urlsVideo.length == 0" color="dark">
-					<ion-card>
+					<ion-item [class.d-none]="urlsVideo.length == 0">
 						<video
 							*ngFor="let url of urlsVideo"
 							class="text-center col-12"
@@ -237,46 +203,40 @@
 						>
 							Vídeo no es soportado...
 						</video>
-					</ion-card>
-				</ion-toolbar>
+					</ion-item>
 
-				<ion-toolbar
-					color="dark"
-					
-				>
-					<ion-buttons slot="start">
-						<ion-button color="primary">
-							<ion-icon slot="icon-only" name="image"></ion-icon>
-						</ion-button>
-					</ion-buttons>
-					<ion-buttons slot="end" onclick="document.getElementById('file-button').click();">
-						<ion-button color="primary">
-							<ion-icon
-								slot="icon-only"
-								name="arrow-up-circle-outline"
-							></ion-icon>
-						</ion-button>
-					</ion-buttons>
-					<ion-title
-						><a id="selectImg" class="color-link"  onclick="document.getElementById('file-button').click();">
-							<!--<i class="fas fa-upload"></i>-->
-							Mi imagen
-						</a></ion-title
-					>
-					<input
-						accept="image/*"
-						type="file"
-						id="file-button"
-						(change)="onFileSelectionImg($event)"
-						style="display: none"
-					/>
-				</ion-toolbar>
+					<ion-item>
+						<ion-icon class="color-icon" name="image" slot="start"></ion-icon>
+						<ion-label
+							><a
+								id="selectImg"
+								class="color-link cursor-pointer"
+								onclick="document.getElementById('file-button').click();"
+							>
+								<!--<i class="fas fa-upload"></i>-->
+								Mi imagen
+							</a></ion-label
+						>
+						<ion-icon
+							class="color-icon cursor-pointer"
+							name="arrow-up-circle-outline"
+							slot="end"
+							onclick="document.getElementById('file-button').click();"
+						></ion-icon>
+						<input
+							accept="image/*"
+							type="file"
+							id="file-button"
+							(change)="onFileSelectionImg($event)"
+							style="display: none"
+						/>
+					</ion-item>
 
-				<ion-toolbar [class.d-none]="urlsImg.length == 0" color="dark">
-					<ion-card *ngFor="let url of urlsImg">
-						<img class="text-center col-12 img-evaluation" [src]="url" />
-					</ion-card>
-				</ion-toolbar>
+					<ion-item [class.d-none]="urlsImg.length == 0">
+							<img  *ngFor="let url of urlsImg" class="text-center col-12 img-evaluation" [src]="url" />
+						
+					</ion-item>
+				</ion-card>
 			</div>
 		</div>
 		<div class="container mt-3">
@@ -397,7 +357,7 @@
 
 		<div class="container">
 			<ion-button
-			[disabled]="!selectedRate"
+				[disabled]="!selectedRate"
 				expand="block"
 				color="success"
 				class="margin-btn"

@@ -26,11 +26,13 @@ export class MedicalHistoryCreateComponent implements OnInit {
     private router: Router,
     private customAlertService: CustomAlertService) {
     this.route.queryParams.subscribe(
-      params => { this.id = parseInt(params['id']) });
-      let newUser = localStorage.getItem('newUser');
-      (newUser == 'true')? this.newUser = true : this.newUser = false;
-    this.getMember();
-    console.log("edad: ", this.age);
+      params => {
+        this.id = parseInt(params['id']);
+        this.getMember();
+      });
+    let newUser = localStorage.getItem('newUser');
+    (newUser == 'true') ? this.newUser = true : this.newUser = false;
+
   }
 
   ngOnInit() {
@@ -86,7 +88,7 @@ export class MedicalHistoryCreateComponent implements OnInit {
     this.memberService.addMedicalHistory(newMedicalHistory).subscribe(
       result => {
         if (this.planType == 2) {
-          window.location.href = '/my-account'; 
+          this.router.navigate(['/login']);
         } else {
           this.medicalHistoryId = result.result.id;
           this.router.navigate(['/injury-history'], { queryParams: { medicalHistoryId: this.medicalHistoryId } });
@@ -103,9 +105,10 @@ export class MedicalHistoryCreateComponent implements OnInit {
       });
   }
 
-  returnNewUser(){
+  returnNewUser() {
+    localStorage.clear();
     localStorage.removeItem('newUser');
     localStorage.setItem('newUser', 'false');
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
   }
 }

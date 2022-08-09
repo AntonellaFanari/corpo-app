@@ -28,8 +28,7 @@ export class EmailEditComponent implements OnInit {
     private userService: UserService,
     private memberService: MemberService,
     private router: Router,
-    private customAlertService: CustomAlertService,
-    private navCtrl: NavController) {
+    private customAlertService: CustomAlertService) {
     this.user = this.accountService.getLoggedUser();
     this.getUser();
     this.accountId = this.user.accountId;
@@ -90,7 +89,7 @@ export class EmailEditComponent implements OnInit {
       this.accountService.updateEmail(account).subscribe(
         result => {
           console.log(result);
-          this.navCtrl.navigateForward('/my-account');
+          this.router.navigate(['/my-account']);
         },
         error => {
           console.error(error);

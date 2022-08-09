@@ -36,7 +36,7 @@ import { WodComponent } from './components/workout/wod/wod.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {

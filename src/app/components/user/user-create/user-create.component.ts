@@ -34,7 +34,7 @@ export class UserCreateComponent implements OnInit {
           let id = result.result.id;
           this.customAlertService.displayAlert("Gestión de Socios", ["¿Desea cargar la historia médica?"], () => {
             this.router.navigate(["/historia-médica-crear"], { queryParams: { id: id } })
-          }, true, () => {  window.location.href = '/home';  })
+          }, true, () => {  this.router.navigate(['/home']) })
         },
         error => {
           console.error(error);

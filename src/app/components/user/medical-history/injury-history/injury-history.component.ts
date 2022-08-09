@@ -185,11 +185,11 @@ export class InjuryHistoryComponent implements OnInit {
     console.log("nuevo: ", this.memberService.newMember);
     let newUser = localStorage.getItem('newUser');
     if (newUser == 'false') {
-      window.location.href = '/my-account'; 
+     this.router.navigate(['/my-account']);
     } else {
       localStorage.removeItem('newUser');
       localStorage.setItem('newUser', 'false');
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
     }
   }
 

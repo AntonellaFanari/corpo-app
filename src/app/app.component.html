@@ -1,65 +1,80 @@
 <ion-app>
-  <input [value]="guid">
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Corpo</ion-list-header>
+	<input [value]="guid" *ngIf="!viewLogin" />
+	<ion-split-pane contentId="main-content" *ngIf="!viewLogin">
+		<ion-menu contentId="main-content" type="overlay">
+			<ion-content>
+				<ion-list id="inbox-list border-bottom-0">
+					<ion-list-header>Corpo</ion-list-header>
 
-          <ion-note *ngIf="userLogged">{{userLogged.name}} {{userLogged.lastName}}</ion-note>
-          <ion-menu-toggle auto-hide="true">
-            <ion-item *ngIf="!userLogged" routerDirection="root" [routerLink]="['/member-create']">
-              <ion-icon name="home"></ion-icon>
-              <ion-label>Registro</ion-label>
+					<!-- <ion-note *ngIf="userLogged" >{{userLogged}}</ion-note> -->
+					<ion-menu-toggle auto-hide="true" class="bb-0">
+						<!-- <ion-item
+							*ngIf="!userLogged"
+							routerDirection="root"
+							[routerLink]="['/member-create']"
+						>
+							<ion-icon name="home"></ion-icon>
+							<ion-label>Registro</ion-label>
+						</ion-item> -->
+						<ion-item routerDirection="root" [routerLink]="['/home']">
+							<ion-icon name="home"></ion-icon>
+							<ion-label>Inicio</ion-label>
+						</ion-item>
+						<ion-item routerDirection="root" [routerLink]="['/my-account']">
+							<ion-icon name="person"></ion-icon>
+							<ion-label>Mi cuenta</ion-label>
+						</ion-item>
+						<ion-item routerDirection="root" [routerLink]="['/shift']">
+							<ion-icon name="calendar-clear"></ion-icon>
+							<ion-label>turnos</ion-label>
+						</ion-item>
+						<ion-item routerDirection="root" [routerLink]="['/wod-week']">
+							<ion-icon name="barbell"></ion-icon>
+							<ion-label>WOD</ion-label>
+						</ion-item>
+						<ion-item routerDirection="root" [routerLink]="['/anamnesis']">
+							<ion-icon name="clipboard"></ion-icon>
+							<ion-label>Evaluación Condición Física</ion-label>
+						</ion-item>
+						<ion-item routerDirection="root" [routerLink]="['/mis-tests']">
+							<ion-icon name="clipboard"></ion-icon>
+							<ion-label>Test de Nivelación</ion-label>
+						</ion-item>
+						<ion-item routerDirection="root" [routerLink]="['/my-debts']">
+							<ion-icon name="logo-usd"></ion-icon>
+							<ion-label>Deudas</ion-label>
+						</ion-item>
+						<ion-item routerDirection="root" [routerLink]="['/attendance']">
+							<ion-icon name="calendar"></ion-icon>
+							<ion-label>Mis asistencias</ion-label>
+						</ion-item>
+						<ion-item routerDirection="root" [routerLink]="['/effort']">
+							<ion-icon name="stats-chart"></ion-icon>
+							<ion-label>Esfuerzo</ion-label>
+						</ion-item>
+						<ion-item
+							routerDirection="root"
+							[routerLink]="['/periodization-report']"
+						>
+							<ion-icon name="stats-chart"></ion-icon>
+							<ion-label>Estadísticas</ion-label>
             </ion-item>
-            <ion-item routerDirection="root" [routerLink]="['/home']">
-              <ion-icon name="home"></ion-icon>
-              <ion-label>Inicio</ion-label>
-            </ion-item>
-            <ion-item routerDirection="root" [routerLink]="['/my-account']">
-              <ion-icon name="person"></ion-icon>
-              <ion-label>Mi cuenta</ion-label>
-            </ion-item>           
-            <ion-item routerDirection="root" [routerLink]="['/shift']">
-              <ion-icon name="calendar-clear"></ion-icon>
-              <ion-label>turnos</ion-label>
-            </ion-item>
-            <ion-item routerDirection="root" [routerLink]="['/wod-week']">
-              <ion-icon name="barbell"></ion-icon>
-              <ion-label>WOD</ion-label>
-            </ion-item>
-            <ion-item routerDirection="root" [routerLink]="['/anamnesis']">
-              <ion-icon name="clipboard"></ion-icon>
-              <ion-label>Evaluación Condición Física</ion-label>
-            </ion-item>
-            <ion-item routerDirection="root" [routerLink]="['/mis-tests']">
-              <ion-icon name="clipboard"></ion-icon>
-              <ion-label>Test de Nivelación</ion-label>
-            </ion-item>
-            <ion-item routerDirection="root" [routerLink]="['/my-debts']">
-              <ion-icon name="logo-usd"></ion-icon>
-              <ion-label>Deudas</ion-label>
-            </ion-item>           
-            <ion-item routerDirection="root" [routerLink]="['/attendance']">
-              <ion-icon name="calendar"></ion-icon>
-              <ion-label>Mis asistencias</ion-label>
-            </ion-item>    
-            <ion-item routerDirection="root" [routerLink]="['/effort']">
-              <ion-icon name="stats-chart"></ion-icon>
-              <ion-label>Esfuerzo</ion-label>
-            </ion-item>    
-            <ion-item routerDirection="root" [routerLink]="['/periodization-report']">
-              <ion-icon name="stats-chart"></ion-icon>
-              <ion-label>Estadísticas</ion-label>
-            </ion-item>    
-          </ion-menu-toggle>
-        </ion-list>
-        <ion-item routerDirection="root" (click)="signOff()" class="cursor-pointer">
-          <ion-icon name="log-in"></ion-icon>
-          <ion-label>Cerrar sesión</ion-label>
-        </ion-item>  
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
+            <hr class="hr-menu-toggle">
+            <ion-item
+							routerDirection="root"
+							(click)="signOff()"
+							[routerLink]="['/login']"
+							class="cursor-pointer"
+						>
+							<ion-icon name="log-in"></ion-icon>
+							<ion-label>Cerrar sesión</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+			</ion-content>
+		</ion-menu>
+		<ion-router-outlet id="main-content"></ion-router-outlet>
+	</ion-split-pane>
+
+	<app-login *ngIf="viewLogin" (logged)="getUserLogged($event)"></app-login>
 </ion-app>

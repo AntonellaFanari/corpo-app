@@ -52,7 +52,7 @@ export class PasswordEditComponent implements OnInit {
         result => {
           console.log(result);
           this.customAlertService.display("Gestión de modifcación de datos de la cuenta", ["Contraseña actualizada."]);
-          window.location.href = '/my-account'
+          this.router.navigate(['/my-account']);
         },
         error => {
           console.error(error);

@@ -24,6 +24,10 @@ export class TestComponent implements OnInit {
     this.getTest();
   }
 
+  ionViewWillEnter(){
+    this.getTest();
+  }
+
   getTest(){
     this.testService.getById(this.id).subscribe(
       response => {
