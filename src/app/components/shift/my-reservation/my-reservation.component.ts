@@ -23,7 +23,7 @@ import { CalendarFilterModalComponent } from '../calendar-filter-modal/calendar-
 export class MyReservationComponent implements OnInit {
   reservations: AttendanceReservation[] = [];
   idMember: number;
-  diplayShifts: boolean = false;
+  displayShifts: boolean = false;
   shifts: ShiftList[] = [];
   from: string;
   to: string;
@@ -72,7 +72,6 @@ export class MyReservationComponent implements OnInit {
         this.requesting = false;
         this.reservations = result.result;
         this.getReservationsShiftsList(this.reservations);
-        if (this.diplayShifts) { this.getAllShift(); }
         this.getCreditMember();
       },
       error => {
@@ -124,11 +123,10 @@ export class MyReservationComponent implements OnInit {
 
   getAllShift() {
     this.shifts = [];
-    this.requestingShifts = true;
     this.shiftService.getAll(this.from, this.from, 0).subscribe(
       result => {
         this.requestingShifts = false;
-        console.log("turnos:", result);
+        console.log("turnos disponibles esta semana:", result);
         this.getShiftsList(result.result);
       },
       error => {
@@ -234,14 +232,16 @@ export class MyReservationComponent implements OnInit {
 
 
   viewShifts() {
-    this.diplayShifts = true;
+    this.displayShifts = true;
     this.dateType = "shifts";
     console.log("tipo de datos: ", this.dateType);
     this.getAllReservations();
+    this.getAllShift();
   }
 
   viewReserve() {
-    this.diplayShifts = false;
+    this.displayShifts = false;
+    this.requestingShifts = true;
     this.dateType = "reserves";
     this.getAllReservations();
   }

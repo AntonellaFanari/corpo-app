@@ -1,5 +1,5 @@
-<corpo-header *ngIf="!diplayShifts">Mis reservas</corpo-header>
-<ion-toolbar *ngIf="diplayShifts">
+<corpo-header *ngIf="!displayShifts">Mis reservas</corpo-header>
+<ion-toolbar *ngIf="displayShifts">
 	<ion-buttons slot="start">
 		<ion-button (click)="viewReserve()">
 			<ion-icon slot="icon-only" name="arrow-back"></ion-icon>
@@ -7,7 +7,7 @@
 	</ion-buttons>
 	<ion-title> Turnos </ion-title>
 </ion-toolbar>
-<section class="wrapper" *ngIf="!diplayShifts && !requesting">
+<section class="wrapper" *ngIf="!displayShifts && !requesting">
 	<div class="row">
 		<div class="col-12">
 			<ion-button
@@ -88,12 +88,12 @@
 	</div>
 </section>
 
-<div class="text-center" *ngIf="requesting">
-	<ion-spinner *ngIf="requesting"></ion-spinner>
-	<h5 *ngIf="!requesting && reservations.length == 0">No tienes reservas.</h5>
+<div class="text-center" *ngIf="!displayShifts">
+	<ion-spinner *ngIf="requesting && !displayShifts"></ion-spinner>
+	<h5 *ngIf="!requesting && reservations.length == 0 && !displayShifts">No tienes reservas.</h5>
 </div>
 
-<section class="wrapper" *ngIf="diplayShifts">
+<section class="wrapper" *ngIf="displayShifts">
 	<div *ngIf="shifts.length > 0" class="col-md-12">
 		<section id="no-more-tables">
 			<div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -145,13 +145,15 @@
 				</table>
 			</div>
 		</section>
-	</div>
-
-	<h5 *ngIf="!requestingShifts && shifts.length == 0">
-		No hay turnos disponibles.
-	</h5>
+	</div>	
 </section>
 
+<div class="text-center" *ngIf="displayShifts">
+	<ion-spinner *ngIf="requestingShifts"></ion-spinner>
+	<h5 *ngIf="(!requestingShifts && shifts.length == 0)">
+		No hay turnos disponibles.
+	</h5>
+</div>
 
 <ion-modal
 	[isOpen]="openModal"
@@ -199,12 +201,14 @@
 	</ng-template>
 </ion-modal>
 
+
 <button
 	id="modal-reserve"
 	data-toggle="modal"
 	href="#myModalReserve"
 	class="d-none"
 ></button>
+
 <section class="modal mt-4" id="myModalReserve" *ngIf="credit">
 	<div class="container-fluid modal-content modal-sm p-0">
 		<!-- cabecera del diálogo -->
@@ -217,3 +221,4 @@
 		<div class="modal-body"></div>
 	</div>
 </section>
+

@@ -97,9 +97,10 @@ export class CalendarFilterModalComponent implements OnInit {
     } else {
       from = this.dp.transform(this.dateRange.from, 'yyyy-MM-dd');
       to = this.dp.transform(this.dateRange.from, 'yyyy-MM-dd');
-    }
+    };
+    let classId = (!this.selectedClass)? 0: this.selectedClass;
     if(this.dateType == "reserves"){
-      this.attendanceService.getByFromByToByClass(from, to, this.selectedClass).subscribe(
+      this.attendanceService.getByFromByToByClass(from, to, classId).subscribe(
         response => {
           console.log("reservations: ", response.result);
           this.resultFilter = response.result;
@@ -108,7 +109,7 @@ export class CalendarFilterModalComponent implements OnInit {
         error => console.error(error)
       )
     }else{
-      this.shiftService.getAll(from, to, this.selectedClass).subscribe(
+      this.shiftService.getAll(from, to, classId).subscribe(
         response => {
           console.log("turnos:", response.result);
           this.resultFilter = response.result;
