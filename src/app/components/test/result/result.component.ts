@@ -39,8 +39,8 @@ export class ResultComponent implements OnInit {
   getMember() {
     this.memberService.getById().subscribe(
       response => {
-        console.log("socio: ", response);
-        this.member = response.lastName + " " + response.name;
+        console.log("socio: ", response.result);
+        this.member = response.result.lastName + " " + response.result.name;
       },
       error => console.error)
   }

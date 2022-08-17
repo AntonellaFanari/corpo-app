@@ -3,6 +3,7 @@ export class Credit {
     initialCredit: number;
     creditConsumption: number;
     negative: number;
-    expiration: string
+    expiration: string;
+    firstDay: string;
   }
   

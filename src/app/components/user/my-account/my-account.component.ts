@@ -52,7 +52,7 @@ export class MyAccountComponent implements OnInit {
     this.memberService.getById().subscribe(
       result => {
         console.log("getById", result);
-        this.user = result;
+        this.user = result.result;
         this.getExistsMedicalHistory();
       },
       error => {

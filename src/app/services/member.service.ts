@@ -31,7 +31,7 @@ export class MemberService {
     return this.http.get<MemberView[]>(this.url + 'api/member/getAll');
   }
   public getById() {
-    return this.http.get<any>(this.url + 'api/member/getById');
+    return this.http.get<DomainResponse<any>>(this.url + 'api/member/getById');
   }
   public add(newMember: Member){
     return this.http.post<any>(this.url + 'api/member/add', newMember, httpOptions);

@@ -45,7 +45,7 @@ export class MedicalHistoryCreateComponent implements OnInit {
     this.memberService.getById().subscribe(
       result => {
         console.log(result);
-        this.member = result;
+        this.member = result.result;
         this.planType = this.member.planType
         console.log(this.planType);
         this.getAge();

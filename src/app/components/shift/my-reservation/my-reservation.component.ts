@@ -6,6 +6,8 @@ import { CalendarModalOptions } from 'ion2-calendar';
 /*import { IonRouterOutlet, ModalController } from '@ionic/angular';*/
 import { AttendanceReservation } from 'src/app/domain/member/attendance-reservation';
 import { Credit } from 'src/app/domain/member/credit';
+import { MemberView } from 'src/app/domain/member/member-view';
+import { MemberService } from 'src/app/services/member.service';
 import { Attendance, Status } from '../../../domain/attendance';
 import { ShiftList } from '../../../domain/shift-list';
 import { AccountService } from '../../../services/account.service';
@@ -36,11 +38,12 @@ export class MyReservationComponent implements OnInit {
   maxNegatives: number;
   selectedShiftId: number;
   requesting: boolean;
-  requestingShifts: boolean;
   openModal: boolean;
   openCalendarFilter: boolean;
   reservationsFilter: AttendanceReservation[] = [];
   dateType = "reserves";
+  member: MemberView;
+  requestingReserve: boolean;
 
 
   constructor(private attendanceService: AttendanceService,
@@ -51,7 +54,8 @@ export class MyReservationComponent implements OnInit {
     private customAlertService: CustomAlertService,
     public modalController: ModalController,
     public routerOutlet: IonRouterOutlet,
-    private router: Router) {
+    private router: Router,
+    private memberService: MemberService) {
 
     this.idMember = this.accountService.getLoggedUser().id;
     this.creditId = this.accountService.getLoggedUser().creditId;
@@ -60,22 +64,37 @@ export class MyReservationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllReservations();
-    this.getNegatives();
+    this.getMember();
+  }
+
+  ionViewWillEnter(){
+    this.getMember();
+  }
+
+
+  getMember(){
+    this.requesting = true;
+    this.memberService.getById().subscribe(
+      response =>{
+        console.log("socio: ", response.result);
+        this.member = response.result;
+        this.getAllReservations();
+        this.getNegatives();
+      },
+      error => console.error(error)
+    )
   }
 
   getAllReservations() {
-    this.requesting = true;
     this.attendanceService.getAllReservations().subscribe(
       result => {
         console.log("reservaciones: ", result.result);
-        this.requesting = false;
         this.reservations = result.result;
         this.getReservationsShiftsList(this.reservations);
         this.getCreditMember();
       },
       error => {
-        console.error(error)
+        console.error(error);
         this.requesting = false;
       }
     )
@@ -93,7 +112,8 @@ export class MyReservationComponent implements OnInit {
       shiftList.className = shift.class.name;
       console.log(shiftList);
       this.reservations[i].shift = shiftList;
-    }
+    };
+    this.requesting = false;
     console.log(this.reservations);
   }
 
@@ -125,12 +145,10 @@ export class MyReservationComponent implements OnInit {
     this.shifts = [];
     this.shiftService.getAll(this.from, this.from, 0).subscribe(
       result => {
-        this.requestingShifts = false;
         console.log("turnos disponibles esta semana:", result);
         this.getShiftsList(result.result);
       },
       error => {
-        this.requestingShifts = false
         console.error(error);
       }
     )
@@ -213,11 +231,6 @@ export class MyReservationComponent implements OnInit {
   }
 
   close() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    // this.modalController.dismiss({
-    //   'dismissed': true
-    // });
     this.openModal = false;
   }
 
@@ -232,6 +245,7 @@ export class MyReservationComponent implements OnInit {
 
 
   viewShifts() {
+    this.requesting = true;
     this.displayShifts = true;
     this.dateType = "shifts";
     console.log("tipo de datos: ", this.dateType);
@@ -241,9 +255,9 @@ export class MyReservationComponent implements OnInit {
 
   viewReserve() {
     this.displayShifts = false;
-    this.requestingShifts = true;
     this.dateType = "reserves";
     this.getAllReservations();
+    this.getNegatives();
   }
 
   reserve(id, className) {
@@ -287,29 +301,55 @@ export class MyReservationComponent implements OnInit {
       this.credit.negative = this.credit.negative + 1;
     }
   }
+ 
+  add() {
+    this.requestingReserve = true;
+    let attendance = this.createAttendance();
+    this.attendanceService.add(attendance).subscribe(
+      result => {
+        this.requestingReserve = false;
+        this.viewReserve();
+        this.close();
+        this.requesting = true;
+      },
+      error => {
+        // this.requestingList = false;
+        console.error(error);
+        this.requestingReserve = false;
+        if (error.status === 400) {
+          this.customAlertService.display("Gestión de Asistencias", error.error.errores);
+        }
+        if (error.status === 500) {
+          this.customAlertService.display("Gestión de Asistencias", ["Hubo un problema al reservar el turno."]);
+        }
+      })
+  }
+
 
   confirmReserve() {
-    if (this.credit.negative < this.maxNegatives) {
-      let attendance = this.createAttendance();
-      this.attendanceService.add(attendance).subscribe(
-        result => {
-          this.getAllReservations();
-          this.getNegatives();
-          this.close();
-        },
-        error => {
-          console.error(error);
-          if (error.status === 400) {
-            this.customAlertService.display("Gestión de Reservas", error.error.errores);
-          }
-          if (error.status === 500) {
-            this.customAlertService.display("Gestión de Reservas", ["Hubo un problema al reservar."]);
-          }
-        })
+    console.log("socio reservar: ", this.member);
+    if (this.member.status != '3') {
+      if (this.credit.negative >= this.maxNegatives) {
+        this.customAlertService.displayAlert("Gestión de Asistencias", ["Superaste la cantidad de negativos permitidos."]);
+      } else {
+        // this.requestingList = true;
+        this.add();
+      }
     } else {
-      this.customAlertService.display("Gestión de Reservas", ["No tienes crédito/negativos disponibles."]);
-
+      this.attendanceService.getAllReservations().subscribe(
+        response => {
+          console.log("reservaciones: ", response.result);
+          if (response.result.length == 0) {
+            this.add();
+          } else {
+            this.close();
+            this.customAlertService.display("Gestión de Asistencias", ["El socio ya reservó con el beneficio del primer día."]);
+          }
+        },
+        error => console.error(error)
+      )
     }
+
 
   }
 
@@ -321,6 +361,7 @@ export class MyReservationComponent implements OnInit {
         },
         error => {
           console.error(error);
+          this.close();
           this.customAlertService.display("Gestión de Reservas", ["Error al intentar cancelar la reserva del turno."]);
         })
     }, true);

@@ -7,23 +7,72 @@
 	</ion-buttons>
 	<ion-title> Turnos </ion-title>
 </ion-toolbar>
-<section class="wrapper" *ngIf="!displayShifts && !requesting">
-	<div class="row">
-		<div class="col-12">
-			<ion-button
-				expand="block"
-				color="success"
-				class="main-center"
-				(click)="viewShifts()"
-				>Reservar</ion-button
-			>
+<div *ngIf="!requesting">
+	<section class="wrapper" *ngIf="!displayShifts">
+		<div class="row">
+			<div class="col-12">
+				<ion-button expand="block" color="success" class="main-center" (click)="viewShifts()">Reservar
+				</ion-button>
+			</div>
+			<div *ngIf="reservations.length > 0" class="col-12">
+				<section id="no-more-tables">
+					<div class="table-wrapper-scroll-y my-custom-scrollbar">
+						<table class="table table-bordered table-condensed cf mb-0 user-table">
+							<thead class="cf">
+								<tr>
+									<th class="numeric">Fecha</th>
+									<th class="numeric">Clase</th>
+									<th class="numeric">Acción</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td (click)="filterModal()" class="cursor"><span title="filtrar"
+											style="font-size: x-large;">
+											<ion-icon name="funnel-outline" slot="icon-only"></ion-icon>
+										</span></td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr class="scrollme span-margin" *ngFor="let attendance of reservations">
+									<td class="td-title" data-title="Fecha">
+										<span>{{ attendance.shift.day }}
+											{{ attendance.shift.hour }}</span>
+									</td>
+									<td class="td-title text-ajust" data-title="Clase">
+										<span>{{ attendance.shift.className }}</span>
+									</td>
+									<td class="td-title" data-title="Acción">
+										<span class="btn-action-container">
+											<ion-button *ngIf="attendance.status === 1" expand="block" color="danger"
+												class="main-center" (click)="cancell(attendance.id)">Cancelar
+											</ion-button>
+											<ion-button *ngIf="attendance.status === 2" expand="block" color="warning"
+												class="main-center">Cancelado</ion-button>
+											<ion-button *ngIf="attendance.status === 3" expand="block" color="success"
+												class="main-center">Asistido</ion-button>
+											<ion-button *ngIf="attendance.status === 4 " expand="block"
+												color="secondary" class="main-center">No Asistido</ion-button>
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			</div>
 		</div>
-		<div *ngIf="reservations.length > 0" class="col-12">
+	</section>
+
+	<div class="text-center" *ngIf="!displayShifts">
+		<h5 *ngIf="reservations.length == 0">No tienes reservas.</h5>
+	</div>
+
+	<section class="wrapper" *ngIf="displayShifts">
+		<div *ngIf="shifts.length > 0" class="col-md-12">
 			<section id="no-more-tables">
 				<div class="table-wrapper-scroll-y my-custom-scrollbar">
-					<table
-						class="table table-bordered table-condensed cf mb-0 user-table"
-					>					
+					<table class="table table-bordered table-condensed cf mb-0 user-table">
 						<thead class="cf">
 							<tr>
 								<th class="numeric">Fecha</th>
@@ -31,52 +80,31 @@
 								<th class="numeric">Acción</th>
 							</tr>
 						</thead>
-						<tbody> <tr><td (click)="filterModal()" class="cursor"><span title="filtrar" style="font-size: x-large;"><ion-icon name="funnel-outline" slot="icon-only"></ion-icon></span></td></tr></tbody>
 						<tbody>
-							<tr
-								class="scrollme span-margin"
-								*ngFor="let attendance of reservations"
-							>
+							<tr>
+								<td (click)="filterModal()" class="cursor"><span title="filtrar"
+										style="font-size: x-large;">
+										<ion-icon name="funnel-outline" slot="icon-only"></ion-icon>
+									</span></td>
+							</tr>
+						</tbody>
+						<tbody>
+							<tr class="scrollme span-margin" *ngFor="let shift of shifts">
 								<td class="td-title" data-title="Fecha">
-									<span
-										>{{ attendance.shift.day }}
-										{{ attendance.shift.hour }}</span
-									>
+									<span>{{ shift.day }} - {{ shift.hour }}</span>
 								</td>
 								<td class="td-title text-ajust" data-title="Clase">
-									<span>{{ attendance.shift.className }}</span>
+									<span>{{ shift.className }}</span>
 								</td>
 								<td class="td-title" data-title="Acción">
 									<span class="btn-action-container">
-										<ion-button
-											*ngIf="attendance.status === 1"
-											expand="block"
-											color="danger"
-											class="main-center"
-											(click)="cancell(attendance.id)"
-											>Cancelar</ion-button
-										>
-										<ion-button
-											*ngIf="attendance.status === 2"
-											expand="block"
-											color="warning"
-											class="main-center"
-											>Cancelado</ion-button
-										>
-										<ion-button
-											*ngIf="attendance.status === 3"
-											expand="block"
-											color="success"
-											class="main-center"
-											>Asistido</ion-button
-										>
-										<ion-button
-											*ngIf="attendance.status === 4 "
-											expand="block"
-											color="secondary"
-											class="main-center"
-											>No Asistido</ion-button
-										>
+										<ion-button *ngIf="shift.available > 0 && !shift.reserved" expand="block"
+											color="success" class="main-center"
+											(click)="reserve(shift.id, shift.className)">Reservar</ion-button>
+										<ion-button *ngIf="shift.reserved" expand="block" color="secondary"
+											class="main-center">Reservado</ion-button>
+										<ion-button *ngIf="shift.available == 0 && !shift.reserved" expand="block"
+											color="danger" class="main-center">No Disponible</ion-button>
 									</span>
 								</td>
 							</tr>
@@ -85,129 +113,57 @@
 				</div>
 			</section>
 		</div>
+	</section>
+
+	<div class="text-center" *ngIf="displayShifts">
+		<h5 *ngIf="(shifts.length == 0)">
+			No hay turnos disponibles.
+		</h5>
 	</div>
-</section>
-
-<div class="text-center" *ngIf="!displayShifts">
-	<ion-spinner *ngIf="requesting && !displayShifts"></ion-spinner>
-	<h5 *ngIf="!requesting && reservations.length == 0 && !displayShifts">No tienes reservas.</h5>
 </div>
 
-<section class="wrapper" *ngIf="displayShifts">
-	<div *ngIf="shifts.length > 0" class="col-md-12">
-		<section id="no-more-tables">
-			<div class="table-wrapper-scroll-y my-custom-scrollbar">
-				<table class="table table-bordered table-condensed cf mb-0 user-table">
-					<thead class="cf">
-						<tr>
-							<th class="numeric">Fecha</th>
-							<th class="numeric">Clase</th>
-							<th class="numeric">Acción</th>
-						</tr>
-					</thead>
-					<tbody> <tr><td (click)="filterModal()" class="cursor"><span title="filtrar" style="font-size: x-large;"><ion-icon name="funnel-outline" slot="icon-only"></ion-icon></span></td></tr></tbody>
-					<tbody>
-						<tr class="scrollme span-margin" *ngFor="let shift of shifts">
-							<td class="td-title" data-title="Fecha">
-								<span>{{ shift.day }} - {{ shift.hour }}</span>
-							</td>
-							<td class="td-title text-ajust" data-title="Clase">
-								<span>{{ shift.className }}</span>
-							</td>
-							<td class="td-title" data-title="Acción">
-								<span class="btn-action-container">
-									<ion-button
-										*ngIf="shift.available > 0 && !shift.reserved"
-										expand="block"
-										color="success"
-										class="main-center"
-										(click)="reserve(shift.id, shift.className)"
-										>Reservar</ion-button
-									>
-									<ion-button
-										*ngIf="shift.reserved"
-										expand="block"
-										color="secondary"
-										class="main-center"
-										>Reservado</ion-button
-									>
-									<ion-button
-										*ngIf="shift.available == 0 && !shift.reserved"
-										expand="block"
-										color="danger"
-										class="main-center"
-										>No Disponible</ion-button
-									>
-								</span>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
-	</div>	
-</section>
+<ion-spinner *ngIf="requesting"></ion-spinner>
 
-<div class="text-center" *ngIf="displayShifts">
-	<ion-spinner *ngIf="requestingShifts"></ion-spinner>
-	<h5 *ngIf="(!requestingShifts && shifts.length == 0)">
-		No hay turnos disponibles.
-	</h5>
-</div>
-
-<ion-modal
-	[isOpen]="openModal"
-	[breakpoints]="[0.1, 0.5, 1]"
-	[initialBreakpoint]="0.5"
->
+<ion-modal [isOpen]="openModal" [breakpoints]="[0.1, 0.5, 1]" [initialBreakpoint]="0.5">
 	<ng-template>
 		<ion-content>
-			<ion-button id="trigger-button" (click)="close()" class="pull-rigth"
-				>X</ion-button
-			>
-			<div class="wrapper">
-				<div *ngIf="currentCredit != 0" class="text-center col-12">
-					<p>Tienes {{ currentCredit }} créditos disponibles</p>
-					<ion-button
-						expand="block"
-						color="success"
-						class="main-center"
-						(click)="confirmReserve()"
-						>Reservar</ion-button
-					>
-				</div>
-				<div
-					*ngIf="currentCredit == 0"
-					class="row justify-content-center aling-items-center"
-				>
-					<div class="text-center col-12">
-						<p>No tienes créditos suficientes</p>
+			<div class="wrapper" *ngIf="!requestingReserve">
+				<ion-button id="trigger-button" (click)="close()" class="pull-rigth">X</ion-button>
+				<div class="wrapper">
+					<div *ngIf="currentCredit > 0 && member.status == '1'" class="text-center col-12">
+						<p>Tienes {{ currentCredit }} créditos disponibles</p>
+						<ion-button expand="block" color="success" class="main-center" (click)="confirmReserve()">
+							Reservar
+						</ion-button>
 					</div>
-					<div class="text-center col-12">
-						<p>Tienes {{ negativesAvailables }} negativos disponible</p>
+					<div *ngIf="member.status == '3'" class="text-center col-12">
+						<ion-button expand="block" color="success" class="main-center" (click)="confirmReserve()">
+							Reservar
+						</ion-button>
+					</div>
+					<div *ngIf="currentCredit == 0 && member.status != '3'"
+						class="row justify-content-center aling-items-center">
+						<div class="text-center col-12">
+							<p>No tienes créditos suficientes</p>
+						</div>
+						<div class="text-center col-12">
+							<p>Tienes {{ negativesAvailables }} negativos disponible</p>
 
-						<ion-button
-							*ngIf="negativesAvailables != 0"
-							expand="block"
-							color="danger"
-							class="main-center"
-							(click)="confirmReserve()"
-							>Utilizar Negativo</ion-button
-						>
+							<ion-button *ngIf="negativesAvailables != 0" expand="block" color="danger"
+								class="main-center" (click)="confirmReserve()">Utilizar Negativo</ion-button>
+						</div>
 					</div>
 				</div>
+			</div>
+			<div class="wrapper" *ngIf="requestingReserve">
+				<ion-spinner ></ion-spinner>
 			</div>
 		</ion-content>
 	</ng-template>
 </ion-modal>
 
 
-<button
-	id="modal-reserve"
-	data-toggle="modal"
-	href="#myModalReserve"
-	class="d-none"
-></button>
+<button id="modal-reserve" data-toggle="modal" href="#myModalReserve" class="d-none"></button>
 
 <section class="modal mt-4" id="myModalReserve" *ngIf="credit">
 	<div class="container-fluid modal-content modal-sm p-0">
@@ -221,4 +177,3 @@
 		<div class="modal-body"></div>
 	</div>
 </section>
-

@@ -40,7 +40,7 @@ export class MedicalHistoryEditComponent implements OnInit {
     this.memberService.getById().subscribe(
       result => {
         console.log(result);
-        this.planType = result.planType;
+        this.planType = result.result.planType;
         console.log(this.planType);
         this.getAge();
       },

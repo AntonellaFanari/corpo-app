@@ -50,7 +50,7 @@ export class EmailEditComponent implements OnInit {
     this.memberService.getById().subscribe(
       result => {
         console.log(result);
-        this.email = result.email;
+        this.email = result.result.email;
         this.modificationForm.patchValue({
           email: this.email
         });
