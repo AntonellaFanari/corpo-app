@@ -102,7 +102,7 @@ export class MemberCreateComponent implements OnInit {
           let id = result.result.id;
           console.log("nuevo: ", this.memberService.newMember);
           this.login();
-          this.customAlertService.display("Gestión de Socios", ["¿Desea cargar la historia médica?"], () => {
+          this.customAlertService.displayOmit("Gestión de Socios", ["¿Desea cargar la historia médica?"], () => {
             localStorage.setItem('newUser', 'true');
             this.router.navigate(['/historia-medica-crear'], { queryParams: { id: this.id } });
           }, true, () => {

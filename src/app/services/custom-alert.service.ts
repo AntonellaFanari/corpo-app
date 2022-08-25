@@ -53,4 +53,28 @@ export class CustomAlertService {
 
     await alert.present();
   }
+
+  async displayOmit(title: string, messages: string[], thenFunction: any = null, displayCancel = false, cancelFunction: any = null) {
+
+    var buttons: AlertButton[] = [];
+    if (displayCancel) buttons.push({
+      text: 'Más tarde',
+      role: 'cancel',
+      handler: cancelFunction ? cancelFunction : () => { }
+    });
+
+    buttons.push({
+      text: 'Aceptar',
+      handler: thenFunction ? thenFunction : () => { }
+    });
+
+    const alert = await this.alertController.create({
+      header: title,
+      message: messages.join(''),
+      cssClass: 'custom-alert',
+      buttons: buttons
+    });
+
+    await alert.present();
+  }
 }
