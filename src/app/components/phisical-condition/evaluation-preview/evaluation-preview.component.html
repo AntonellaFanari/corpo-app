@@ -71,6 +71,21 @@
 				</div>
 			</div>
 			<div
+			class="card bg-ligth row mb-2 text-center"
+			[class.d-none]="resultAnamnesis.competitive || resultAnamnesis.constantfollowUpSpreadsheet"
+		>
+			<div class="div-question text-white col-12">
+				¿De forma recreacional y esporádicamente?
+			</div>
+			<div class="div-response col-12">
+				<span [class.d-none]="!resultAnamnesis.recreationalAndSporadic"
+					>Si</span
+				><span [class.d-none]="resultAnamnesis.recreationalAndSporadic"
+					>No</span
+				>
+			</div>
+		</div>
+			<div
 				class="card bg-ligth row mb-2 text-center"
 				[class.d-none]="!resultAnamnesis.competitive"
 			>
