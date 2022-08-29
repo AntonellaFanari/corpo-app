@@ -17,48 +17,48 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
   nextStep = 2;
   currentQuestion = "";
 
-  currentlyPhysicalActivity = "";
+  currentlyPhysicalActivity = null;
 
-  competitiveCurrentlyPhysicalActivity = "";
+  competitiveCurrentlyPhysicalActivity = null;
   sportCurrentlyPhysicalActivity = "";
   numberTrainingSessionsWeekCompetitive = 0;
   hoursTrainingSessionsWeekCompetitive = 0;
-  currentlyStrengthTrainingCompetitive = "";
+  currentlyStrengthTrainingCompetitive = null;
   numberStrengthTrainingSessionsWeekCompetitive = 0;
-  strengthTrainingInThePastCompetitive = "";
+  strengthTrainingInThePastCompetitive = null;
   timeSinceLastTrainingCurrentlyPhysicalActivityCompetitive: string;
 
-  spreadsheetCurrentlyPhysicalActivity = "";
+  spreadsheetCurrentlyPhysicalActivity = null;
   numberTrainingSessionsWeekSpreadsheet = 0;
   hoursTrainingSessionsWeekSpreadsheet = 0;
-  currentlyStrengthTrainingSpreadsheet = "";
+  currentlyStrengthTrainingSpreadsheet = null;
   numberStrengthTrainingSessionsWeekSpreadsheet = 0;
-  strengthTrainingInThePastSpreadsheet = "";
+  strengthTrainingInThePastSpreadsheet = null;
   timeSinceLastTrainingCurrentlyPhysicalActivitySpreadsheet: string;
-  trainingTypeSpreadsheetCurrentlyPhysicalActivity = "";
+  trainingTypeSpreadsheetCurrentlyPhysicalActivity = null;
 
-  recreationalAndSporadicCurrentlyPhysicalActivity = "";
+  recreationalAndSporadicCurrentlyPhysicalActivity = null;
   numberTrainingSessionsWeekRecreational = 0;
   hoursTrainingSessionsWeekRecreational = 0;
-  currentlyStrengthTrainingRecreational = "";
+  currentlyStrengthTrainingRecreational = null;
   numberStrengthTrainingSessionsWeekRecreational = 0;
-  strengthTrainingInThePastRecreational = "";
+  strengthTrainingInThePastRecreational = null;
   timeSinceLastTrainingCurrentlyPhysicalActivityRecreational: string;
-  trainingTypeRecreationalCurrentlyPhysicalActivity = "";
+  trainingTypeRecreationalCurrentlyPhysicalActivity = null;
 
-  physicalActivityInThePast = "";
+  physicalActivityInThePast = null;
 
-  competitivePhysicalActivityInThePast = "";
+  competitivePhysicalActivityInThePast = null;
   sportPhysicalActivityInThePast = "";
   timeSinceLastTrainingPhysicalActivityInThePastCompetitive: string;
 
-  spreadsheetPhysicalActivityInThePast = "";
+  spreadsheetPhysicalActivityInThePast = null;
   timeSinceLastTrainingPhysicalActivityInThePastSpreadsheet: string;
-  trainingTypePhysicalActivityInThePastSpreadsheet = "";
+  trainingTypePhysicalActivityInThePastSpreadsheet = null;
 
-  recreationalAndSporadicPhysicalActivityInThePast = "";
+  recreationalAndSporadicPhysicalActivityInThePast = null;
   timeSinceLastTrainingPhysicalActivityInThePastRecreational: string;
-  trainingTypePhysicalActivityInThePastRecreational = "";
+  trainingTypePhysicalActivityInThePastRecreational = null;
 
   finish: boolean;
   previusSteps = [1];
@@ -146,6 +146,8 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
       case 'currentlyPhysicalActivity':
         this.previusSteps = [1];
         this.displayNext = false;
+        this.competitiveCurrentlyPhysicalActivity = null;
+        this.physicalActivityInThePast = null;
         if (this.currentlyPhysicalActivity == "yes") {
           this.step = 2;
           this.previusSteps.push(this.step);
@@ -156,51 +158,56 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
         break;
 
       case 'competitive-currentlyPhysicalActivity':
-        this.previusSteps = [1, 2];
-        this.displayNext = false;
-        this.spreadsheetCurrentlyPhysicalActivity = null;
-        if (this.competitiveCurrentlyPhysicalActivity == "yes") {
-          this.step = 3;
-          this.clearStep(this.step);
-          this.previusSteps.push(this.step);
-        } else if (this.competitiveCurrentlyPhysicalActivity == "no") {
-          this.step = 7;
-          this.previusSteps.push(this.step);
-          this.finish = false;
+        if (this.competitiveCurrentlyPhysicalActivity != null) {
+          this.previusSteps = [1, 2];
+          this.displayNext = false;
+          this.spreadsheetCurrentlyPhysicalActivity = null;
+          if (this.competitiveCurrentlyPhysicalActivity == "yes") {
+            this.step = 3;
+            this.clearStep(this.step);
+            this.previusSteps.push(this.step);
+          } else if (this.competitiveCurrentlyPhysicalActivity == "no") {
+            this.step = 7;
+            this.previusSteps.push(this.step);
+            this.finish = false;
+          }
         }
+
         break;
 
       case 'currentlyStrengthTraining-competitive':
-        if(this.currentlyStrengthTrainingCompetitive != null){
+        if (this.currentlyStrengthTrainingCompetitive != null) {
           // this.validation();
           // if(!this.isError){
-            // this.removeValidators();
-            this.currentlyStrengthTrainingSpreadsheet = null;
-            this.currentlyStrengthTrainingRecreational= null;
-            if (this.currentlyStrengthTrainingCompetitive == "yes") {
-              this.previusSteps = [1, 2, 3];
-              // this.validation();   
-              this.displayNext = false;
-              this.step = 4;
-              this.previusSteps.push(this.step);
-              this.finish = true;
-            } else if (this.currentlyStrengthTrainingCompetitive == "no") {
-              this.previusSteps = [1, 2, 3];
-              // this.validation();
-              this.displayNext = false;
-              this.step = 5;
-              this.previusSteps.push(this.step);
-            }
+          // this.removeValidators();
+          this.displayNext = false;
+          this.currentlyStrengthTrainingSpreadsheet = null;
+          this.currentlyStrengthTrainingRecreational = null;
+          if (this.currentlyStrengthTrainingCompetitive == "yes") {
+            this.previusSteps = [1, 2, 3];
+            // this.validation();   
+            this.displayNext = false;
+            this.step = 4;
+            this.previusSteps.push(this.step);
+            this.finish = true;
+          } else if (this.currentlyStrengthTrainingCompetitive == "no") {
+            this.previusSteps = [1, 2, 3];
+            // this.validation();
+            this.displayNext = false;
+            this.step = 5;
+            this.previusSteps.push(this.step);
+          }
           // }else{
           //   this.currentlyStrengthTrainingCompetitive = null;
           //   console.log("fuerza: ", this.currentlyStrengthTrainingCompetitive);
           // }
         }
-      
+
         break;
 
       case 'strengthTrainingInThePast-competitive':
         this.previusSteps = [1, 2, 3, 5];
+        this.displayNext = false;
         this.finish = false;
         if (this.strengthTrainingInThePastCompetitive == "yes") {
           this.step = 6;
@@ -219,8 +226,8 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
           this.previusSteps = [1, 2, 7];
           this.displayNext = false;
           if (this.spreadsheetCurrentlyPhysicalActivity == "yes") {
-            this.step = 8;            
-          this.clearStep(this.step);
+            this.step = 8;
+            this.clearStep(this.step);
             this.previusSteps.push(this.step);
           } else if (this.spreadsheetCurrentlyPhysicalActivity == "no") {
             this.recreationalAndSporadicCurrentlyPhysicalActivity = "yes";
@@ -231,37 +238,37 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
         }
         break;
 
-      case 'trainingTypeSpreadsheet-currentlyPhysicalActivity':        
-        console.log("tipo de entrenamiento: ", this.trainingTypeSpreadsheetCurrentlyPhysicalActivity);  
-        if(this.trainingTypeSpreadsheetCurrentlyPhysicalActivity != null){
+      case 'trainingTypeSpreadsheet-currentlyPhysicalActivity':
+        console.log("tipo de entrenamiento: ", this.trainingTypeSpreadsheetCurrentlyPhysicalActivity);
+        if (this.trainingTypeSpreadsheetCurrentlyPhysicalActivity != null) {
           this.currentlyStrengthTrainingCompetitive = null;
           this.currentlyStrengthTrainingRecreational = null;
           // this.validation();
           // if(!this.isError){
-            this.previusSteps = [1, 2, 7, 8];
-            this.displayNext = false;
-            this.strengthTrainingInThePastSpreadsheet = null;
-            this.timeSinceLastTrainingCurrentlyPhysicalActivitySpreadsheet = undefined;
-            if (this.trainingTypeSpreadsheetCurrentlyPhysicalActivity == "aerobic") {
-              this.currentlyStrengthTrainingSpreadsheet = null;
-              this.step = 10;
-              this.previusSteps.push(this.step);
-              this.finish = false;
-            } else if (this.trainingTypeSpreadsheetCurrentlyPhysicalActivity == "strength") {
-              this.currentlyStrengthTrainingSpreadsheet = "yes";
-              this.finish = true;
-            } else if (this.trainingTypeSpreadsheetCurrentlyPhysicalActivity == "aerobic-strength") {
-              this.currentlyStrengthTrainingSpreadsheet = "yes";
-              this.step = 12;
-              this.previusSteps.push(this.step);
-              this.finish = true;
-            }
+          this.previusSteps = [1, 2, 7, 8];
+          this.displayNext = false;
+          this.strengthTrainingInThePastSpreadsheet = null;
+          this.timeSinceLastTrainingCurrentlyPhysicalActivitySpreadsheet = undefined;
+          if (this.trainingTypeSpreadsheetCurrentlyPhysicalActivity == "aerobic") {
+            this.currentlyStrengthTrainingSpreadsheet = null;
+            this.step = 10;
+            this.previusSteps.push(this.step);
+            this.finish = false;
+          } else if (this.trainingTypeSpreadsheetCurrentlyPhysicalActivity == "strength") {
+            this.currentlyStrengthTrainingSpreadsheet = "yes";
+            this.finish = true;
+          } else if (this.trainingTypeSpreadsheetCurrentlyPhysicalActivity == "aerobic-strength") {
+            this.currentlyStrengthTrainingSpreadsheet = "yes";
+            this.step = 12;
+            this.previusSteps.push(this.step);
+            this.finish = true;
+          }
           // }else{
           //   this.trainingTypeSpreadsheetCurrentlyPhysicalActivity = null;  
           //   console.log("tipo de entrenamiento: ", this.trainingTypeSpreadsheetCurrentlyPhysicalActivity);          
           // }
         }
-   
+
         break;
 
       case 'strengthTrainingInThePast-spreadsheet':
@@ -281,7 +288,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
         break;
 
       case 'trainingTypeRecreational-currentlyPhysicalActivity':
-        if(this.trainingTypeRecreationalCurrentlyPhysicalActivity != null){
+        if (this.trainingTypeRecreationalCurrentlyPhysicalActivity != null) {
           this.currentlyStrengthTrainingCompetitive = null;
           this.currentlyStrengthTrainingSpreadsheet = null;
           this.previusSteps = [1, 2, 7, 13];
@@ -323,34 +330,41 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
         break;
 
       case 'physicalActivityInThePast':
-        this.previusSteps = [1, 17];
-        this.displayNext = false;
-        if (this.physicalActivityInThePast == "yes") {
-          this.step = 18;
-          this.previusSteps.push(this.step);
-        } else {
+        if (this.physicalActivityInThePast != null) {
+          this.previusSteps = [1, 17];
           this.displayNext = false;
-          this.finish = true;
+          this.competitivePhysicalActivityInThePast = null;
+          if (this.physicalActivityInThePast == "yes") {
+            this.step = 18;
+            this.previusSteps.push(this.step);
+          } else {
+            this.displayNext = false;
+            this.finish = true;
+          }
         }
+
         break;
 
       case 'competitive-physicalActivityInThePast':
-        this.previusSteps = [1, 17, 18];
-        this.displayNext = false;
-        this.spreadsheetPhysicalActivityInThePast = null;
-        if (this.competitivePhysicalActivityInThePast == "yes") {
-          this.step = 19;
-          this.clearStep(this.step);
-          this.previusSteps.push(this.step);
-          this.finish = true;
-        } else if (this.competitivePhysicalActivityInThePast == "no") {
-          this.step = 20;
-          this.previusSteps.push(this.step);
+        if (this.competitivePhysicalActivityInThePast != null) {
+          this.previusSteps = [1, 17, 18];
+          this.displayNext = false;
+          this.spreadsheetPhysicalActivityInThePast = null;
+          if (this.competitivePhysicalActivityInThePast == "yes") {
+            this.step = 19;
+            this.clearStep(this.step);
+            this.previusSteps.push(this.step);
+            this.finish = true;
+          } else if (this.competitivePhysicalActivityInThePast == "no") {
+            this.step = 20;
+            this.previusSteps.push(this.step);
+          }
         }
+
         break;
 
       case 'spreadsheet-physicalActivityInThePast':
-        if(this.spreadsheetPhysicalActivityInThePast != null){
+        if (this.spreadsheetPhysicalActivityInThePast != null) {
           this.previusSteps = [1, 17, 18, 20];
           this.displayNext = false;
           this.recreationalAndSporadicPhysicalActivityInThePast = null;
@@ -368,7 +382,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
         break;
 
       case 'trainingTypeSpreadsheet-physicalActivityInThePast':
-        if(this.trainingTypePhysicalActivityInThePastSpreadsheet != null){
+        if (this.trainingTypePhysicalActivityInThePastSpreadsheet != null) {
           this.previusSteps = [1, 17, 18, 20, 21];
           this.displayNext = false;
           this.step = 22;
@@ -378,7 +392,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
         break;
 
       case 'trainingTypeRecreational-physicalActivityInThePast':
-        if(this.trainingTypePhysicalActivityInThePastRecreational != null){
+        if (this.trainingTypePhysicalActivityInThePastRecreational != null) {
           this.previusSteps = [1, 17, 18, 20, 23];
           this.displayNext = false;
           this.step = 24;
@@ -398,26 +412,26 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
       this.hoursTrainingSessionsWeekSpreadsheet = 0;
       this.numberStrengthTrainingSessionsWeekSpreadsheet = 0;
       this.trainingTypeSpreadsheetCurrentlyPhysicalActivity = null;
-    }if(this.step == 13){
+    } if (this.step == 13) {
       this.numberTrainingSessionsWeekRecreational = 0;
       this.hoursTrainingSessionsWeekRecreational = 0;
       this.numberStrengthTrainingSessionsWeekRecreational = 0;
       this.trainingTypeRecreationalCurrentlyPhysicalActivity = null;
-    }if(this.step == 3){
+    } if (this.step == 3) {
       this.sportCurrentlyPhysicalActivity = "";
       this.numberTrainingSessionsWeekCompetitive = 0;
       this.hoursTrainingSessionsWeekCompetitive = 0;
       this.numberStrengthTrainingSessionsWeekCompetitive = 0
       this.trainingTypeSpreadsheetCurrentlyPhysicalActivity = null;
       this.trainingTypeRecreationalCurrentlyPhysicalActivity = null;
-    }if(this.step == 19){
+    } if (this.step == 19) {
       this.sportPhysicalActivityInThePast = "";
       this.timeSinceLastTrainingPhysicalActivityInThePastCompetitive = undefined;
     }
-    if(this.step == 21){
+    if (this.step == 21) {
       this.trainingTypePhysicalActivityInThePastSpreadsheet = null;
       this.timeSinceLastTrainingPhysicalActivityInThePastSpreadsheet = undefined;
-    }if(this.step == 23){
+    } if (this.step == 23) {
       this.trainingTypePhysicalActivityInThePastRecreational = null;
       this.timeSinceLastTrainingPhysicalActivityInThePastRecreational = undefined;
     }
@@ -585,30 +599,34 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
   }
 
   completed() {
-    // let anamnesis = this.createAnamnesis();
-    // this.anamnesisService.add(anamnesis).subscribe(
-    //   response => {
-    //     this.memberId = response.result.memberId;
-    //     this.testId = response.result.testId;
-    //     this.testPending = true;
-    //     this.levelTestPending = response.result.level;
-    //     this.displayResult = true;
-    //     if (this.displayPreview) {
-    //       this.displayPreview = false;
-    //     }
-    //   }, error => {
-    //     console.error(error);
-    //     if (error.status === 400) {
-    //       this.customAlertService.display("Gestión de Anamnesis", error.error.errores);
-    //     }
-    //     if (error.status === 500) {
-    //       this.customAlertService.display("Gestión de Anamnesis", ["Hubo un problema al guardar, contacte al administrador."]);
-    //     }
-    //   })
+    this.requesting = true;
+    let anamnesis = this.createAnamnesis();
+    this.anamnesisService.add(anamnesis).subscribe(
+      response => {
+        this.memberId = response.result.memberId;
+        this.testId = response.result.testId;
+        this.testPending = true;
+        this.levelTestPending = response.result.level;
+        this.displayResult = true;
+        if (this.displayPreview) {
+          this.displayPreview = false;
+        }
+        this.requesting = false;
+      }, error => {
+        console.error(error);
+        this.requesting = false;
+        if (error.status === 400) {
+          this.customAlertService.display("Gestión de Anamnesis", error.error.errores);
+        }
+        if (error.status === 500) {
+          this.customAlertService.display("Gestión de Anamnesis", ["Hubo un problema al guardar, contacte al administrador."]);
+        }
+      })
   }
 
 
   goToNext() {
+    this.displayNext = false;
     let index = this.previusSteps.indexOf(this.step);
     this.step = this.previusSteps[index + 1];
     if (this.step == 6 || this.step == 4 || this.step == 11 || this.step == 12 ||
@@ -620,6 +638,36 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
       || (this.step == 14 && this.strengthTrainingInThePastRecreational == "no")) {
       this.finish = true;
       this.displayNext = false;
+    }
+    if (this.step == 1 && this.currentlyPhysicalActivity != null) {
+      this.displayNext = true;
+    } 
+    if (this.step == 2 && this.competitiveCurrentlyPhysicalActivity != null) {
+      this.displayNext = true;
+    }if (this.step == 3 && this.currentlyStrengthTrainingCompetitive != null) {
+      this.displayNext = true;
+    }if(this.step == 5 && (this.strengthTrainingInThePastCompetitive != null && this.strengthTrainingInThePastCompetitive != "no")){
+      this.displayNext = true;
+    }if(this.step == 7 && this.spreadsheetCurrentlyPhysicalActivity != null){
+      this.displayNext = true;
+    }if(this.step == 8 && this.trainingTypeSpreadsheetCurrentlyPhysicalActivity != null && this.trainingTypeSpreadsheetCurrentlyPhysicalActivity != "strength") {
+      this.displayNext = true;
+    }if(this.step == 10 && (this.strengthTrainingInThePastSpreadsheet != null && this.strengthTrainingInThePastSpreadsheet != "no")){
+      this.displayNext = true;
+    }if(this.step == 13 && (this.trainingTypeRecreationalCurrentlyPhysicalActivity != null && this.trainingTypeRecreationalCurrentlyPhysicalActivity != "strength")){
+      this.displayNext = true;
+    }if(this.step == 14 && (this.strengthTrainingInThePastRecreational != null && this.strengthTrainingInThePastRecreational != "no")){
+      this.displayNext = true;
+    }if(this.step == 17 && this.physicalActivityInThePast != null){
+      this.displayNext = true;
+    }if(this.step == 18 && this.competitivePhysicalActivityInThePast != null){
+      this.displayNext = true;
+    }if(this.step == 20 && this.spreadsheetPhysicalActivityInThePast != null){
+      this.displayNext = true;
+    }if(this.step == 21 && this.trainingTypePhysicalActivityInThePastSpreadsheet != null){
+      this.displayNext = true;
+    }if(this.step == 23 && this.trainingTypePhysicalActivityInThePastRecreational != null){
+      this.displayNext = true;
     }
   }
 
@@ -644,6 +692,105 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
   goToEvaluation() {
     this.displayPreview = false;
     this.removeValidators();
+  }
+
+  increaseUnitNumberTraining(question) {
+    switch (question) {
+      case 'competitive-currentlyPhysicalActivity':
+        this.numberTrainingSessionsWeekCompetitive++;
+        break;
+      case 'spreadsheet-currentlyPhysicalActivity':
+        this.numberTrainingSessionsWeekSpreadsheet++;
+        break;
+      case 'recreational-currentlyPhysicalActivity':
+        this.numberTrainingSessionsWeekRecreational++;
+        break;
+      default:
+        break;
+    }
+  }
+
+  dencreaseUnitNumberTraining(question) {
+    console.log("llegue");
+    switch (question) {
+      case 'competitive-currentlyPhysicalActivity':
+        this.numberTrainingSessionsWeekCompetitive--;
+        break;
+      case 'spreadsheet-currentlyPhysicalActivity':
+        this.numberTrainingSessionsWeekSpreadsheet--;
+        break;
+      case 'recreational-currentlyPhysicalActivity':
+        this.numberTrainingSessionsWeekRecreational--;
+        break;
+      default:
+        break;
+    }
+
+  }
+
+  increaseUnitHourTraining(question) {
+    switch (question) {
+      case 'competitive-currentlyPhysicalActivity':
+        this.hoursTrainingSessionsWeekCompetitive++;
+        break;
+      case 'spreadsheet-currentlyPhysicalActivity':
+        this.hoursTrainingSessionsWeekSpreadsheet++;
+        break;
+      case 'recreational-currentlyPhysicalActivity':
+        this.hoursTrainingSessionsWeekRecreational++;
+        break;
+      default:
+        break;
+    }
+  }
+
+  dencreaseUnitHourTraining(question) {
+    console.log("llegue");
+    switch (question) {
+      case 'competitive-currentlyPhysicalActivity':
+        this.hoursTrainingSessionsWeekCompetitive--;
+        break;
+      case 'spreadsheet-currentlyPhysicalActivity':
+        this.hoursTrainingSessionsWeekSpreadsheet--;
+        break;
+      case 'recreational-currentlyPhysicalActivity':
+        this.hoursTrainingSessionsWeekRecreational--;
+        break;
+      default:
+        break;
+    }
+  }
+
+  dencreaseUnitNumberTrainingStrength(question) {
+    switch (question) {
+      case 'competitive-currentlyPhysicalActivity':
+        this.numberStrengthTrainingSessionsWeekCompetitive--;
+        break;
+      case 'spreadsheet-currentlyPhysicalActivity':
+        this.numberStrengthTrainingSessionsWeekSpreadsheet--;
+        break;
+      case 'recreational-currentlyPhysicalActivity':
+        this.numberStrengthTrainingSessionsWeekRecreational--;
+        break;
+      default:
+        break;
+    }
+  }
+
+  increaseUnitNumberTrainingStrength(question) {
+    switch (question) {
+      case 'competitive-currentlyPhysicalActivity':
+        this.numberStrengthTrainingSessionsWeekCompetitive++;
+        break;
+      case 'spreadsheet-currentlyPhysicalActivity':
+        this.numberStrengthTrainingSessionsWeekSpreadsheet++;
+        break;
+      case 'recreational-currentlyPhysicalActivity':
+        this.numberStrengthTrainingSessionsWeekRecreational++;
+        break;
+      default:
+        break;
+    }
   }
 
 }

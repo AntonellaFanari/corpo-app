@@ -8,12 +8,9 @@
 						<h6 class="text-white">¿Realiza actividad física actualmente?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="currentlyPhysicalActivity"
-							(ionChange)="
+						<ion-radio-group [(ngModel)]="currentlyPhysicalActivity" (ionChange)="
 								selectOption('currentlyPhysicalActivity')
-							"
-						>
+							">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -32,10 +29,8 @@
 						<h6 class="text-white">¿De forma competitiva-deporte?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="competitiveCurrentlyPhysicalActivity"
-							(ionChange)="selectOption('competitive-currentlyPhysicalActivity')"
-						>
+						<ion-radio-group [(ngModel)]="competitiveCurrentlyPhysicalActivity"
+							(ionChange)="selectOption('competitive-currentlyPhysicalActivity')">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -59,21 +54,47 @@
 					</div>
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Cuántas veces a la semana entrena?</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="numberTrainingSessionsWeekCompetitive"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitNumberTraining('competitive-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="numberTrainingSessionsWeekCompetitive">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitNumberTraining('competitive-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="times d-none">*debe ingresar un número mayor a 0.</p>
 					</div>
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Cuántas hs a la semana entrena?</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="hoursTrainingSessionsWeekCompetitive"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitHourTraining('competitive-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="hoursTrainingSessionsWeekCompetitive">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitHourTraining('competitive-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="hours d-none">*debe ingresar un número mayor a 0.</p>
 					</div>
@@ -82,12 +103,9 @@
 							<h6 class="text-white">¿Realiza entrenamiento de fuerza?</h6>
 						</div>
 						<ion-list>
-							<ion-radio-group
-								[(ngModel)]="currentlyStrengthTrainingCompetitive"
-								(ionChange)="
+							<ion-radio-group [(ngModel)]="currentlyStrengthTrainingCompetitive" (ionChange)="
 									selectOption('currentlyStrengthTraining-competitive')
-								"
-							>
+								">
 								<ion-item>
 									<ion-label>Si</ion-label>
 									<ion-radio color="success" value="yes"></ion-radio>
@@ -107,11 +125,24 @@
 						<h6 class="text-white">
 							¿Cuántas veces por semana realiza entrenamiento de fuerza?
 						</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="numberStrengthTrainingSessionsWeekCompetitive"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitNumberTrainingStrength('competitive-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="numberStrengthTrainingSessionsWeekCompetitive">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitNumberTrainingStrength('competitive-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="timesStrength d-none">*el número debe ser mayor a 0.</p>
 					</div>
@@ -124,12 +155,9 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="strengthTrainingInThePastCompetitive"
-							(ionChange)="
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastCompetitive" (ionChange)="
 								selectOption('strengthTrainingInThePast-competitive')
-							"
-						>
+							">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -147,12 +175,13 @@
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
 						<div class="bg-light">
-							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivityCompetitive"></ion-input>
+							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivityCompetitive">
+							</ion-input>
 						</div>
 						<p class="timeSinceLast d-none">*debe completar el campo.</p>
 					</div>
 				</div>
-		
+
 				<div [class.d-none]="step != 7">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -160,12 +189,9 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="spreadsheetCurrentlyPhysicalActivity"
-							(ionChange)="
+						<ion-radio-group [(ngModel)]="spreadsheetCurrentlyPhysicalActivity" (ionChange)="
 								selectOption('spreadsheet-currentlyPhysicalActivity')
-							"
-						>
+							">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -182,21 +208,47 @@
 				<div [class.d-none]="step != 8">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Cuántas veces a la semana entrena?</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="numberTrainingSessionsWeekSpreadsheet"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitNumberTraining('spreadsheet-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="numberTrainingSessionsWeekSpreadsheet">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitNumberTraining('spreadsheet-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="times d-none">*debe ingresar un número mayor a 0.</p>
 					</div>
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Cuántas hs a la semana entrena?</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="hoursTrainingSessionsWeekSpreadsheet"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitHourTraining('spreadsheet-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="hoursTrainingSessionsWeekSpreadsheet">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitHourTraining('spreadsheet-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="hours d-none">*debe ingresar un número mayor a 0.</p>
 					</div>
@@ -205,10 +257,8 @@
 						<h6 class="text-white">¿Qué tipo de entrenamiento realiza?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="trainingTypeSpreadsheetCurrentlyPhysicalActivity"
-							(ionChange)="selectOption('trainingTypeSpreadsheet-currentlyPhysicalActivity')"
-						>
+						<ion-radio-group [(ngModel)]="trainingTypeSpreadsheetCurrentlyPhysicalActivity"
+							(ionChange)="selectOption('trainingTypeSpreadsheet-currentlyPhysicalActivity')">
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
 								<ion-radio color="success" value="aerobic"></ion-radio>
@@ -231,11 +281,24 @@
 						<h6 class="text-white">
 							¿Cuántas veces por semana realiza entrenamiento de fuerza?
 						</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="numberStrengthTrainingSessionsWeekSpreadsheet"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+										<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitNumberTrainingStrength('spreadsheet-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="numberStrengthTrainingSessionsWeekSpreadsheet">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitNumberTrainingStrength('spreadsheet-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="timesStrength d-none">*el número debe ser mayor a 0.</p>
 					</div>
@@ -248,12 +311,9 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="strengthTrainingInThePastSpreadsheet"
-							(ionChange)="
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastSpreadsheet" (ionChange)="
 								selectOption('strengthTrainingInThePast-spreadsheet')
-							"
-						>
+							">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -271,7 +331,8 @@
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
 						<div class="bg-light">
-							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivitySpreadsheet"></ion-input>
+							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivitySpreadsheet">
+							</ion-input>
 						</div>
 						<p class="timeSinceLast d-none">*debe completar el campo.</p>
 					</div>
@@ -282,34 +343,73 @@
 						<h6 class="text-white">
 							¿Cuántas veces por semana realiza entrenamiento de fuerza?
 						</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="numberStrengthTrainingSessionsWeekSpreadsheet"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitNumberTrainingStrength('spreadsheet-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="numberStrengthTrainingSessionsWeekSpreadsheet">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitNumberTrainingStrength('spreadsheet-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="timesStrength d-none">*el número debe ser mayor a 0.</p>
 					</div>
 				</div>
-				
+
 				<div [class.d-none]="step != 13">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Cuántas veces a la semana entrena?</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="numberTrainingSessionsWeekRecreational"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitNumberTraining('recreational-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="numberTrainingSessionsWeekRecreational">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitNumberTraining('recreational-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="times d-none">*debe ingresar un número mayor a 0.</p>
 					</div>
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Cuántas hs a la semana entrena?</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="hoursTrainingSessionsWeekRecreational"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitHourTraining('recreational-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="hoursTrainingSessionsWeekRecreational">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitHourTraining('recreational-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="hours d-none">*debe ingresar un número mayor a 0.</p>
 					</div>
@@ -318,10 +418,8 @@
 						<h6 class="text-white">¿Qué tipo de entrenamiento realiza?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="trainingTypeRecreationalCurrentlyPhysicalActivity"
-							(ionChange)="selectOption('trainingTypeRecreational-currentlyPhysicalActivity')"
-						>
+						<ion-radio-group [(ngModel)]="trainingTypeRecreationalCurrentlyPhysicalActivity"
+							(ionChange)="selectOption('trainingTypeRecreational-currentlyPhysicalActivity')">
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
 								<ion-radio color="success" value="aerobic"></ion-radio>
@@ -347,12 +445,9 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="strengthTrainingInThePastRecreational"
-							(ionChange)="
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastRecreational" (ionChange)="
 								selectOption('strengthTrainingInThePast-recreational')
-							"
-						>
+							">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -370,7 +465,8 @@
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
 						<div class="bg-light">
-							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivityRecreational"></ion-input>
+							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivityRecreational">
+							</ion-input>
 						</div>
 						<p class="timeSinceLast d-none">*debe completar el campo.</p>
 					</div>
@@ -381,27 +477,37 @@
 						<h6 class="text-white">
 							¿Cuántas veces por semana realiza entrenamiento de fuerza?
 						</h6>
-						<div class="bg-light">
-							<ion-input
-								[(ngModel)]="numberStrengthTrainingSessionsWeekRecreational"
-								type="number"
-							></ion-input>
+						<div class="container py-4">
+							<div class="row">
+								<div class="col-6 mx-auto">
+									<div class="input-group">
+										<span class="input-group-prepend">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]" min="0" (click)="dencreaseUnitNumberTrainingStrength('recreational-currentlyPhysicalActivity')">
+												<span class="fa fa-minus"></span>
+											</button>
+										</span>
+										<input type="text" name="quant[1]" class="form-control input-number" [(ngModel)]="numberStrengthTrainingSessionsWeekRecreational">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]" (click)="increaseUnitNumberTrainingStrength('recreational-currentlyPhysicalActivity')">
+												<span class="fa fa-plus"></span>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<p class="timesStrength d-none">*el número debe ser mayor a 0.</p>
 					</div>
-				</div>			
+				</div>
 
 				<div [class.d-none]="step != 17">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Realizó alguna vez actividad física?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="physicalActivityInThePast"
-							(ionChange)="
+						<ion-radio-group [(ngModel)]="physicalActivityInThePast" (ionChange)="
 								selectOption('physicalActivityInThePast')
-							"
-						>
+							">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -420,10 +526,8 @@
 						<h6 class="text-white">¿De forma competitiva-deporte?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="competitivePhysicalActivityInThePast"
-							(ionChange)="selectOption('competitive-physicalActivityInThePast')"
-						>
+						<ion-radio-group [(ngModel)]="competitivePhysicalActivityInThePast"
+							(ionChange)="selectOption('competitive-physicalActivityInThePast')">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -447,7 +551,8 @@
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto dejo?</h6>
 						<div class="bg-light">
-							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastCompetitive"></ion-input>
+							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastCompetitive">
+							</ion-input>
 						</div>
 					</div>
 				</div>
@@ -459,12 +564,9 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="spreadsheetPhysicalActivityInThePast"
-							(ionChange)="
+						<ion-radio-group [(ngModel)]="spreadsheetPhysicalActivityInThePast" (ionChange)="
 								selectOption('spreadsheet-physicalActivityInThePast')
-							"
-						>
+							">
 							<ion-item>
 								<ion-label>Si</ion-label>
 								<ion-radio color="success" value="yes"></ion-radio>
@@ -483,10 +585,8 @@
 						<h6 class="text-white">¿Qué tipo de entrenamiento realizó?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="trainingTypePhysicalActivityInThePastSpreadsheet"
-							(ionChange)="selectOption('trainingTypeSpreadsheet-physicalActivityInThePast')"
-						>
+						<ion-radio-group [(ngModel)]="trainingTypePhysicalActivityInThePastSpreadsheet"
+							(ionChange)="selectOption('trainingTypeSpreadsheet-physicalActivityInThePast')">
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
 								<ion-radio color="success" value="aerobic"></ion-radio>
@@ -508,7 +608,8 @@
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
 						<div class="bg-light">
-							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastSpreadsheet"></ion-input>
+							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastSpreadsheet">
+							</ion-input>
 						</div>
 						<p class="timeSinceLast d-none">*debe completar el campo.</p>
 					</div>
@@ -519,10 +620,8 @@
 						<h6 class="text-white">¿Qué tipo de entrenamiento realizó?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group
-							[(ngModel)]="trainingTypePhysicalActivityInThePastRecreational"
-							(ionChange)="selectOption('trainingTypeRecreational-physicalActivityInThePast')"
-						>
+						<ion-radio-group [(ngModel)]="trainingTypePhysicalActivityInThePastRecreational"
+							(ionChange)="selectOption('trainingTypeRecreational-physicalActivityInThePast')">
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
 								<ion-radio color="success" value="aerobic"></ion-radio>
@@ -544,49 +643,25 @@
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
 						<div class="bg-light">
-							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastRecreational"></ion-input>
+							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastRecreational">
+							</ion-input>
 						</div>
 						<p class="timeSinceLast d-none">*debe completar el campo.</p>
 					</div>
 				</div>
 
 				<div class="mt-2">
-					<ion-button
-						[class.d-none]="step == 1"
-						expand="block"
-						color="medium"
-						class="main-center"
-						(click)="return()"
-						>Volver</ion-button
-					>
+					<ion-button [class.d-none]="step == 1" expand="block" color="medium" class="main-center"
+						(click)="return()">Volver</ion-button>
 
-					<ion-button
-						[class.d-none]="!displayNext"
-						id="button-next"
-						expand="block"
-						color="success"
-						class="main-center"
-						(click)="goToNext()"
-						>Siguiente</ion-button
-					>
+					<ion-button [class.d-none]="!displayNext" id="button-next" expand="block" color="success"
+						class="main-center" (click)="goToNext()">Siguiente</ion-button>
 
-					<ion-button
-						*ngIf="finish"
-						expand="block"
-						color="warning"
-						class="main-center"
-						(click)="goToPreview()"
-						>Vista previa</ion-button
-					>
+					<ion-button *ngIf="finish" expand="block" color="warning" class="main-center"
+						(click)="goToPreview()">Vista previa</ion-button>
 
-					<ion-button
-						*ngIf="finish"
-						expand="block"
-						color="success"
-						class="main-center"
-						(click)="completed()"
-						>Finalizar</ion-button
-					>
+					<ion-button *ngIf="finish" expand="block" color="success" class="main-center" (click)="completed()">
+						Finalizar</ion-button>
 				</div>
 			</section>
 		</div>
@@ -596,13 +671,8 @@
 				<h5 class="text-white">Su nivel de condición física es {{ level }}</h5>
 			</div>
 			<div class="mt-4">
-				<ion-button
-					id="button-next"
-					expand="block"
-					class="main-center"
-					[routerLink]="['/evaluation-detail']"
-					>Ver resultados de evaluación</ion-button
-				>
+				<ion-button id="button-next" expand="block" class="main-center" [routerLink]="['/evaluation-detail']">
+					Ver resultados de evaluación</ion-button>
 			</div>
 
 			<div class="card card-body" *ngIf="testPending">
@@ -612,39 +682,20 @@
 					</h5>
 				</div>
 				<div class="mt-4">
-					<ion-button
-						expand="block"
-						color="success"
-						class="main-center"
-						[routerLink]="['/test']"
-						[queryParams]="{ id: testId }"
-						>Realizar Test</ion-button
-					>
+					<ion-button expand="block" color="success" class="main-center" [routerLink]="['/test']"
+						[queryParams]="{ id: testId }">Realizar Test</ion-button>
 				</div>
 			</div>
 		</section>
 	</div>
 
 	<div *ngIf="displayPreview">
-		<app-evaluation-preview
-			[resultAnamnesis]="anamnesis"
-			(displayEvaluation)="goToEvaluation()"
-		></app-evaluation-preview>
+		<app-evaluation-preview [resultAnamnesis]="anamnesis" (displayEvaluation)="goToEvaluation()">
+		</app-evaluation-preview>
 		<div class="m-3">
-			<ion-button
-				expand="block"
-				color="warning"
-				class="main-center"
-				(click)="goToEvaluation()"
-				>Modificar</ion-button
-			>
-			<ion-button
-				expand="block"
-				color="success"
-				class="main-center"
-				(click)="completed()"
-				>Finalizar</ion-button
-			>
+			<ion-button expand="block" color="warning" class="main-center" (click)="goToEvaluation()">Modificar
+			</ion-button>
+			<ion-button expand="block" color="success" class="main-center" (click)="completed()">Finalizar</ion-button>
 		</div>
 	</div>
 </div>
