@@ -34,6 +34,7 @@ export class MemberService {
     return this.http.get<DomainResponse<any>>(this.url + 'api/member/getById');
   }
   public add(newMember: Member){
+    console.log("socio servicio: ", newMember);
     return this.http.post<any>(this.url + 'api/member/add', newMember, httpOptions);
   }
 

@@ -49,7 +49,7 @@ finishRequesting(event){
 
 next() {
   if (this.step != 2) {
-    let valid = this.formMember.validatorsForm();
+    let valid = this.formMember.validateForm();
     console.log("es valido?", valid);
     if (valid) this.step++;
   }
@@ -64,7 +64,7 @@ return () {
 }
 
   public submit() {
-  let valid = this.formMember.validatorsForm();
+  let valid = this.formMember.validateForm();
   if (valid) {
     var memberUpdate = this.formMember.createMember();
     console.log(memberUpdate);

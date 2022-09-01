@@ -1,41 +1,45 @@
-<corpo-header>Ficha de aptitud médica</corpo-header>
-<section class="wrapper" *ngIf="!requesting && age">
-    <app-medical-history-form *ngIf="age" [age]="age"></app-medical-history-form>
-  <div class="mt-3">
-    <ion-button
-    [class.d-none]="newUser"
+<div  *ngIf="!requesting && age">
+  <corpo-header>Ficha de aptitud médica</corpo-header>
+  <section class="wrapper">
+      <app-medical-history-form *ngIf="age" [age]="age"></app-medical-history-form>
+    <div class="mt-3">
+      <ion-button
+      [class.d-none]="newUser"
+        expand="block"
+        color="medium"
+        class="main-center"
+        [routerLink]="['/my-account']"
+        >Volver</ion-button
+      >
+  
+      <ion-button
+      [class.d-none]="!newUser"
       expand="block"
       color="medium"
       class="main-center"
-      [routerLink]="['/my-account']"
-      >Volver</ion-button
+      (click)="returnNewUser()"
+      >Salir</ion-button
     >
+    
+      <ion-button
+      *ngIf="planType == 1"
+        expand="block"
+        color="success"
+        class="main-center"
+        (click)="submit()"
+        >Siguiente</ion-button
+      >
+      <ion-button
+      *ngIf="planType == 2" 
+        expand="block"
+        color="success"
+        class="main-center"
+        (click)="submit()"
+        >Guardar</ion-button
+      >
+  </div>
+  </section>
 
-    <ion-button
-    [class.d-none]="!newUser"
-    expand="block"
-    color="medium"
-    class="main-center"
-    (click)="returnNewUser()"
-    >Salir</ion-button
-  >
-  
-    <ion-button
-    *ngIf="planType == 1"
-      expand="block"
-      color="success"
-      class="main-center"
-      (click)="submit()"
-      >Siguiente</ion-button
-    >
-    <ion-button
-    *ngIf="planType == 2" 
-      expand="block"
-      color="success"
-      class="main-center"
-      (click)="submit()"
-      >Guardar</ion-button
-    >
 </div>
-</section>
+
 <ion-spinner *ngIf="requesting"></ion-spinner>

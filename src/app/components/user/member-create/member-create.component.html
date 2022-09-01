@@ -1,41 +1,47 @@
-<section class="wrapper mb-3">
-	<div class="progressbar">
-		<div class="progress" id="progress"></div>
-		<div
-			class="progress-step progress-step-active"
-			data-title="Datos personales"
-		></div>
-		<div class="progress-step" data-title="Datos contacto"></div>
-		<div class="progress-step" data-title="Datos login"></div>
-	</div>
-</section>
-
-<section class="wrapper mt-5">
-	<app-member-form [step]="step"></app-member-form>
-	<div class="row justify-content-center aling-items-center mt-3">
-		<div class="row col-12">
-			<ion-button
-				color="medium"
-				class="col-6 margin-btn pull-left"
-				(click)="return()"
-				>Volver</ion-button
-			>
-
-			<ion-button
-				[class.d-none]="step == 3"
-				color="success"
-				class="col-6 margin-btn pull-right"
-				(click)="next()"
-				>Siguiente</ion-button
-			>
-
-			<ion-button
-				[class.d-none]="step != 3"
-				color="success"
-				class="col-6 margin-btn pull-right"
-				(click)="submit()"
-				>Guardar</ion-button
-			>
+<section [class.d-none]="requestingSave">
+	<section class="wrapper mb-3" [class.d-none]="step == 4">
+		<div class="progressbar">
+			<div class="progress" id="progress"></div>
+			<div class="progress-step progress-step-active" data-title="Datos personales"></div>
+			<div class="progress-step" data-title="Datos contacto"></div>
+			<div class="progress-step" data-title="Datos login"></div>
 		</div>
-	</div>
+	</section>
+
+	<section class="wrapper mt-5" [class.d-none]="step == 4">
+		<app-member-form [step]="step" (requesting)="finishRequesting($event)"></app-member-form>
+		<div class="row justify-content-center aling-items-center mt-3">
+			<div class="row col-12">
+				<ion-button color="medium" class="col-6 margin-btn pull-left" (click)="return()">Volver</ion-button>
+
+				<ion-button [disabled]="requesting" color="success" class="col-6 margin-btn pull-right"
+					(click)="next()">Siguiente</ion-button>
+			</div>
+		</div>
+	</section>
+
+	<section [class.d-none]="step != 4" class="wrapper">
+
+		<div class="card card-body bg-success">
+
+			<p class="text-white text-center mb-0">
+				Completaste exitosamente el registro de tu cuenta.
+			</p>
+		</div>
+
+		<div class="card card-body bg-dark">
+
+			<p class="text-white text-center">
+				¿Deseas cargar la historia médica?
+			</p>
+			<div class="row text-center">
+				<ion-button color="medium" class="col-6 margin-btn pull-left" (click)="goToLogin()">Más Tarde</ion-button>
+
+				<ion-button color="success" class="col-6 margin-btn pull-right ms-2 ps-2"
+					(click)="login()">Aceptar</ion-button>
+			</div>
+		</div>
+
+	</section>
 </section>
+<ion-spinner *ngIf="requestingSave"></ion-spinner>

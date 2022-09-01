@@ -2,74 +2,52 @@
 	<div [class.d-none]="step != 1">
 		<form [formGroup]="formPersonal">
 			<div class="form-group">
-				<label class="col-sm-6 control-label labelFormStyle">Apellido:</label>
+				<label class="col-sm-6 control-label labelFormStyle">Apellido *</label>
 				<div class="formValidators">
 					<input type="text" class="form-control" formControlName="lastName" />
-					<p
-						class="text-danger"
-						*ngIf="sendFormPersonal && fPersonal.lastName.errors?.required"
-					>
+					<p class="text-validators" *ngIf="sendFormPersonal && fPersonal.lastName.errors?.required">
 						*el campo es requerido
 					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle">Nombre:</label>
+				<label class="col-sm-6 control-label labelFormStyle">Nombre *</label>
 				<div class="formValidators">
 					<input type="text" class="form-control" formControlName="name" />
-					<p class="text-danger" *ngIf="sendFormPersonal && fPersonal.name.errors?.required">
+					<p class="text-validators" *ngIf="sendFormPersonal && fPersonal.name.errors?.required">
 						*el campo es requerido
 					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle"
-					>Fecha de Nacimiento:</label
-				>
+				<label class="col-sm-6 control-label labelFormStyle">Fecha de Nacimiento *</label>
 				<div class="formValidators">
-					<input
-						type="date"
-						class="form-control"
-						formControlName="birthDate"
-						[ngModel]="dt | date: 'yyyy-MM-dd'"
-					/>
-					<p
-						class="text-danger"
-						*ngIf="sendFormPersonal && fPersonal.birthDate.errors?.required"
-					>
+					<input type="date" class="form-control" formControlName="birthDate"
+						[ngModel]="dt | date: 'yyyy-MM-dd'" />
+					<p class="text-validators" *ngIf="sendFormPersonal && fPersonal.birthDate.errors?.required">
 						*el campo es requerido
 					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle">Dirección:</label>
+				<label class="col-sm-6 control-label labelFormStyle">Dirección *</label>
 				<div class="formValidators">
 					<input type="text" class="form-control" formControlName="address" />
-					<p class="text-danger" *ngIf="sendFormPersonal && fPersonal.address.errors?.required">
+					<p class="text-validators" *ngIf="sendFormPersonal && fPersonal.address.errors?.required">
 						*el campo es requerido
 					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle"
-					>Obra Social:</label
-				>
+				<label class="col-sm-6 control-label labelFormStyle">Obra Social:</label>
 				<div>
-					<input
-						type="text"
-						class="form-control"
-						formControlName="socialSecurity"
-					/>
+					<input type="text" class="form-control" formControlName="socialSecurity" />
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle">Plan:</label>
+				<label class="col-sm-6 control-label labelFormStyle">Plan *</label>
 				<div class="formValidators">
-					<select
-						class="form-control"
-						formControlName="planId"
-						(change)="selectPlan($event)"
-					>
+					<select class="form-control" formControlName="planId" (change)="selectPlan($event)">
 						<option value="" disabled>
 							<p class="labelFormStyle">Seleccionar...</p>
 						</option>
@@ -77,56 +55,39 @@
 							{{ plan.name }}
 						</option>
 					</select>
-					<p class="text-danger" *ngIf="sendFormPersonal && fPersonal.planId.errors?.required">
+					<p class="text-validators" *ngIf="sendFormPersonal && fPersonal.planId.errors?.required">
 						*el campo es requerido
 					</p>
 				</div>
 			</div>
 		</form>
+
 	</div>
 	<div [class.d-none]="step != 2">
 		<form [formGroup]="formContact">
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle">Celular:</label>
+				<label class="col-sm-6 control-label labelFormStyle">Celular *</label>
 				<div class="formValidators">
-					<input type="text" class="form-control" formControlName="phone" />
-					<p class="text-danger" *ngIf="sendFormContact && fContact.phone.errors?.required">
+					<input type="number" class="form-control" formControlName="phone" />
+					<p class="text-validators" *ngIf="sendFormContact && fContact.phone.errors?.required">
 						*el campo es requerido
 					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle"
-					>Número de Urgencia:</label
-				>
+				<label class="col-sm-6 control-label labelFormStyle">Número de Urgencia *</label>
 				<div class="formValidators">
-					<input
-						type="text"
-						class="form-control"
-						formControlName="emergencyPhone"
-					/>
-					<p
-						class="text-danger"
-						*ngIf="sendFormContact && fContact.emergencyPhone.errors?.required"
-					>
+					<input type="number" class="form-control" formControlName="emergencyPhone" />
+					<p class="text-validators" *ngIf="sendFormContact && fContact.emergencyPhone.errors?.required">
 						*el campo es requerido
 					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle"
-					>Contacto de Urgencia:</label
-				>
+				<label class="col-sm-6 control-label labelFormStyle">Contacto de Urgencia *</label>
 				<div class="formValidators">
-					<input
-						type="text"
-						class="form-control"
-						formControlName="emergencyContact"
-					/>
-					<p
-						class="text-danger"
-						*ngIf="sendFormContact && fContact.emergencyContact.errors?.required"
-					>
+					<input type="number" class="form-control" formControlName="emergencyContact" />
+					<p class="text-validators" *ngIf="sendFormContact && fContact.emergencyContact.errors?.required">
 						*el campo es requerido
 					</p>
 				</div>
@@ -148,66 +109,54 @@
 	<div [class.d-none]="step != 3">
 		<form *ngIf="modeCreate" [formGroup]="formAccount">
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle">Email:</label>
+				<label class="col-sm-6 control-label labelFormStyle">Email *</label>
 				<div class="formValidators">
 					<input type="text" class="form-control" formControlName="email" />
-					<p
-						class="text-danger"
-						*ngIf="sendFormAccount && fAccount.email.errors?.required"
-					>
+					<p class="text-validators" *ngIf="sendFormAccount && fAccount.email.errors?.required">
 						*el campo es requerido
 					</p>
-					<p
-						class="text-danger"
-						*ngIf="sendFormAccount && fAccount.email.errors?.email"
-					>
+					<p class="text-validators" *ngIf="sendFormAccount && fAccount.email.errors?.email">
 						*ingresar email valido
 					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle">Contraseña:</label>
+				<label class="col-sm-6 control-label labelFormStyle">Contraseña *</label>
 				<div class="formValidators">
-					<input
-						type="password"
-						class="form-control"
-						formControlName="password"
-					/>
-					<p
-						class="text-danger"
-						*ngIf="sendFormAccount && fAccount.password.errors?.required"
-					>
+					<input type="password" class="form-control" formControlName="password" />
+					<p class="text-validators" *ngIf="sendFormAccount && fAccount.password.errors?.required">
 						*el campo es requerido
 					</p>
-					<p
-						class="text-danger"
-						*ngIf="sendForm && fAccount.password.errors?.pattern"
-					>
-						*Debe contener una mayúscula, ser alfanúmerica y tener entre 8 y 15
-						caracteres
+					<p class="text-information">
+						*La contraseña debe contener al menos 8 letras, una minúscula y una mayúscula, un dígito y un carácter especial.
+					</p>
+					<p class="text-validators" *ngIf="sendFormAccount && fAccount.password.errors?.pattern">
+						*La contraseña debe contener al menos 8 letras, una minúscula y una mayúscula, un dígito y un carácter especial.
 					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
-				<label class="col-sm-6 control-label labelFormStyle"
-					>Repetir Contraseña:</label
-				>
+				<label class="col-sm-6 control-label labelFormStyle">Repetir Contraseña *</label>
 				<div class="formValidators">
-					<input
-						type="password"
-						class="form-control"
-						formControlName="repeatPassword"
-					/>
-					<p
-						class="text-danger"
-						*ngIf="sendFormAccount && fAccount.repeatPassword.errors?.mustMatch"
-					>
+					<input type="password" class="form-control" formControlName="repeatPassword" />
+					<p class="text-validators" *ngIf="sendFormAccount && fAccount.repeatPassword.errors?.required">
+						*el campo es requerido
+					</p>
+					<p class="text-validators" *ngIf="sendFormAccount && fAccount.repeatPassword.errors?.mustMatch">
 						*las contraseñas no coinciden
+					</p>
+					<p class="text-validators" *ngIf="sendFormAccount && fAccount.repeatPassword.errors?.pattern">
+						*La contraseña debe contener al menos 8 letras, una minúscula y una mayúscula, un dígito y un carácter especial.
 					</p>
 				</div>
 			</div>
 		</form>
 	</div>
+	
+	<section class="wrapper">
+		<p class="text-information">
+			*campos obligatorios </p>
+	</section>
 </div>
 
 <!-- col-lg-12-->

@@ -20,7 +20,7 @@ export class MemberFormComponent implements OnInit {
   formContact: FormGroup;
   formAccount: FormGroup;
   dt: Date = new Date();
-  unamePattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,15}$";
+  unamePattern = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}";
   sendForm: boolean = false;
   plans: Plan[] = [];
   planType: number;
@@ -30,7 +30,7 @@ export class MemberFormComponent implements OnInit {
   sendFormPersonal: boolean;
   sendFormContact: boolean;
   sendFormAccount: boolean;
-  @Output() requesting = new EventEmitter();  
+  @Output() requesting = new EventEmitter();
 
 
   constructor(private formBuilder: FormBuilder,
@@ -48,7 +48,7 @@ export class MemberFormComponent implements OnInit {
   }
 
 
-  getFormsGroup() {    
+  getFormsGroup() {
     this.dt = new Date();
     this.formPersonal = this.formBuilder.group({
       lastName: ['', Validators.required],
@@ -68,18 +68,28 @@ export class MemberFormComponent implements OnInit {
     this.formAccount = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(this.unamePattern)]],
-      repeatPassword: '',
-    }, { validators: ControlEqual.mustMatch('password', 'repeatPassword') })
+      repeatPassword: ['', [Validators.required, Validators.pattern(this.unamePattern)]],
+    }, { validators: ControlEqual.mustMatch('password', 'repeatPassword') });
+
+    this.getPlans();
   }
 
   ngOnInit() {
+    this.getFormsGroup();
+
+  }
+
+  getPlans() {
     this.planService.getAll().subscribe(
       result => {
         this.plans = result;
+        this.requesting.emit();
       },
-      error => console.error(error)
+      error => {
+        this.requesting.emit();
+        console.error(error);
+      }
     );
-
   }
 
   get fPersonal() {
@@ -119,15 +129,22 @@ export class MemberFormComponent implements OnInit {
     }
   }
 
-  validatorsForm() {
+  validateForm() {
+    console.log("validacion pasos");
     if (this.step == 1) {
+      console.log("validacion paso 1");
       this.sendFormPersonal = true;
       return this.formPersonal.valid;
     } else if (this.step == 2) {
+      console.log("validacion paso 2");
       this.sendFormContact = true;
       return this.formContact.valid;
     } else {
+      console.log("validacion paso 3");
       this.sendFormAccount = true;
+      let pValidator = document.getElementsByClassName("text-information")[0];
+      console.log("p validator: ", pValidator);
+      pValidator.classList.add("d-none");
       return this.formAccount.valid;
     }
   }
@@ -204,6 +221,12 @@ export class MemberFormComponent implements OnInit {
       facebook: this.member.facebook
     });
 
+  }
+
+  resetValidations() {
+    this.sendFormPersonal = false;
+    this.sendFormContact = false;
+    this.sendFormAccount = false;
   }
 
 }

@@ -86,7 +86,7 @@ ion-card-content {
 	content: attr(data-title);
 	position: absolute;
 	top: calc(100% + 0.5rem);
-	font-size: 0.85rem;
+	font-size: 0.75rem;
 	color: white;
 	text-align: center;
 }
@@ -95,6 +95,8 @@ ion-card-content {
 	background-color: var(--ion-color-primary);
 	color: white;
 }
+
+
 
 // #progressbar {
 //   position: relative;

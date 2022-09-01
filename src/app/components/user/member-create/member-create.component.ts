@@ -15,7 +15,10 @@ import { MemberFormComponent } from '../member-form/member-form.component';
 export class MemberCreateComponent implements OnInit {
   id: number;
   step = 1;
-  @ViewChild(MemberFormComponent, { static: false }) formMember: MemberFormComponent;
+  @ViewChild(MemberFormComponent, { static: true }) formMember: MemberFormComponent;
+  requesting = true;
+  requestingSave = false;
+
   constructor(private memberService: MemberService,
     private router: Router,
     private customAlertService: CustomAlertService,
@@ -24,21 +27,36 @@ export class MemberCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("hola");
+    this.resetProgressSteps();
+    this.requesting = true;
+    this.step = 1;
+    this.formMember.getFormsGroup();
+    this.formMember.resetValidations();
+    this.requestingSave = false;
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
+    this.resetProgressSteps();
+    this.requesting = true;
+    this.step = 1;
     this.formMember.getFormsGroup();
+    this.formMember.resetValidations();
+    this.requestingSave = false;
   }
 
   login() {
     let account = this.formMember.createAccount();
+    console.log("socio a loguearse: ", account);
     this.accountService.logIn(account).subscribe(
       result => {
         console.log(result);
         this.accountService.setToken(result.token);
         this.accountService.setAuthenticated(true);
         this.accountService.setLoggedUser(result.user);
+        localStorage.setItem('newUser', 'true');
+        this.requesting = false;
+        this.requestingSave = false;
+        this.router.navigate(['/historia-medica-crear'], { queryParams: { id: this.id } });
       },
       error => {
         console.error(error);
@@ -52,15 +70,26 @@ export class MemberCreateComponent implements OnInit {
   }
 
   next() {
-    if (this.step != 3) {
-      let valid = this.formMember.validatorsForm();
-      console.log("es valido?", valid);
-      if (valid){
+    let valid = this.formMember.validateForm();
+    console.log("es valido?", valid);
+    if (valid) {
+      if (this.step != 3) {
+
         this.setClassStep(this.step, 'next');
-         this.step++;
-        }
+        console.log("paso: ", this.step);
+      } else {
+        this.submit();
+
+      }
+      this.step++;
+
     }
   }
+
+  finishRequesting(event) {
+    this.requesting = false;
+  }
+
 
   return() {
     if (this.step == 1) {
@@ -71,49 +100,68 @@ export class MemberCreateComponent implements OnInit {
     }
   }
 
-  setClassStep(step, btn){
-    let index = step-1;
+  resetProgressSteps() {
+    let progressSteps = document.querySelectorAll('.progress-step');
+    for (let i = 0; i < progressSteps.length; i++) {
+      const element = progressSteps[i];
+      if (i != 0) {
+        let progress = document.getElementById("progress");
+        progressSteps[i].classList.remove('progress-step-active');
+        let progressActive = document.querySelectorAll(".progress-step-active");
+        progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+      }
+
+    }
+  }
+
+  setClassStep(step, btn) {
+    let index = step - 1;
     let progress = document.getElementById("progress");
     let progressSteps = document.querySelectorAll('.progress-step');
     console.log("lista: ", progressSteps);
-    if(btn === 'next'){
-      progressSteps[index+1].classList.add('progress-step-active');
-    }else{
+    if (btn === 'next') {
+      progressSteps[index + 1].classList.add('progress-step-active');
+    } else {
       progressSteps[index].classList.remove('progress-step-active');
-      progressSteps[index-1].classList.add('progress-step-active');
+      progressSteps[index - 1].classList.add('progress-step-active');
     }
 
     let progressActive = document.querySelectorAll(".progress-step-active");
     progress.style.width = ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
   }
 
+  goToLogin() {
+    localStorage.setItem('newUser', 'false');
+    this.router.navigate(['/login']);
+
+  }
+
 
 
   submit() {
+    this.requesting = true;
+    this.requestingSave = true;
     console.log("inicio");
-    let valid = this.formMember.validatorsForm();
+    let valid = this.formMember.validateForm();
     if (valid) {
       const newMember = this.formMember.createMember();
+      const account = this.formMember.createAccount();
       console.log("newMember", newMember);
       console.log("por aquí");
       this.memberService.add(newMember).subscribe(
         result => {
-          console.log(result.result.id);
+          console.log("nuevo socio id", result.result.id);
           let id = result.result.id;
           console.log("nuevo: ", this.memberService.newMember);
-          this.login();
-          this.customAlertService.displayOmit("Gestión de Socios", ["¿Desea cargar la historia médica?"], () => {
-            localStorage.setItem('newUser', 'true');
-            this.router.navigate(['/historia-medica-crear'], { queryParams: { id: this.id } });
-          }, true, () => {
-            localStorage.setItem('newUser', 'false');
-            this.router.navigate(['/login'])
-          })
+          this.requestingSave = false;
         },
         error => {
+          this.requesting = false;
+          this.requestingSave = false;
           console.error(error);
           if (error.status === 400) {
             this.customAlertService.display("Gestión de Socios", error.error.errores);
+            this.step = 3;
           }
           if (error.status === 500) {
             this.customAlertService.display("Gestión de Socios", ["No se pudo guardar el socio."]);
@@ -121,6 +169,7 @@ export class MemberCreateComponent implements OnInit {
         })
     }
     else {
+      this.requesting = false;
       console.log("por aquí no");
     }
   }
