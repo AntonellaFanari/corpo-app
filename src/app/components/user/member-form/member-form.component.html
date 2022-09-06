@@ -120,25 +120,43 @@
 					</p>
 				</div>
 			</div>
-			<div class="form-group mt-2">
+			<div class="input-group mt-2">
 				<label class="col-sm-6 control-label labelFormStyle">Contraseña *</label>
-				<div class="formValidators">
-					<input type="password" class="form-control" formControlName="password" />
+				<div class="formValidators input-group">
+					<input  [type]="fieldTextTypePassword ? 'text' : 'password'" class="form-control" formControlName="password" />
+					<div class="input-group-append">
+						<span class="input-group-text password-view">
+						  <i   class="fa"
+						  [ngClass]="{
+							'fa-eye-slash': !fieldTextTypePassword,
+							'fa-eye': fieldTextTypePassword
+						  }"
+						  (click)="toggleFieldTextType('password')"></i>
+						</span>
+					 </div>
 					<p class="text-validators" *ngIf="sendFormAccount && fAccount.password.errors?.required">
 						*el campo es requerido
 					</p>
 					<p class="text-information">
-						*La contraseña debe contener al menos 8 letras, una minúscula y una mayúscula, un dígito y un carácter especial.
-					</p>
+						*La contraseña debe contener entre 7 y 11 letras y una mayúscula.					</p>
 					<p class="text-validators" *ngIf="sendFormAccount && fAccount.password.errors?.pattern">
-						*La contraseña debe contener al menos 8 letras, una minúscula y una mayúscula, un dígito y un carácter especial.
-					</p>
+						*La contraseña debe contener entre 7 y 11 letras y una mayúscula.					</p>
 				</div>
 			</div>
 			<div class="form-group mt-2">
 				<label class="col-sm-6 control-label labelFormStyle">Repetir Contraseña *</label>
-				<div class="formValidators">
-					<input type="password" class="form-control" formControlName="repeatPassword" />
+				<div class="formValidators input-group">
+					<input  [type]="fieldTextTypeRepeatPassword ? 'text' : 'password'" class="form-control" formControlName="repeatPassword" />
+					<div class="input-group-append">
+						<span class="input-group-text password-view">
+						  <i class="fa"
+						  [ngClass]="{
+							'fa-eye-slash': !fieldTextTypeRepeatPassword,
+							'fa-eye': fieldTextTypeRepeatPassword
+						  }"
+						  (click)="toggleFieldTextType('repeatPassword')"></i>
+						</span>
+					 </div>
 					<p class="text-validators" *ngIf="sendFormAccount && fAccount.repeatPassword.errors?.required">
 						*el campo es requerido
 					</p>
@@ -146,7 +164,7 @@
 						*las contraseñas no coinciden
 					</p>
 					<p class="text-validators" *ngIf="sendFormAccount && fAccount.repeatPassword.errors?.pattern">
-						*La contraseña debe contener al menos 8 letras, una minúscula y una mayúscula, un dígito y un carácter especial.
+						*La contraseña debe contener entre 7 y 11 letras y una mayúscula.
 					</p>
 				</div>
 			</div>

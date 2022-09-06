@@ -20,7 +20,7 @@ export class MemberFormComponent implements OnInit {
   formContact: FormGroup;
   formAccount: FormGroup;
   dt: Date = new Date();
-  unamePattern = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}";
+  unamePattern = "(?=[^A-Z]*[A-Z]).{7,11}";
   sendForm: boolean = false;
   plans: Plan[] = [];
   planType: number;
@@ -31,6 +31,8 @@ export class MemberFormComponent implements OnInit {
   sendFormContact: boolean;
   sendFormAccount: boolean;
   @Output() requesting = new EventEmitter();
+  fieldTextTypeRepeatPassword: boolean;
+  fieldTextTypePassword: boolean;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -227,6 +229,14 @@ export class MemberFormComponent implements OnInit {
     this.sendFormPersonal = false;
     this.sendFormContact = false;
     this.sendFormAccount = false;
+  }
+
+  toggleFieldTextType(field) {
+    if(field == 'password'){
+      this.fieldTextTypePassword = !this.fieldTextTypePassword;
+    }else{      
+    this.fieldTextTypeRepeatPassword = !this.fieldTextTypeRepeatPassword;
+    }
   }
 
 }

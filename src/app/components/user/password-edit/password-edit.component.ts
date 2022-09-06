@@ -15,7 +15,7 @@ export class PasswordEditComponent implements OnInit {
   modificationForm: FormGroup;
   sendForm: boolean = false;
   accountId: number;
-  unamePattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,15}$";
+  unamePattern = "(?=[^A-Z]*[A-Z]).{7,11}";
 
   constructor(private accountService: AccountService,
     private formBuilder: FormBuilder,

@@ -8,17 +8,19 @@
 						<h6 class="text-white">¿Realiza actividad física actualmente?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="currentlyPhysicalActivity" (ionChange)="
-								selectOption('currentlyPhysicalActivity')
-							">
+						<ion-radio-group [(ngModel)]="currentlyPhysicalActivity" >
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="
+								getQuestion('currentlyPhysicalActivity')
+							"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="
+								getQuestion('currentlyPhysicalActivity')
+							"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -30,15 +32,15 @@
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="competitiveCurrentlyPhysicalActivity"
-							(ionChange)="selectOption('competitive-currentlyPhysicalActivity')">
+							>
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="getQuestion('competitive-currentlyPhysicalActivity')"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="getQuestion('competitive-currentlyPhysicalActivity')"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -103,17 +105,19 @@
 							<h6 class="text-white">¿Realiza entrenamiento de fuerza?</h6>
 						</div>
 						<ion-list>
-							<ion-radio-group [(ngModel)] ="currentlyStrengthTrainingCompetitive" (ionChange)="
-									selectOption('currentlyStrengthTraining-competitive')
-								">
+							<ion-radio-group [(ngModel)] ="currentlyStrengthTrainingCompetitive">
 								<ion-item>
 									<ion-label>Si</ion-label>
-									<ion-radio color="success" value="yes"></ion-radio>
+									<ion-radio color="success" value="yes"  (click)="
+									getQuestion('currentlyStrengthTraining-competitive')
+								"></ion-radio>
 								</ion-item>
 
 								<ion-item>
 									<ion-label>No</ion-label>
-									<ion-radio color="danger" value="no"></ion-radio>
+									<ion-radio color="danger" value="no"  (click)="
+									getQuestion('currentlyStrengthTraining-competitive')
+								"></ion-radio>
 								</ion-item>
 							</ion-radio-group>
 						</ion-list>
@@ -155,17 +159,19 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="strengthTrainingInThePastCompetitive" (ionChange)="
-								selectOption('strengthTrainingInThePast-competitive')
-							">
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastCompetitive" >
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="
+								getQuestion('strengthTrainingInThePast-competitive')
+							"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="
+								getQuestion('strengthTrainingInThePast-competitive')
+							"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -189,17 +195,19 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="spreadsheetCurrentlyPhysicalActivity" (ionChange)="
-								selectOption('spreadsheet-currentlyPhysicalActivity')
-							">
+						<ion-radio-group [(ngModel)]="spreadsheetCurrentlyPhysicalActivity" >
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="
+								getQuestion('spreadsheet-currentlyPhysicalActivity')
+							"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="
+								getQuestion('spreadsheet-currentlyPhysicalActivity')
+							"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -258,19 +266,19 @@
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="trainingTypeSpreadsheetCurrentlyPhysicalActivity"
-							(ionChange)="selectOption('trainingTypeSpreadsheet-currentlyPhysicalActivity')">
+							>
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
-								<ion-radio color="success" value="aerobic"></ion-radio>
+								<ion-radio color="success" value="aerobic" (click)="getQuestion('trainingTypeSpreadsheet-currentlyPhysicalActivity')"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>Fuerza</ion-label>
-								<ion-radio color="success" value="strength"></ion-radio>
+								<ion-radio color="success" value="strength" (click)="getQuestion('trainingTypeSpreadsheet-currentlyPhysicalActivity')"></ion-radio>
 							</ion-item>
 							<ion-item>
 								<ion-label>Ambos</ion-label>
-								<ion-radio color="success" value="aerobic-strength"></ion-radio>
+								<ion-radio color="success" value="aerobic-strength" (click)="getQuestion('trainingTypeSpreadsheet-currentlyPhysicalActivity')"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -311,17 +319,19 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="strengthTrainingInThePastSpreadsheet" (ionChange)="
-								selectOption('strengthTrainingInThePast-spreadsheet')
-							">
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastSpreadsheet" >
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="
+								getQuestion('strengthTrainingInThePast-spreadsheet')
+							"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="
+								getQuestion('strengthTrainingInThePast-spreadsheet')
+							"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -445,17 +455,19 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="strengthTrainingInThePastRecreational" (ionChange)="
-								selectOption('strengthTrainingInThePast-recreational')
-							">
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastRecreational" >
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="
+								getQuestion('strengthTrainingInThePast-recreational')
+							"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="
+								getQuestion('strengthTrainingInThePast-recreational')
+							"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -505,17 +517,19 @@
 						<h6 class="text-white">¿Realizó alguna vez actividad física?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="physicalActivityInThePast" (ionChange)="
-								selectOption('physicalActivityInThePast')
-							">
+						<ion-radio-group [(ngModel)]="physicalActivityInThePast" >
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="
+								getQuestion('physicalActivityInThePast')
+							"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="
+								getQuestion('physicalActivityInThePast')
+							"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -527,15 +541,15 @@
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="competitivePhysicalActivityInThePast"
-							(ionChange)="selectOption('competitive-physicalActivityInThePast')">
+							>
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="getQuestion('competitive-physicalActivityInThePast')"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="getQuestion('competitive-physicalActivityInThePast')"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -564,17 +578,19 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="spreadsheetPhysicalActivityInThePast" (ionChange)="
-								selectOption('spreadsheet-physicalActivityInThePast')
-							">
+						<ion-radio-group [(ngModel)]="spreadsheetPhysicalActivityInThePast" >
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes"></ion-radio>
+								<ion-radio color="success" value="yes" (click)="
+								getQuestion('spreadsheet-physicalActivityInThePast')
+							"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no"></ion-radio>
+								<ion-radio color="danger" value="no" (click)="
+								getQuestion('spreadsheet-physicalActivityInThePast')
+							"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -586,19 +602,19 @@
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="trainingTypePhysicalActivityInThePastSpreadsheet"
-							(ionChange)="selectOption('trainingTypeSpreadsheet-physicalActivityInThePast')">
+							>
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
-								<ion-radio color="success" value="aerobic"></ion-radio>
+								<ion-radio color="success" value="aerobic" (click)="getQuestion('trainingTypeSpreadsheet-physicalActivityInThePast')"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>Fuerza</ion-label>
-								<ion-radio color="success" value="strength"></ion-radio>
+								<ion-radio color="success" value="strength" (click)="getQuestion('trainingTypeSpreadsheet-physicalActivityInThePast')"></ion-radio>
 							</ion-item>
 							<ion-item>
 								<ion-label>Ambos</ion-label>
-								<ion-radio color="success" value="aerobic-strength"></ion-radio>
+								<ion-radio color="success" value="aerobic-strength" (click)="getQuestion('trainingTypeSpreadsheet-physicalActivityInThePast')"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
@@ -621,19 +637,19 @@
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="trainingTypePhysicalActivityInThePastRecreational"
-							(ionChange)="selectOption('trainingTypeRecreational-physicalActivityInThePast')">
+							>
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
-								<ion-radio color="success" value="aerobic"></ion-radio>
+								<ion-radio color="success" value="aerobic" (click)="getQuestion('trainingTypeRecreational-physicalActivityInThePast')"></ion-radio>
 							</ion-item>
 
 							<ion-item>
 								<ion-label>Fuerza</ion-label>
-								<ion-radio color="success" value="strength"></ion-radio>
+								<ion-radio color="success" value="strength" (click)="getQuestion('trainingTypeRecreational-physicalActivityInThePast')"></ion-radio>
 							</ion-item>
 							<ion-item>
 								<ion-label>Ambos</ion-label>
-								<ion-radio color="success" value="aerobic-strength"></ion-radio>
+								<ion-radio color="success" value="aerobic-strength" (click)="getQuestion('trainingTypeRecreational-physicalActivityInThePast')"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
