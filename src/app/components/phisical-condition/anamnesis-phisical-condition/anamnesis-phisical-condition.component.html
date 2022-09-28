@@ -8,44 +8,42 @@
 						<h6 class="text-white">¿Realiza actividad física actualmente?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="currentlyPhysicalActivity" >
+						<ion-radio-group [(ngModel)]="currentlyPhysicalActivity" (ionChange)="
+						selectOption('currentlyPhysicalActivity')">
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="
-								getQuestion('currentlyPhysicalActivity')
-							"></ion-radio>
+								<ion-radio color="success" value="yes"  
+							></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="
-								getQuestion('currentlyPhysicalActivity')
-							"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 2">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿De forma competitiva-deporte?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="competitiveCurrentlyPhysicalActivity"
+						<ion-radio-group [(ngModel)]="competitiveCurrentlyPhysicalActivity" (ionChange)="selectOption('competitive-currentlyPhysicalActivity')"
 							>
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="getQuestion('competitive-currentlyPhysicalActivity')"></ion-radio>
+								<ion-radio color="success" value="yes"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="getQuestion('competitive-currentlyPhysicalActivity')"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 3">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Qué deporte realiza?</h6>
@@ -105,25 +103,23 @@
 							<h6 class="text-white">¿Realiza entrenamiento de fuerza?</h6>
 						</div>
 						<ion-list>
-							<ion-radio-group [(ngModel)] ="currentlyStrengthTrainingCompetitive">
+							<ion-radio-group [(ngModel)] ="currentlyStrengthTrainingCompetitive" (ionChange)="
+							selectOption('currentlyStrengthTraining-competitive')
+						">
 								<ion-item>
 									<ion-label>Si</ion-label>
-									<ion-radio color="success" value="yes"  (click)="
-									getQuestion('currentlyStrengthTraining-competitive')
-								"></ion-radio>
+									<ion-radio color="success" value="yes"></ion-radio>
 								</ion-item>
-
+ 
 								<ion-item>
 									<ion-label>No</ion-label>
-									<ion-radio color="danger" value="no"  (click)="
-									getQuestion('currentlyStrengthTraining-competitive')
-								"></ion-radio>
+									<ion-radio color="danger" value="no"></ion-radio>
 								</ion-item>
 							</ion-radio-group>
 						</ion-list>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 4">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -151,7 +147,7 @@
 						<p class="times-strength d-none">*el número debe ser mayor a 0.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 5">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -159,24 +155,22 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="strengthTrainingInThePastCompetitive" >
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastCompetitive" (ionChange)="
+						selectOption('strengthTrainingInThePast-competitive')
+					" >
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="
-								getQuestion('strengthTrainingInThePast-competitive')
-							"></ion-radio>
+								<ion-radio color="success" value="yes" ></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="
-								getQuestion('strengthTrainingInThePast-competitive')
-							"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 6">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
@@ -184,10 +178,10 @@
 							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivityCompetitive">
 							</ion-input>
 						</div>
-						<p class="timeSinceLast d-none">*debe completar el campo.</p>
+						<p class="time-since-last d-none">*debe completar el campo.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 7">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -195,24 +189,22 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="spreadsheetCurrentlyPhysicalActivity" >
+						<ion-radio-group [(ngModel)]="spreadsheetCurrentlyPhysicalActivity" (ionChange)="
+						selectOption('spreadsheet-currentlyPhysicalActivity')
+					">
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="
-								getQuestion('spreadsheet-currentlyPhysicalActivity')
-							"></ion-radio>
+								<ion-radio color="success" value="yes"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="
-								getQuestion('spreadsheet-currentlyPhysicalActivity')
-							"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 8">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Cuántas veces a la semana entrena?</h6>
@@ -260,30 +252,30 @@
 						</div>
 						<p class="hours d-none">*debe ingresar un número mayor a 0.</p>
 					</div>
-
+ 
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Qué tipo de entrenamiento realiza?</h6>
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="trainingTypeSpreadsheetCurrentlyPhysicalActivity"
-							>
+						(ionChange)="selectOption('trainingTypeSpreadsheet-currentlyPhysicalActivity')">
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
-								<ion-radio color="success" value="aerobic" (click)="getQuestion('trainingTypeSpreadsheet-currentlyPhysicalActivity')"></ion-radio>
+								<ion-radio color="success" value="aerobic"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>Fuerza</ion-label>
-								<ion-radio color="success" value="strength" (click)="getQuestion('trainingTypeSpreadsheet-currentlyPhysicalActivity')"></ion-radio>
+								<ion-radio color="success" value="strength"></ion-radio>
 							</ion-item>
 							<ion-item>
 								<ion-label>Ambos</ion-label>
-								<ion-radio color="success" value="aerobic-strength" (click)="getQuestion('trainingTypeSpreadsheet-currentlyPhysicalActivity')"></ion-radio>
+								<ion-radio color="success" value="aerobic-strength"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 9">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -311,7 +303,7 @@
 						<p class="timesStrength d-none">*el número debe ser mayor a 0.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 10">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -319,24 +311,22 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="strengthTrainingInThePastSpreadsheet" >
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastSpreadsheet" (ionChange)="
+						selectOption('strengthTrainingInThePast-spreadsheet')
+					">
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="
-								getQuestion('strengthTrainingInThePast-spreadsheet')
-							"></ion-radio>
+								<ion-radio color="success" value="yes"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="
-								getQuestion('strengthTrainingInThePast-spreadsheet')
-							"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 11">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
@@ -344,10 +334,10 @@
 							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivitySpreadsheet">
 							</ion-input>
 						</div>
-						<p class="time-sinceLast d-none">*debe completar el campo.</p>
+						<p class="time-since-last d-none">*debe completar el campo.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 12">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -372,10 +362,10 @@
 								</div>
 							</div>
 						</div>
-						<p class="timesStrength d-none">*el número debe ser mayor a 0.</p>
+						<p class="times-strength d-none">*el número debe ser mayor a 0.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 13">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Cuántas veces a la semana entrena?</h6>
@@ -423,7 +413,7 @@
 						</div>
 						<p class="hours d-none">*debe ingresar un número mayor a 0.</p>
 					</div>
-
+ 
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Qué tipo de entrenamiento realiza?</h6>
 					</div>
@@ -434,7 +424,7 @@
 								<ion-label>Aeróbico</ion-label>
 								<ion-radio color="success" value="aerobic"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>Fuerza</ion-label>
 								<ion-radio color="success" value="strength"></ion-radio>
@@ -446,8 +436,8 @@
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
-
+ 
+ 
 				<div [class.d-none]="step != 14">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -455,24 +445,22 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="strengthTrainingInThePastRecreational" >
+						<ion-radio-group [(ngModel)]="strengthTrainingInThePastRecreational" (ionChange)="
+						selectOption('strengthTrainingInThePast-recreational')
+					">
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="
-								getQuestion('strengthTrainingInThePast-recreational')
-							"></ion-radio>
+								<ion-radio color="success" value="yes"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="
-								getQuestion('strengthTrainingInThePast-recreational')
-							"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 15">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
@@ -480,10 +468,10 @@
 							<ion-input [(ngModel)]="timeSinceLastTrainingCurrentlyPhysicalActivityRecreational">
 							</ion-input>
 						</div>
-						<p class="timeSinceLast d-none">*debe completar el campo.</p>
+						<p class="time-since-last d-none">*debe completar el campo.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 16">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -508,59 +496,58 @@
 								</div>
 							</div>
 						</div>
-						<p class="timesStrength d-none">*el número debe ser mayor a 0.</p>
+						<p class="times-strength d-none">*el número debe ser mayor a 0.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 17">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Realizó alguna vez actividad física?</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="physicalActivityInThePast" >
+						<ion-radio-group [(ngModel)]="physicalActivityInThePast" (ionChange)="
+						selectOption('physicalActivityInThePast')
+					">
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="
-								getQuestion('physicalActivityInThePast')
-							"></ion-radio>
+								<ion-radio color="success" value="yes"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="
-								getQuestion('physicalActivityInThePast')
-							"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 18">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿De forma competitiva-deporte?</h6>
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="competitivePhysicalActivityInThePast"
-							>
+						(ionChange)="selectOption('competitive-physicalActivityInThePast')">
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="getQuestion('competitive-physicalActivityInThePast')"></ion-radio>
+								<ion-radio color="success" value="yes"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="getQuestion('competitive-physicalActivityInThePast')"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 19">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Qué deporte?</h6>
 						<div class="bg-light">
 							<ion-input [(ngModel)]="sportPhysicalActivityInThePast"></ion-input>
 						</div>
+						<p class="sport d-none">*debe completar el campo</p>
 					</div>
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto dejo?</h6>
@@ -568,9 +555,10 @@
 							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastCompetitive">
 							</ion-input>
 						</div>
+						<p class="time-since-last d-none">*debe completar el campo.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 20">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">
@@ -578,48 +566,46 @@
 						</h6>
 					</div>
 					<ion-list>
-						<ion-radio-group [(ngModel)]="spreadsheetPhysicalActivityInThePast" >
+						<ion-radio-group [(ngModel)]="spreadsheetPhysicalActivityInThePast" (ionChange)="
+						selectOption('spreadsheet-physicalActivityInThePast')
+					">
 							<ion-item>
 								<ion-label>Si</ion-label>
-								<ion-radio color="success" value="yes" (click)="
-								getQuestion('spreadsheet-physicalActivityInThePast')
-							"></ion-radio>
+								<ion-radio color="success" value="yes"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>No</ion-label>
-								<ion-radio color="danger" value="no" (click)="
-								getQuestion('spreadsheet-physicalActivityInThePast')
-							"></ion-radio>
+								<ion-radio color="danger" value="no"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 21">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Qué tipo de entrenamiento realizó?</h6>
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="trainingTypePhysicalActivityInThePastSpreadsheet"
-							>
+						(ionChange)="selectOption('trainingTypeSpreadsheet-physicalActivityInThePast')">
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
-								<ion-radio color="success" value="aerobic" (click)="getQuestion('trainingTypeSpreadsheet-physicalActivityInThePast')"></ion-radio>
+								<ion-radio color="success" value="aerobic"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>Fuerza</ion-label>
-								<ion-radio color="success" value="strength" (click)="getQuestion('trainingTypeSpreadsheet-physicalActivityInThePast')"></ion-radio>
+								<ion-radio color="success" value="strength"></ion-radio>
 							</ion-item>
 							<ion-item>
 								<ion-label>Ambos</ion-label>
-								<ion-radio color="success" value="aerobic-strength" (click)="getQuestion('trainingTypeSpreadsheet-physicalActivityInThePast')"></ion-radio>
+								<ion-radio color="success" value="aerobic-strength"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 22">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
@@ -627,34 +613,34 @@
 							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastSpreadsheet">
 							</ion-input>
 						</div>
-						<p class="timeSinceLast d-none">*debe completar el campo.</p>
+						<p class="time-since-last d-none">*debe completar el campo.</p>
 					</div>
 				</div>
-
+ 
 				<div [class.d-none]="step != 23">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Qué tipo de entrenamiento realizó?</h6>
 					</div>
 					<ion-list>
 						<ion-radio-group [(ngModel)]="trainingTypePhysicalActivityInThePastRecreational"
-							>
+						(ionChange)="selectOption('trainingTypeRecreational-physicalActivityInThePast')">
 							<ion-item>
 								<ion-label>Aeróbico</ion-label>
-								<ion-radio color="success" value="aerobic" (click)="getQuestion('trainingTypeRecreational-physicalActivityInThePast')"></ion-radio>
+								<ion-radio color="success" value="aerobic"></ion-radio>
 							</ion-item>
-
+ 
 							<ion-item>
 								<ion-label>Fuerza</ion-label>
-								<ion-radio color="success" value="strength" (click)="getQuestion('trainingTypeRecreational-physicalActivityInThePast')"></ion-radio>
+								<ion-radio color="success" value="strength"></ion-radio>
 							</ion-item>
 							<ion-item>
 								<ion-label>Ambos</ion-label>
-								<ion-radio color="success" value="aerobic-strength" (click)="getQuestion('trainingTypeRecreational-physicalActivityInThePast')"></ion-radio>
+								<ion-radio color="success" value="aerobic-strength"></ion-radio>
 							</ion-item>
 						</ion-radio-group>
 					</ion-list>
 				</div>
-
+ 
 				<div [class.d-none]="step != 24">
 					<div class="card-body text-center bg-dark mt-2">
 						<h6 class="text-white">¿Hace cuánto tiempo?</h6>
@@ -662,26 +648,32 @@
 							<ion-input [(ngModel)]="timeSinceLastTrainingPhysicalActivityInThePastRecreational">
 							</ion-input>
 						</div>
-						<p class="timeSinceLast d-none">*debe completar el campo.</p>
+						<p class="time-since-last d-none">*debe completar el campo.</p>
 					</div>
 				</div>
-
+ 
 				<div class="mt-2">
-					<ion-button [class.d-none]="step == 1" expand="block" color="medium" class="main-center"
+					<ion-button [class.d-none]="step == 1 || step == 25" expand="block" color="medium" class="main-center"
 						(click)="return()">Volver</ion-button>
-
+ 
 					<ion-button [class.d-none]="!displayNext" id="button-next" expand="block" color="success"
 						class="main-center" (click)="goToNext()">Siguiente</ion-button>
-
-					<ion-button *ngIf="finish" expand="block" color="warning" class="main-center"
+				</div>
+ 
+ 
+				<div class="mt-2" [class.d-none]="step !=25">
+					<ion-button expand="block" color="medium" class="main-center"
+						(click)="return()">Volver</ion-button>
+ 
+					<ion-button expand="block" color="warning" class="main-center"
 						(click)="goToPreview()">Vista previa</ion-button>
-
-					<ion-button *ngIf="finish" expand="block" color="success" class="main-center" (click)="completed()">
+ 
+					<ion-button expand="block" color="success" class="main-center" (click)="completed()">
 						Finalizar</ion-button>
 				</div>
 			</section>
 		</div>
-
+ 
 		<section class="wrapper" [class.d-none]="!displayResult">
 			<div class="card card-body result-evaluation text-center" *ngIf="level">
 				<h5 class="text-white">Su nivel de condición física es {{ level }}</h5>
@@ -690,7 +682,7 @@
 				<ion-button id="button-next" expand="block" class="main-center" [routerLink]="['/evaluation-detail']">
 					Ver resultados de evaluación</ion-button>
 			</div>
-
+ 
 			<div class="card card-body" *ngIf="testPending">
 				<div class="card card-body result-evaluation text-center">
 					<h5 class="text-white">
@@ -704,7 +696,7 @@
 			</div>
 		</section>
 	</div>
-
+ 
 	<div *ngIf="displayPreview">
 		<app-evaluation-preview [resultAnamnesis]="anamnesis" (displayEvaluation)="goToEvaluation()">
 		</app-evaluation-preview>

@@ -95,16 +95,28 @@ export class WodWeekComponent implements OnInit {
       var wodGroup = new WodGroup();
       var exercises = wodMember.wodGroupsMember.filter(x => x.groupIndex == i).map(e => {
         return {
-
+          id: e.id,
           exercise: e.exercise,
-          modality: e.modality,
+          modality: e.modality.name,
+          unitType: e.unitType,
           units: e.units,
-          mode: e.mode,
-          value: e.value
+          intensityType: e.intensityType,
+          intensityValue: e.intensityValue,
+          timeWork: e.timeWork,
+          timeRest: e.timeRest
         }
       });
       wodGroup.exercises = exercises;
       wodGroup.detail = wodMember.wodGroupsMember.find(x => x.groupIndex == i).detail;
+      wodGroup.rounds = wodMember.wodGroupsMember.find(x => x.groupIndex == i).rounds;
+      wodGroup.series = wodMember.wodGroupsMember.find(x => x.groupIndex == i).series;
+      wodGroup.modality = wodMember.wodGroupsMember.find(x => x.groupIndex == i).modality.name;
+      wodGroup.modalityId = wodMember.wodGroupsMember.find(x => x.groupIndex == i).modality.id;
+      wodGroup.staggeredType = wodMember.wodGroupsMember.find(x => x.groupIndex == i).staggeredType;
+      wodGroup.staggeredValue = wodMember.wodGroupsMember.find(x => x.groupIndex == i).staggeredValue;
+      wodGroup.time = wodMember.wodGroupsMember.find(x => x.groupIndex == i).time;
+      wodGroup.pauseBetweenRounds = wodMember.wodGroupsMember.find(x => x.groupIndex == i).pauseBetweenRounds;
+      wodGroup.pauseBetweenExercises = wodMember.wodGroupsMember.find(x => x.groupIndex == i).pauseBetweenExercises;
       wod.addGroup(wodGroup)
       // wod.wodNumber = wodMember.wodNumber;
 

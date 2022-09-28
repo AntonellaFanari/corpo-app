@@ -34,12 +34,12 @@
 				<tbody>
 					<tr *ngFor="let exerciseItem of group.exercises; let ei = index">
 						<td class="col-8">
-							{{ exerciseItem.units }} {{ exerciseItem.exercise.name }}
-							{{
+							{{ exerciseItem.exercise.name }} - {{ exerciseItem.units }} {{exerciseItem.unitType}}
+							<!-- {{
 								exerciseItem.modality.name != "Repeticiones"
 									? exerciseItem.modality.name
 									: ""
-							}}
+							}} -->
 						</td>
 						<td class="col-2 mode-value" *ngIf="exerciseItem.value">
 							{{ getValue(exerciseItem) }}
