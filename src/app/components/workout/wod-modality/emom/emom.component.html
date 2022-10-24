@@ -1,0 +1,25 @@
+<div class="form-group mt-3 row">
+  <label class="control-label col-4 text-black"><small>Rondas completas</small></label>
+  <div class="col-8 row">
+    <div class="arrow-button col-3" (click)="dencreaseUnit()">
+      <div class="down"> </div>
+    </div>
+    <div class="formValidators col-4 ps-0 pe-0">
+      <input type="text" class="form-control" [(ngModel)]="rounds" (change)="getRounds()">
+      <!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+    </div>
+    <div class="arrow-button col-3" (click)="increaseUnit()">
+      <div class="up"> </div>
+    </div>
+  </div>
+</div>
+<div class="col-12 row">
+  <label class="control-label col-4 text-black col-3"><small>en 60 seg</small></label>
+
+  <ion-button [class.d-none]="displayStopwatch"  color="success" expand="block" class="col-10"
+    (click)="goToStopwatch()">
+    Cronómetro
+  </ion-button>
+
+</div>
+<app-stopwatch [class.d-none]="!displayStopwatch" [countdownTime]="time" [countdown]="countdown" (getTime)="hideStopwatch()"> </app-stopwatch>

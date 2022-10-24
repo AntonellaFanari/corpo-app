@@ -30,6 +30,7 @@ import { UserCreateComponent } from './components/user/user-create/user-create.c
 import { PeriodizationComponent } from './components/workout/periodization/periodization.component';
 import { RatingComponent } from './components/workout/rating/rating.component';
 import { EffortComponent } from './components/workout/reports/effort/effort.component';
+import { WodResultsComponent } from './components/workout/wod-results/wod-results.component';
 import { WodWeekComponent } from './components/workout/wod-week/wod-week.component';
 import { WodComponent } from './components/workout/wod/wod.component';
 
@@ -166,6 +167,10 @@ const routes: Routes = [
   {
     path: 'evaluation-preview',
     component: EvaluationPreviewComponent
+  }, 
+  {
+    path: 'wod-resultados',
+    component: WodResultsComponent
   }, 
   {
     path: 'folder/:id',

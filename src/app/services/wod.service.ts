@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { DomainResponse } from '../domain/domain-response';
+import { ResultsWodGroupMember } from '../domain/workout/results-wod-group-member';
 import { wodTemplateResponse } from '../domain/workout/wod';
 
 
@@ -25,7 +26,7 @@ export class WodService {
     return this.http.get(this.url + 'api/wod-member');
   }
   public getById(id: number) {
-    return this.http.get<wodTemplateResponse>(this.url + 'api/wod-member/getById?id=' + id);
+    return this.http.get<wodTemplateResponse>(this.url + 'api/wod-member/by-Id?id=' + id);
   } 
 
   public updateRate(id: number, rate: number){
@@ -47,4 +48,6 @@ export class WodService {
   public updateRest(id: number, rest: number){
     return this.http.put<DomainResponse<any>>(this.url + 'api/wod-member/rest?id='+id + '&rest='+ rest, httpOptions);
   }
+
+
 }

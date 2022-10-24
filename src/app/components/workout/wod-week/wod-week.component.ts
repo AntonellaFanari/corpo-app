@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CalendarComponentOptions, CalendarModalOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
 import { Wod, WodGroup } from 'src/app/domain/workout/wod';
@@ -23,13 +24,23 @@ export class WodWeekComponent implements OnInit {
   days: string[] = [];
   wodDates: string[] = [];
   weekNumber: number;
+  displayWod = false;
 
-  constructor(private wodService: WodService) { }
+  constructor(private wodService: WodService,
+    private route: ActivatedRoute) {
+      this.route.queryParams.subscribe(params => {
+        let display = params['displayWod']
+        this.displayWod = (display == 'false')? false: true; 
+    console.log("display wod: ", this.displayWod);
+    
+    this.getAllWod();
+  })
+     }
 
   ngOnInit() {
-    this.getAllWod();
 
   }
+
 
   getAllWod() {
     this.wods = [];
@@ -38,7 +49,7 @@ export class WodWeekComponent implements OnInit {
       this.requesting = false;
       if(data.result != null){
         this.result = data.result;
-        console.log(this.result);
+        console.log("wod recibidos: ", this.result);
         var wodMembers = data.result;
         wodMembers.forEach(w => {
           this.wods.push({
@@ -79,6 +90,7 @@ export class WodWeekComponent implements OnInit {
   }
 
   getWodMember(wodMember): Wod {
+    console.log("wod a transformar: ", wodMember);
     this.weekNumber = wodMember.weekNumber;
     var wod = new Wod();
     wod.id = wodMember.id;
@@ -90,6 +102,7 @@ export class WodWeekComponent implements OnInit {
     wod.rate = wodMember.rate;
     wod.weekNumber = wodMember.weekNumber;
     wod.rest = wodMember.rest;
+    wod.attended = wodMember.attended;
 
     indexes.forEach(i => {
       var wodGroup = new WodGroup();
@@ -107,6 +120,8 @@ export class WodWeekComponent implements OnInit {
         }
       });
       wodGroup.exercises = exercises;
+      wodGroup.id = wodMember.wodGroupsMember.find(x => x.groupIndex == i).id;
+      wodGroup.groupIndex = i,
       wodGroup.detail = wodMember.wodGroupsMember.find(x => x.groupIndex == i).detail;
       wodGroup.rounds = wodMember.wodGroupsMember.find(x => x.groupIndex == i).rounds;
       wodGroup.series = wodMember.wodGroupsMember.find(x => x.groupIndex == i).series;
@@ -121,6 +136,7 @@ export class WodWeekComponent implements OnInit {
       // wod.wodNumber = wodMember.wodNumber;
 
     })
+    console.log("wod transformado: ", wod);
     return wod;
   }
 
@@ -161,6 +177,7 @@ export class WodWeekComponent implements OnInit {
   closeWod() {
     this.wod = null;
     this.getAllWod();
+    this.displayWod = false;
   }
 
   getDayConfig(today): DayConfig {
@@ -206,6 +223,7 @@ export class WodWeekComponent implements OnInit {
     // console.log(res)
     console.log("wod seleccionado: ", this.wods[i].wod);
     this.wod = this.wods[i];
+    this.displayWod = true;
   }
 }
 

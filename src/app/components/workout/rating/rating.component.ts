@@ -11,6 +11,7 @@ export class RatingComponent implements OnInit {
 
   rate = 0;
   id: number;
+  requesting = false;
 
   constructor(private wodService: WodService,
     private route: ActivatedRoute,
@@ -21,13 +22,14 @@ export class RatingComponent implements OnInit {
   ngOnInit() { }
 
   effortRate(){
+    this.requesting = true;
     this.wodService.updateRate(this.id, this.rate).subscribe(
       response => {
         console.log("calificación guardada");
         // this.router.navigate(['/effort']);
-        this.router.navigate(['/wod-week']);
+        this.router.navigate(['/wod-week'], {queryParams: {'displayWod': 'false'}});
       },
-      error => console.error(error)
+      error => this.requesting = false
     )
   }
 

@@ -1,0 +1,14 @@
+<div class="form-group mt-3 row">
+  <label class="control-label col-5 text-black"><small>Tiempo total
+    (seg)</small></label>
+<div class="formValidators col- ps-0 pe-0 col-6">
+  <input type="text" class="form-control" disabled [(ngModel)]="time">
+  <!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+</div>
+<ion-button [class.d-none]="displayStopwatch" color="success" expand="block" class="col-12"
+  (click)="goToStopwatch()">
+  Cronómetro
+</ion-button>
+</div>
+<app-stopwatch [class.d-none]="!displayStopwatch" (getTime)="getTime($event)" (hideDisplayStopwatch)="hideStopwatch()"> </app-stopwatch>
+

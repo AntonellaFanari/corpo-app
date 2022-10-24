@@ -51,6 +51,13 @@ import { AnamnesisPhisicalConditionComponent } from './components/phisical-condi
 import { EvaluationDetailComponent } from './components/phisical-condition/evaluation-detail/evaluation-detail.component';
 import { EvaluationPreviewComponent } from './components/phisical-condition/evaluation-preview/evaluation-preview.component';
 import { HomeComponent } from './components/home/home.component';
+import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
+import { ShortestPossibleTimeComponent } from './components/workout/wod-modality/shortest-possible-time/shortest-possible-time.component';
+import { WodResultsComponent } from './components/workout/wod-results/wod-results.component';
+import { AmrapComponent } from './components/workout/wod-modality/amrap/amrap.component';
+import { TimersComponent } from './components/workout/wod-modality/timers/timers.component';
+import { StaggeredComponent } from './components/workout/wod-modality/staggered/staggered.component';
+import { EmomComponent } from './components/workout/wod-modality/emom/emom.component';
 
 //import { MatSliderModule } from '@angular/material/slider'; 
 
@@ -95,7 +102,14 @@ import { HomeComponent } from './components/home/home.component';
     AnamnesisPhisicalConditionComponent,
     EvaluationDetailComponent,
     EvaluationPreviewComponent,
-    HomeComponent
+    HomeComponent,
+    StopwatchComponent,
+    ShortestPossibleTimeComponent,
+    WodResultsComponent,
+    AmrapComponent,
+    TimersComponent,
+    StaggeredComponent,
+    EmomComponent
   //  MatSliderModule
   ],
   entryComponents: [MyDebtsComponent],

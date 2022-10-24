@@ -1,0 +1,111 @@
+<div *ngIf="!requesting && wod" class="wod-container wrapper">
+	<div class="">
+		<h6 class="text-center text-white">Wod Nº {{ wod.wodNumber }}</h6>
+	</div>
+	<div class="card">
+		<div class="card-body">
+			<label class="label-goal">Objetivos </label>
+
+			<ul class="goal">
+				<li *ngFor="let goal of getGoals(wod.goal)">{{ goal }}</li>
+			</ul>
+		</div>
+		<div class="card-body">
+			<label class="label-goal">Intensidad:
+				<span class="text-black">{{ wod.intensity }}</span>
+				<span [ngClass]="{ 'hide-percentage': wod.intensityType == 1 }">%</span></label>
+		</div>
+
+	</div>
+
+
+	<div class="card wod-group mt-2" *ngFor="let group of wod.wodGroups; let i = index" [attr.data-index]="i">
+		<div><label class="group-detail">
+				{{ group.detail }}
+			</label>
+		</div>
+
+		<div class="">
+			<table class="table table-bordered wod-table">
+				<tbody>
+					<tr *ngFor="let exerciseItem of group.exercises; let ei = index">
+						<td class="col-10">
+							<strong>{{ exerciseItem.exercise.name }}</strong>
+							<span *ngIf="group.modality != 'Timers'"><br>{{ exerciseItem.units }}
+								{{exerciseItem.unitType}}</span>
+							<span *ngIf="group.modality == 'Timers'"> <br>Time Work: {{ exerciseItem.timeWork }}
+								min. - Time Rest: {{exerciseItem.timeRest}} min.</span>
+							<!-- {{
+								exerciseItem.modality.name != "Repeticiones"
+									? exerciseItem.modality.name
+									: ""
+							}} -->
+							<div class="form-group mt-3 row"
+								[class.d-none]="group.modality != 'Tiempo' && group.modality != 'Escalera'">
+								<label *ngFor="let round of getRounds(group.rounds)"
+									class="control-label col-5 text-black"><small>Tiempo {{round}}º ronda: <br><span class="result-text">
+										{{getResultExercise(group.groupIndex, exerciseItem.id, 'time', round)}}
+										seg.</span></small></label>
+							</div>
+
+							<div class="form-group mt-3 row" [class.d-none]="group.modality != 'Timers'">
+								<label class="control-label col-5 text-black"><small class="result-text">{{getResultExercise(group.groupIndex,
+										exerciseItem.id, 'amount', null)}} {{exerciseItem.unitType}}.</small></label>
+
+							</div>
+
+						</td>
+					</tr>
+					<tr [class.d-none]="group.modality != 'Tiempo'">
+						<td class="col-12" colspan="2">
+							<div class="form-group mt-3 row">
+								<label class="control-label col-12 text-black">Resultado:<span class="result-text"> Tiempo total
+										{{getResultGroup(group.groupIndex, 'time')}} segundos.</span></label>
+							</div>
+						</td>
+					</tr>
+					<!-- <tr [class.d-none]="group.modality != 'Timers'">
+						<td class="col-12" colspan="2">
+							<div class="form-group mt-3 row">
+								<label class="control-label col-12 text-black">Resultado:<span class="result-text">
+										{{getResultGroup(group.groupIndex, 'repetitions')}} repeticiones
+										totales.</span></label>
+							</div>
+						</td>
+					</tr> -->
+					<tr [class.d-none]="group.modality != 'AMRAP'">
+						<td class="col-12" colspan="2">
+							<div class="form-group mt-3 row">
+								<label class="control-label col-12 text-black">Resultado:<span class="result-text">
+										{{getResultGroup(group.groupIndex, 'rounds')}} rondas completas en
+										{{group.time}} minutos.</span></label>
+							</div>
+						</td>
+					</tr>
+					<tr [class.d-none]="group.modality != 'Escalera'">
+						<td class="col-12" colspan="2">
+							<div class="form-group mt-3 row">
+								<label class="control-label col-12 text-black">Resultado:<span class="result-text"> Tiempo total
+										{{getResultGroup(group.groupIndex, 'time')}} segundos.</span></label>
+							</div>
+						</td>
+					</tr>
+					<tr [class.d-none]="group.modality != 'EMOM'">
+						<td class="col-12" colspan="2">
+							<div class="form-group mt-3 row">
+								<label class="control-label col-12 text-black">Resultado:<span class="result-text">
+										{{getResultGroup(group.groupIndex, 'rounds')}} rondas en 60
+										segundos.</span></label>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="mt-4">
+		<ion-button expand="block" color="medium" class="main-center" [routerLink]="['/wod-week']" [queryParams] = "{displayWod:'false'}">Volver</ion-button>
+	</div>
+</div>
+<ion-spinner *ngIf="requesting"></ion-spinner>

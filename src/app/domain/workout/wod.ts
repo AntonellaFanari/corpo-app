@@ -4,6 +4,7 @@ import { IntensityType } from './periodization';
 
 
 export class WodGroup {
+  id: number;
   groupIndex: string;
   exercises: ExerciseItem[] = [];
   detail: string;
@@ -47,6 +48,7 @@ export class WodGroup {
 }
 
 export class ExerciseItem {
+  id?: number;
   exercise: Exercise;
   modality: Modality;
   unitType: string;
@@ -69,6 +71,7 @@ export class Wod {
   weekNumber?: number;
   wodNumber?: number;
   rest?: number;
+  attended: string;
 
   addGroup(wodGroup: WodGroup) {
 

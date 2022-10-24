@@ -10,8 +10,8 @@ if (environment.production) {
 
 export function getBaseUrl() {
   //return document.getElementsByTagName('base')[0].href;
-  // return "http://antofanari-001-site1.gtempurl.com/"; 
-  return "https://localhost:44399/";
+  return "http://antofanari-001-site1.gtempurl.com/"; 
+  // return "https://localhost:44399/";
 }
 
 const providers = [

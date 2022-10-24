@@ -28,7 +28,7 @@
 							<ion-icon name="calendar-clear"></ion-icon>
 							<ion-label>turnos</ion-label>
 						</ion-item>
-						<ion-item routerDirection="root" [routerLink]="['/wod-week']">
+						<ion-item routerDirection="root" [routerLink]="['/wod-week']" [queryParams]="{ displayWod: 'false' }">
 							<ion-icon name="barbell"></ion-icon>
 							<ion-label>WOD</ion-label>
 						</ion-item>

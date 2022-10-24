@@ -1,0 +1,46 @@
+<div [class.d-none]="viewType == 'exercise'">
+  <div class="form-group mt-3 row">
+    <label class="control-label col-4 text-black"><small>Rondas completas</small></label>
+    <div class="col-8 row">
+      <div class="arrow-button col-3" (click)="dencreaseUnit('rounds')">
+        <div class="down"> </div>
+      </div>
+      <div class="formValidators col-4 ps-0 pe-0">
+        <input type="text" class="form-control" [(ngModel)]="rounds"
+          (change)="getRounds()">
+        <!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+      </div>
+      <div class="arrow-button col-3" (click)="increaseUnit('rounds')">
+        <div class="up"> </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 row">  
+    <ion-button [class.d-none]="displayStopwatch" color="success" expand="block" class="col-10"
+      (click)="goToStopwatch()">
+      Cronómetro
+    </ion-button>
+    <app-stopwatch [class.d-none]="!displayStopwatch" [countdownTime]="time" [countdown]="countdown" (getTime)="hideStopwatch()" (hideDisplayStopwatch)="hideStopwatch()"> </app-stopwatch>
+  
+  </div>
+</div>
+<div [class.d-none]="viewType == 'group'">
+  <div class="form-group mt-3 row">
+    <label class="control-label col-5 text-black"><small class="uppercase">{{unitType}}</small> <br>
+    <small>(en ronda sin completar)</small></label>
+    <div class="col-7 row">
+      <div class="arrow-button col-3"
+        (click)="dencreaseUnit('amount')">
+        <div class="down"> </div>
+      </div>
+      <div class="formValidators col-5 ps-0 pe-0">
+        <input type="text" class="form-control"
+          [(ngModel)]="amount" (change)="getAmount()">
+        <!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+      </div>
+      <div class="arrow-button col-3"
+        (click)="increaseUnit('amount')">
+        <div class="up"> </div>
+      </div>
+    </div>
+</div>

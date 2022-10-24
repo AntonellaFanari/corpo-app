@@ -1,0 +1,32 @@
+<div class="form-group mt-3 row">
+  <label class="control-label col-5 text-black"><small class="uppercase">{{unitType}}</small></label>
+  <div class="col-7 row">
+    <div class="arrow-button col-3" (click)="dencreaseUnit()">
+      <div class="down"> </div>
+    </div>
+    <div class="formValidators col-5 ps-0 pe-0">
+      <input type="text" class="form-control" [(ngModel)] = "amount" (change)="getAmount()">
+      <!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+    </div>
+    <div class="arrow-button col-3" (click)="increaseUnitr()">
+      <div class="up"> </div>
+    </div>
+  </div>
+ 
+</div>
+<div>
+  <label class="control-label col-5 text-black"><small>Time Work</small></label>
+  <ion-button [class.d-none]="displayStopwatch && timeType == 'timeWork'" color="success" expand="block" class="col-12"
+        (click)="goToStopwatch('timeWork')">
+        Cronómetro
+      </ion-button>
+  <app-stopwatch [class.d-none]="timeType != 'timeWork'" [countdownTime]="timeWork" [countdown]="countdown" (getTime)="hideStopwatch()"> </app-stopwatch>
+</div>
+<div>
+  <label class="control-label col-5 text-black"><small>Time Rest</small></label>
+  <ion-button [class.d-none]="displayStopwatch && timeType == 'timeRest'" color="success" expand="block" class="col-12"
+        (click)="goToStopwatch('timeRest')">
+        Cronómetro
+      </ion-button>
+  <app-stopwatch [class.d-none]="timeType != 'timeRest'" [countdownTime]="timeRest" [countdown]="countdown" (getTime)="hideStopwatch()"> </app-stopwatch>
+</div>

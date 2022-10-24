@@ -14,7 +14,7 @@
 </ion-content>
 -->
 
-<section class="wrapper" *ngIf="!wod">
+<section class="wrapper" [class.d-none]="displayWod">
 	<!-- <div class="card">
 
         <table class="table table-bordered table-condensed cf">
@@ -42,14 +42,23 @@
 						<td data-title="wod.wodNumber" class="align-middle">
 							<strong>Dia Nº {{ wod.wodNumber }}</strong>
 						</td>
-						<td data-title="{{ wod.wodNumber }}">
+						<td data-title="{{ wod.attended }}">
 							<ion-button
 								expand="block"
 								color="success"
 								class="main-center"
 								(click)="viewWod(i)"
+								[class.d-none]="wod.wod.attended == 'true'"
 								>ver</ion-button
 							>
+							<ion-button
+							expand="block"
+							color="success"
+							class="main-center"
+							[routerLink]="['/wod-resultados']" [queryParams]="{id: wod.wod.id}"
+							[class.d-none]="wod.wod.attended != 'true'"
+							>resultados</ion-button
+						>
 						</td>
 					</tr>
 				</tbody>
@@ -77,4 +86,4 @@
 	</div>
 </section>
 
-<app-wod [wod]="wod" (wodEventEmitter)="closeWod()"></app-wod>
+<app-wod [wod]="wod" [class.d-none]="!displayWod" (wodEventEmitter)="closeWod()"></app-wod>

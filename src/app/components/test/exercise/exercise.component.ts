@@ -109,6 +109,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   save() {
+    this.requestingExercise = true;
     switch (this.type) {
       case 1:
         this.saveType1();
@@ -129,7 +130,7 @@ export class ExerciseComponent implements OnInit {
         console.log("resultado guardado tipo 1");
         this.getStatusTest();
       },
-      error => console.error(error)
+      error => this.requestingExercise = false
     )
   }
 
@@ -139,7 +140,7 @@ export class ExerciseComponent implements OnInit {
         console.log("resultado guardado tipo 2");
         this.getStatusTest();
       },
-      error => console.error(error)
+      error => this.requestingExercise = false
     )
   }
 
@@ -149,7 +150,7 @@ export class ExerciseComponent implements OnInit {
         console.log("resultado guardado tipo 3");
         this.getStatusTest();
       },
-      error => console.error(error)
+      error => this.requestingExercise = false
     )
   }
 
@@ -161,6 +162,7 @@ export class ExerciseComponent implements OnInit {
         }else{
           this.router.navigate(['/test'], {queryParams: {id: this.testId}});
         }
+        this.requestingExercise = false;
       },
       error => console.error(error)
     )

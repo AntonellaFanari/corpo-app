@@ -1,0 +1,43 @@
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="3" class="ion-text-center">
+        <div class="minutes">
+          <div *ngIf="lessThanMinutes()">0{{minutes}}</div>
+          <div *ngIf="!lessThanMinutes()">{{minutes}}</div>
+        </div>
+      </ion-col>
+      <ion-col size="3" class="ion-text-center">
+        <div class="minutes">
+          <div *ngIf="lessThanSeconds()">0{{seconds}}</div>
+          <div *ngIf="!lessThanSeconds()">{{seconds}}</div>
+        </div>
+      </ion-col>
+
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="3" class="ion-text-center padding-button" [class.d-none]="initiated">
+        <ion-button color="success" (click)="play()">
+          <ion-icon name="play"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-text-center padding-button" [class.d-none]="!initiated">
+        <ion-button color="danger" (click)="pause()">
+          <ion-icon name="pause"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-text-center padding-button">
+        <ion-button color="danger" (click)="reset()">
+          <ion-icon name="refresh"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-text-center padding-button">
+        <ion-button color="success" (click)="save()">
+          <ion-icon name="checkmark"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+<!-- <ion-button expand="block" color="medium" class="main-center" (click)="goBack()">Volver</ion-button>
+<ion-button [class.d-none]="countdown" expand="block" color="success" class="main-center" (click)="save()">Guardar</ion-button> -->

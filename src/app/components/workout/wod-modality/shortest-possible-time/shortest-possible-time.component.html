@@ -1,0 +1,18 @@
+<div>
+  <div class="row mt-2" *ngFor="let time of times; index as i">
+    <div class="col-4">{{time.round}} ronda:</div>
+    <div class="row col-9">
+      <label class="control-label col-5 text-black"><small>Tiempo
+          (seg)</small></label>
+      <div class="formValidators col- ps-0 pe-0 col-6">
+        <input type="text" class="form-control" disabled [value]="time.time">
+      </div>
+      <ion-button color="success" expand="block" class="col-12"
+      [class.d-none]="roundStopwatch == i+1"
+        (click)="goToStopwatch(i)">
+        Cronómetro
+      </ion-button>
+    </div>
+    <app-stopwatch [class.d-none]="roundStopwatch != i+1" (getTime)="getTime($event)" (hideDisplayStopwatch)="hideStopwatch()"> </app-stopwatch>
+  </div>
+</div>
