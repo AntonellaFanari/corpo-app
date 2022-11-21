@@ -1,6 +1,6 @@
 <div *ngIf="!requesting">
 
-	<div *ngIf="wod && !displayRest" [class.d-none]="displayStopwatch" class="wod-container wrapper">
+	<div *ngIf="wod" [class.d-none]="displayStopwatch" class="wod-container wrapper">
 		<div class="">
 			<h6 class="text-center text-white">Wod Nº {{ wod.wodNumber }}</h6>
 		</div>

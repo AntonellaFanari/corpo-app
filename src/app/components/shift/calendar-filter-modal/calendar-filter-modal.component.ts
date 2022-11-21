@@ -148,9 +148,8 @@ export class CalendarFilterModalComponent implements OnInit {
     }
   }
 
-  selectOption(option) {
-    console.log("opcion: ", option);
-    this.selectedOption = option;
+  selectOption() {
+    console.log("opcion: ", this.selectedOption);
     this.filterRange = (this.selectedOption == "date") ? false : true;
     if (this.filterRange) this.getOptionDateRange();
   }
