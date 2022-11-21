@@ -1,0 +1,63 @@
+<!-- <corpo-header>Mis Test</corpo-header>
+<section class="wrapper" *ngIf="!requestingExercise && exercise">
+	<div>
+		<div class="month text-center mb-3">
+			<strong>Evaluación de - {{ exercise.name }}</strong>
+		</div>
+
+		<ion-card>
+			<ion-toolbar color="medium" class="toolbar-label">
+				<ion-label>Mi imagen</ion-label>
+			</ion-toolbar>
+			<ion-card>
+				<img *ngFor="let url of urlsImg" class="col-12 text-center mt-3 mb-3" [src]="url" />
+			</ion-card>
+
+			<ion-toolbar color="medium" class="toolbar-label">
+				<ion-label>Compare con su imagen</ion-label>
+			</ion-toolbar>
+			<ion-radio-group>
+				<ion-slides *ngIf="exerciseFms" pager="true">
+					<ion-slide *ngFor="let file of exerciseFms.files; index as i">
+						<ion-card class="div-rate rate-deselected">
+							<div class="row mb-2" (click)="selectRate(file.rate, i)">
+								<h1 class="col-12 text-white">{{ file.rate }}</h1>
+								<div class="col-12">
+									<div class="text-center">
+										<ion-img class="img-evaluation" [src]="urlBase + file.path"></ion-img>
+									</div>
+								</div>
+								<div class="col-12 mt-1">
+									<h5 class="text-white">{{ file.description }}</h5>
+								</div>
+							</div>
+						</ion-card>
+					</ion-slide>
+					<ion-slide>
+						<ion-card class="div-rate rate-deselected">
+							<div class="row mb-2" (click)="selectRate(0, 3)">
+								<h1 class="col-12 text-white">0</h1>
+								<div class="col-12 mt-1">
+									<h5 class="text-white">Si hay dolor.</h5>
+								</div>
+							</div>
+						</ion-card>
+					</ion-slide>
+				</ion-slides>
+			</ion-radio-group>
+		</ion-card>
+		<div class="container">
+			<ion-button [disabled]="!selectedRate" expand="block" color="success" class="margin-btn" (click)="save()">
+				Guardar</ion-button>
+			<ion-button expand="block" color="medium" class="margin-btn" (click)="hideEvaluation()">Volver
+			</ion-button>
+		</div>
+	</div>
+</section>
+<section class="wrapper">
+	<div class="w-100 text-center" *ngIf="requestingExercise">
+		<div class="spinner-border text-success" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+</section> -->

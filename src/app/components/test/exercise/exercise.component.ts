@@ -29,7 +29,7 @@ export class ExerciseComponent implements OnInit {
   urlsVideo = [];
   urlsImg = [];
   requestingExercise: boolean;
-  displayEvaluation: boolean;
+  displayEvaluation = false;
   exerciseFms: ExerciseFms;
   urlBase: string;
   rate: number;
@@ -39,39 +39,45 @@ export class ExerciseComponent implements OnInit {
   constructor(private testService: TestService,
     private route: ActivatedRoute,
     private router: Router) {
+      
+    this.displayEvaluation = false;
     this.route.queryParams.subscribe(params => {
       this.id = parseInt(params['id']);
       this.type = parseInt(params['type']);
       this.testId = parseInt(params['testId']);
+      this.requestingExercise = true;
+      this.exercise = null;
+      this.resultExercise = null;
       this.getExerciseById();
-      this.urlBase = this.testService.url;
     });
-    // this.getExerciseById();
   }
 
   ngOnInit() {
+    this.requestingExercise = true;
+    this.getExerciseById();
+    this.urlBase = this.testService.url;
+
   }
 
-   
-  ionViewWillEnter(){
-    this.route.queryParams.subscribe(params => {
-      this.id = parseInt(params['id']);
-      this.type = parseInt(params['type']);
-      this.testId = parseInt(params['testId']);
-      this.getExerciseById();
-      this.urlBase = this.testService.url;
-  });
-}
+
+  ionViewWillEnter() {
+    
+    this.displayEvaluation = false;
+    this.requestingExercise = true;
+    this.getExerciseById();
+    this.urlBase = this.testService.url;
+  }
 
   getExerciseById() {
+    this.displayEvaluation = false;
     this.requestingExercise = true;
     this.testService.getExerciseById(this.id).subscribe(
       response => {
-        this.requestingExercise = false;
         console.log("Ejercicio: ", response);
         this.exercise = response.result;
+        this.requestingExercise = false;
       },
-      error => console.error(error)
+      error => this.requestingExercise = false
     )
 
   }
@@ -154,17 +160,17 @@ export class ExerciseComponent implements OnInit {
     )
   }
 
-  getStatusTest(){
+  getStatusTest() {
     this.testService.getById(this.testId).subscribe(
       response => {
-        if(response.result.status == StatusTest.executed){
+        if (response.result.status == StatusTest.executed) {
           this.router.navigate(['/mis-tests']);
-        }else{
-          this.router.navigate(['/test'], {queryParams: {id: this.testId}});
+        } else {
+          this.router.navigate(['/test'], { queryParams: { id: this.testId } });
         }
         this.requestingExercise = false;
       },
-      error => console.error(error)
+      error => this.requestingExercise = false
     )
   }
 
@@ -213,6 +219,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   viewEvaluation() {
+    this.requestingExercise = true;
     this.displayEvaluation = true;
     this.getExerciseFms(this.exercise.exerciseFmsId);
   }
@@ -227,8 +234,9 @@ export class ExerciseComponent implements OnInit {
       response => {
         console.log("ejercicio fms: ", response.result);
         this.exerciseFms = response.result;
+        this.requestingExercise = false;
       },
-      error => console.error(error)
+      error => this.requestingExercise = false
     )
   }
 
@@ -248,6 +256,62 @@ export class ExerciseComponent implements OnInit {
         div.classList.add("rate-deselected");
       }
 
+    }
+  }
+
+
+  dencreaseUnit(type) {
+    switch (type) {
+      case 'minutes':
+        if (this.minutes > 0) {
+          this.minutes--;
+        }
+        break;
+      case 'seconds':
+        if (this.seconds > 0) {
+          this.seconds--;
+        }
+        break;
+      case 'initialHeartRate':
+        if (this.initialHeartRate > 0) {
+          this.initialHeartRate--;
+        }
+        break;
+      case 'finalHeartRate':
+        if (this.finalHeartRate > 0) {
+          this.finalHeartRate--;
+        }
+        break;
+      case 'repetitions':
+        if (this.repetitions > 0) {
+          this.repetitions--;
+        }
+        break;
+      default:
+        break;
+    }
+
+  }
+
+  increaseUnit(type) {
+    switch (type) {
+      case 'minutes':
+        this.minutes++;
+        break;
+      case 'seconds':
+        this.seconds++;
+        break;
+      case 'initialHeartRate':
+        this.initialHeartRate++;
+        break;
+      case 'finalHeartRate':
+        this.finalHeartRate++;
+        break;
+        case 'repetitions':
+        this.repetitions++;
+        break;
+      default:
+        break;
     }
   }
 

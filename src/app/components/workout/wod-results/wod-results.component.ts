@@ -29,7 +29,9 @@ export class WodResultsComponent implements OnInit {
     this.getAllWod();
   }
 
-
+  ionViewWillEnter(){
+    this.getAllWod();
+  }
 
 
   getAllWod() {    

@@ -13,6 +13,7 @@ import { ReservationComponent } from './components/shift/reservation/reservation
 import { PeriodizationGoalsComponent } from './components/statistics/periodization-goals/periodization-goals.component';
 import { PeriodizationReportComponent } from './components/statistics/periodization-report/periodization-report.component';
 import { WodGoalsComponent } from './components/statistics/wod-goals/wod-goals.component';
+import { ExerciseFmsEvaluationComponent } from './components/test/exercise-fms-evaluation/exercise-fms-evaluation.component';
 import { ExerciseComponent } from './components/test/exercise/exercise.component';
 import { MyTestsComponent } from './components/test/my-tests/my-tests.component';
 import { ResultComponent } from './components/test/result/result.component';
@@ -171,6 +172,10 @@ const routes: Routes = [
   {
     path: 'wod-resultados',
     component: WodResultsComponent
+  }, 
+  {
+    path: 'evaluacion-ejercicio-fms',
+    component: ExerciseFmsEvaluationComponent
   }, 
   {
     path: 'folder/:id',

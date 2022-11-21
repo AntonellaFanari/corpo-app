@@ -9,6 +9,7 @@ import { AnamnesisService } from 'src/app/services/anamnesis.service';
 })
 export class EvaluationDetailComponent implements OnInit {
 resultAnamnesis: Anamnesis;
+requesting = false;
 
   constructor(private anamnesisService: AnamnesisService) { }
 
@@ -17,12 +18,14 @@ resultAnamnesis: Anamnesis;
   }
 
   getAnamnesis(){
+    this.requesting = true;
     this.anamnesisService.getByMemberId().subscribe(
       response =>{
         console.log(response.result);
         this.resultAnamnesis = response.result;
+        this.requesting = false;
       },
-      error => console.error(error)
+      error => this.requesting = false
     )
   }
 }

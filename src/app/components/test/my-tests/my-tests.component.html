@@ -19,15 +19,15 @@
 		>Historial</ion-button
 	>
 </section>
+
+
 <section class="wrapper" *ngIf="!displayTests">
-	<div class="w-100 text-center" *ngIf="requestingTest">
+	<ion-spinner *ngIf="requestingTest"></ion-spinner>
+	<!-- <div class="w-100 text-center" *ngIf="requestingTest">
 		<div class="spinner-border text-success" role="status">
 			<span class="sr-only">Loading...</span>
 		</div>
-	</div>
-
-	
-
+	</div> -->
 </section>
 
 <section class="wrapper" *ngIf="displayTests">
@@ -78,12 +78,12 @@
 			</section>
 		</div>
 	</div>
-
-	<div class="w-100 text-center" *ngIf="requestingTestList && tests.length == 0">
+	<ion-spinner *ngIf="requestingTestList && tests.length == 0"></ion-spinner>
+	<!-- <div class="w-100 text-center" *ngIf="requestingTestList && tests.length == 0">
 		<div class="spinner-border text-success" role="status">
 			<span class="sr-only">Loading...</span>
 		</div>
-	</div>
+	</div> -->
 	<h5 *ngIf="!requestingTestList && tests.length == 0" class="text-white">No hay tests para mostrar</h5>
 	<ion-button
 	*ngIf="displayTests && !requestingTestList"

@@ -58,4 +58,8 @@ export class AttendanceService {
     return this.http.get<DomainResponse<any>>(this.url + 'api/attendance/by-from-by-to-by-class?from='+ from + '&to='+ to + '&classId=' + classId);
   }
 
+  public getByDay(from: string, classId: number){
+    return this.http.get<DomainResponse<any>>(this.url + 'api/attendance/by-day?day='+ from + '&classId='+ classId);
+  }
+
 }

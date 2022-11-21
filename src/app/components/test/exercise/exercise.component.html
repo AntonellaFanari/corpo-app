@@ -1,6 +1,6 @@
 <corpo-header>Mis Test</corpo-header>
-<section class="wrapper" *ngIf="!requestingExercise && exercise">
-	<div *ngIf="!displayEvaluation">
+<section class="wrapper" *ngIf="!requestingExercise">
+	<div *ngIf="!displayEvaluation  && exercise">
 		<div class="container">
 			<div class="month text-center mb-3">
 				<strong>Ejercicio - {{ exercise.name }}</strong>
@@ -10,262 +10,213 @@
 				<p>{{ exercise.protocol }}</p>
 			</div>
 
-			<div *ngIf="type == 1" class="bg-dark">
+			<div [class.d-none]="type != 1" class="bg-dark">
 				<ion-card class="margin-card">
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="alarm-outline"
-							slot="start"
-						></ion-icon>
+						<ion-icon class="color-icon" name="alarm-outline" slot="start"></ion-icon>
 						<ion-label>Tiempo</ion-label>
 					</ion-item>
 					<div class="p-3 row">
-						<div class="col-6">
-							<ion-label>Minutos</ion-label>
-							<ion-input
-								type="number"
-								class="color-input ps-2"
-								[(ngModel)]="minutes"
-							></ion-input>
+						<div class="form-group mt-3 row">
+							<label class="control-label col-5">Minutos</label>
+							<div class="col-7 row">
+								<div class="arrow-button col-3" (click)="dencreaseUnit('minutes')">
+									<div class="down"> </div>
+								</div>
+								<div class="formValidators col-5 ps-0 pe-0">
+									<input type="text" class="form-control" [(ngModel)]="minutes">
+									<!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+								</div>
+								<div class="arrow-button col-3" (click)="increaseUnit('minutes')">
+									<div class="up"> </div>
+								</div>
+							</div>
 						</div>
-						<div class="col-6">
-							<ion-label>Segundos</ion-label>
-							<ion-input
-								type="number"
-								class="color-input ps-2"
-								[(ngModel)]="seconds"
-							></ion-input>
+						<div class="form-group mt-3 row">
+							<label class="control-label col-5">Segundos</label>
+							<div class="col-7 row">
+								<div class="arrow-button col-3" (click)="dencreaseUnit('seconds')">
+									<div class="down"> </div>
+								</div>
+								<div class="formValidators col-5 ps-0 pe-0">
+									<input type="text" class="form-control" [(ngModel)]="seconds">
+									<!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+								</div>
+								<div class="arrow-button col-3" (click)="increaseUnit('seconds')">
+									<div class="up"> </div>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="fitness-outline"
-							slot="start"
-						></ion-icon>
+						<ion-icon class="color-icon" name="fitness-outline" slot="start"></ion-icon>
 						<ion-label>Frecuencia Cardíaca Inicial</ion-label>
 					</ion-item>
-					<div class="p-3 row justify-content-center align-items-center">
-						<div class="text-center col-6">
-							<ion-input
-								type="number"
-								class="color-input ps-2"
-								[(ngModel)]="initialHeartRate"
-							></ion-input>
+
+					<div class="form-group mt-3 row justify-content-center align-items-center">
+						<div class="text-center col-6 row">
+							<div class="arrow-button col-3" (click)="dencreaseUnit('initialHeartRate')">
+								<div class="down"> </div>
+							</div>
+							<div class="formValidators col-5 ps-0 pe-0">
+								<input type="text" class="form-control" [(ngModel)]="initialHeartRate">
+								<!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+							</div>
+							<div class="arrow-button col-3" (click)="increaseUnit('initialHeartRate')">
+								<div class="up"> </div>
+							</div>
 						</div>
 					</div>
 
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="fitness-outline"
-							slot="start"
-						></ion-icon>
+						<ion-icon class="color-icon" name="fitness-outline" slot="start"></ion-icon>
 						<ion-label>Frecuencia Cardíaca Final</ion-label>
 					</ion-item>
-					<div class="p-3 row justify-content-center align-items-center">
-						<div class="text-center col-6">
-							<ion-input
-								type="number"
-								class="color-input ps-2"
-								[(ngModel)]="finalHeartRate"
-							></ion-input>
+					<div class="form-group mt-3 row justify-content-center align-items-center">
+						<div class="text-center col-6 row">
+							<div class="arrow-button col-3" (click)="dencreaseUnit('finalHeartRate')">
+								<div class="down"> </div>
+							</div>
+							<div class="formValidators col-5 ps-0 pe-0">
+								<input type="text" class="form-control" [(ngModel)]="finalHeartRate">
+								<!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+							</div>
+							<div class="arrow-button col-3" (click)="increaseUnit('finalHeartRate')">
+								<div class="up"> </div>
+							</div>
 						</div>
 					</div>
 				</ion-card>
 			</div>
 
-			<div *ngIf="type == 2">
+			<div [class.d-none]="type != 2">
 				<ion-card class="margin-card">
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="alarm-outline"
-							slot="start"
-						></ion-icon>
-						<ion-label
-							>Tiempo: {{ exercise.minutes }} min -
-							{{ exercise.seconds }} seg</ion-label
-						>
+						<ion-icon class="color-icon" name="alarm-outline" slot="start"></ion-icon>
+						<ion-label>Tiempo: {{ exercise.minutes }} min -
+							{{ exercise.seconds }} seg</ion-label>
 					</ion-item>
 
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="barbell-outline"
-							slot="start"
-						></ion-icon>
+						<ion-icon class="color-icon" name="barbell-outline" slot="start"></ion-icon>
 						<ion-label>Repeticiones</ion-label>
 					</ion-item>
-					<div class="p-3 row justify-content-center align-items-center">
-						<div class="text-center col-6">
-							<ion-input
-								type="number"
-								class="color-input ps-2"
-								[(ngModel)]="repetitions"
-							></ion-input>
+
+					<div class="form-group mt-3 row justify-content-center align-items-center">
+						<div class="text-center col-6 row">
+							<div class="arrow-button col-3" (click)="dencreaseUnit('repetitions')">
+								<div class="down"> </div>
+							</div>
+							<div class="formValidators col-5 ps-0 pe-0">
+								<input type="text" class="form-control" [(ngModel)]="repetitions">
+								<!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+							</div>
+							<div class="arrow-button col-3" (click)="increaseUnit('repetitions')">
+								<div class="up"> </div>
+							</div>
 						</div>
 					</div>
 
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="fitness-outline"
-							slot="start"
-						></ion-icon>
+						<ion-icon class="color-icon" name="fitness-outline" slot="start"></ion-icon>
 						<ion-label>Frecuencia Cardíaca Inicial</ion-label>
 					</ion-item>
-					<div class="p-3 row justify-content-center align-items-center">
-						<div class="text-center col-6">
-							<ion-input
-								type="number"
-								class="color-input ps-2"
-								[(ngModel)]="initialHeartRate"
-							></ion-input>
+
+					<div class="form-group mt-3 row justify-content-center align-items-center">
+						<div class="text-center col-6 row">
+							<div class="arrow-button col-3" (click)="dencreaseUnit('initialHeartRate')">
+								<div class="down"> </div>
+							</div>
+							<div class="formValidators col-5 ps-0 pe-0">
+								<input type="text" class="form-control" [(ngModel)]="initialHeartRate">
+								<!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+							</div>
+							<div class="arrow-button col-3" (click)="increaseUnit('initialHeartRate')">
+								<div class="up"> </div>
+							</div>
 						</div>
 					</div>
 
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="fitness-outline"
-							slot="start"
-						></ion-icon>
+						<ion-icon class="color-icon" name="fitness-outline" slot="start"></ion-icon>
 						<ion-label>Frecuencia Cardíaca Final</ion-label>
 					</ion-item>
-					<div class="p-3 row justify-content-center align-items-center">
-						<div class="text-center col-6">
-							<ion-input
-								type="number"
-								class="color-input ps-2"
-								[(ngModel)]="finalHeartRate"
-							></ion-input>
+
+					<div class="form-group mt-3 row justify-content-center align-items-center">
+						<div class="text-center col-6 row">
+							<div class="arrow-button col-3" (click)="dencreaseUnit('finalHeartRate')">
+								<div class="down"> </div>
+							</div>
+							<div class="formValidators col-5 ps-0 pe-0">
+								<input type="text" class="form-control" [(ngModel)]="finalHeartRate">
+								<!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+							</div>
+							<div class="arrow-button col-3" (click)="increaseUnit('finalHeartRate')">
+								<div class="up"> </div>
+							</div>
 						</div>
 					</div>
 				</ion-card>
 			</div>
 
-			<div *ngIf="type == 3">
+			<div [class.d-none]="type != 3">
 				<ion-card class="margin-card">
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="film-outline"
-							slot="start"
-						></ion-icon>
-						<ion-label
-							><a class="color-link cursor-pointer" href="{{ exercise.video }}"
-								>Video ejemplo</a
-							></ion-label
-						>
-						<ion-icon class="color-icon cursor-pointer" name="eye" slot="end"></ion-icon>
+						<ion-icon class="color-icon" name="film-outline" slot="start"></ion-icon>
+						<ion-label><a id="video-link" class="color-link cursor-pointer"
+								href="{{ exercise.video }}">Video ejemplo</a></ion-label>
+						<ion-icon class="color-icon cursor-pointer" name="eye" slot="end"
+							onclick="document.getElementById('video-link').click();"></ion-icon>
 					</ion-item>
 
 					<ion-item>
-						<ion-icon
-							class="color-icon"
-							name="film-outline"
-							slot="start"
-						></ion-icon>
-						<ion-label
-							><a
-								id="selectVideo"
-								class="color-link cursor-pointer"
-								onclick="document.getElementById('video-button').click();"
-							>
+						<ion-icon class="color-icon" name="film-outline" slot="start"></ion-icon>
+						<ion-label><a id="selectVideo" class="color-link cursor-pointer"
+								onclick="document.getElementById('video-button').click();">
 								<!--<i class="fas fa-upload"></i>-->
 								Mi video
-							</a></ion-label
-						>
-						<ion-icon
-							class="color-icon cursor-pointer"
-							name="arrow-up-circle-outline"
-							slot="end"
-							onclick="document.getElementById('video-button').click();"
-						></ion-icon>
-						<input
-							accept="video/mp4"
-							type="file"
-							id="video-button"
-							(change)="onFileSelectionVideo($event)"
-							style="display: none"
-						/>
+							</a></ion-label>
+						<ion-icon class="color-icon cursor-pointer" name="arrow-up-circle-outline" slot="end"
+							onclick="document.getElementById('video-button').click();"></ion-icon>
+						<input accept="video/mp4" type="file" id="video-button" (change)="onFileSelectionVideo($event)"
+							style="display: none" />
 					</ion-item>
 
 					<ion-item [class.d-none]="urlsVideo.length == 0">
-						<video
-							*ngFor="let url of urlsVideo"
-							class="text-center col-12"
-							[src]="url"
-							controls
-						>
+						<video *ngFor="let url of urlsVideo" class="text-center col-12" [src]="url" controls>
 							Vídeo no es soportado...
 						</video>
 					</ion-item>
 
 					<ion-item>
 						<ion-icon class="color-icon" name="image" slot="start"></ion-icon>
-						<ion-label
-							><a
-								id="selectImg"
-								class="color-link cursor-pointer"
-								onclick="document.getElementById('file-button').click();"
-							>
+						<ion-label><a id="selectImg" class="color-link cursor-pointer"
+								onclick="document.getElementById('file-button').click();">
 								<!--<i class="fas fa-upload"></i>-->
 								Mi imagen
-							</a></ion-label
-						>
-						<ion-icon
-							class="color-icon cursor-pointer"
-							name="arrow-up-circle-outline"
-							slot="end"
-							onclick="document.getElementById('file-button').click();"
-						></ion-icon>
-						<input
-							accept="image/*"
-							type="file"
-							id="file-button"
-							(change)="onFileSelectionImg($event)"
-							style="display: none"
-						/>
+							</a></ion-label>
+						<ion-icon class="color-icon cursor-pointer" name="arrow-up-circle-outline" slot="end"
+							onclick="document.getElementById('file-button').click();"></ion-icon>
+						<input accept="image/*" type="file" id="file-button" (change)="onFileSelectionImg($event)"
+							style="display: none" />
 					</ion-item>
 
 					<ion-item [class.d-none]="urlsImg.length == 0">
-							<img  *ngFor="let url of urlsImg" class="text-center col-12 img-evaluation" [src]="url" />
-						
+						<img *ngFor="let url of urlsImg" class="text-center col-12 img-evaluation" [src]="url" />
+
 					</ion-item>
 				</ion-card>
 			</div>
 		</div>
 		<div class="container mt-3">
-			<ion-button
-				[class.d-none]="type != 3"
-				[disabled]="!(fileVideo && fileImg)"
-				expand="block"
-				color="warning"
-				class="margin-btn text-white"
-				(click)="viewEvaluation()"
-				>Evaluar</ion-button
-			>
-
-			<ion-button
-				[class.d-none]="type == 3"
-				expand="block"
-				color="success"
-				class="margin-btn"
-				(click)="save()"
-				>Guardar</ion-button
-			>
-			<ion-button
-				expand="block"
-				color="medium"
-				class="margin-btn"
-				[routerLink]="['/test']"
-				[queryParams]="{ id: testId }"
-				>Volver
-			</ion-button>
+			<ion-button [class.d-none]="type != 3" [disabled]="!(fileVideo && fileImg)" expand="block" color="warning"
+				class="margin-btn text-white" (click)="viewEvaluation()">Evaluar</ion-button>				
+			<ion-button expand="block" color="medium" class="margin-btn" [routerLink]="['/test']"
+			[queryParams]="{ id: testId }">Volver
+				</ion-button>
+			<ion-button [class.d-none]="type == 3" expand="block" color="success" class="margin-btn" (click)="save()">
+				Guardar</ion-button>
 		</div>
 	</div>
 	<div *ngIf="displayEvaluation">
@@ -278,11 +229,7 @@
 				<ion-label>Mi imagen</ion-label>
 			</ion-toolbar>
 			<ion-card>
-				<img
-					*ngFor="let url of urlsImg"
-					class="col-12 text-center mt-3 mb-3"
-					[src]="url"
-				/>
+				<img *ngFor="let url of urlsImg" class="col-12 text-center mt-3 mb-3" [src]="url" />
 			</ion-card>
 
 			<ion-toolbar color="medium" class="toolbar-label">
@@ -296,10 +243,7 @@
 								<h1 class="col-12 text-white">{{ file.rate }}</h1>
 								<div class="col-12">
 									<div class="text-center">
-										<ion-img
-											class="img-evaluation"
-											[src]="urlBase + file.path"
-										></ion-img>
+										<ion-img class="img-evaluation" [src]="urlBase + file.path"></ion-img>
 									</div>
 								</div>
 								<div class="col-12 mt-1">
@@ -321,63 +265,14 @@
 				</ion-slides>
 			</ion-radio-group>
 		</ion-card>
-		<!-- <ion-list *ngIf="exerciseFms">
-				<ion-radio-group>
-					<ion-item
-						*ngFor="let file of exerciseFms.files"
-						class="row mt-3 mb-3"
-					>
-						<ion-img [src]="urlBase + file.path" class="col-6"></ion-img>
-						<div class="row col-6">
-							<div class="col-6 pull-left">
-								{{ file.rate }}
-							</div>
-							<div class="col-6 pull-rigth">
-								<ion-radio value="{{ file.rate }}"></ion-radio>
-							</div>
-
-							<div class="col-12 mt-1">{{ file.description }}</div>
-						</div>
-					</ion-item>
-					<ion-item class="row mt-3 mb-3">
-						<div class="col-6"></div>
-						<div class="row col-6">
-							<div class="col-6 pull-left">
-								0
-							</div>
-							<div class="col-6 pull-rigth">
-								<ion-radio value="0"></ion-radio>
-							</div>
-
-							<div class="col-12 mt-1">Si hay dolor.</div>
-						</div>
-					</ion-item>
-				</ion-radio-group>
-			</ion-list> -->
-
 		<div class="container">
-			<ion-button
-				[disabled]="!selectedRate"
-				expand="block"
-				color="success"
-				class="margin-btn"
-				(click)="save()"
-				>Guardar</ion-button
-			>
-			<ion-button
-				expand="block"
-				color="medium"
-				class="margin-btn"
-				(click)="hideEvaluation()"
-				>Volver
+			<ion-button [disabled]="!selectedRate" expand="block" color="success" class="margin-btn" (click)="save()">
+				Guardar</ion-button>
+			<ion-button expand="block" color="medium" class="margin-btn" (click)="hideEvaluation()">Volver
 			</ion-button>
 		</div>
 	</div>
 </section>
 <section class="wrapper">
-	<div class="w-100 text-center" *ngIf="requestingExercise && !exercise">
-		<div class="spinner-border text-success" role="status">
-			<span class="sr-only">Loading...</span>
-		</div>
-	</div>
+	<ion-spinner *ngIf="requestingExercise"></ion-spinner>
 </section>

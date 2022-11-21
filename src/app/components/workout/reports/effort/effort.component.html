@@ -1,6 +1,6 @@
 <corpo-header>Esfuerzo percibido</corpo-header>
 
-<section class="wrapper" *ngIf="periodization">
+<section class="wrapper" *ngIf="!requesting && periodization">
   <div class="card bg-dark">
 	<div class="card-body">
 		<div class="month text-center text-white">
@@ -47,5 +47,10 @@
     </div>
   </div>
 </div>
-
+<ion-spinner *ngIf="requesting"></ion-spinner>
+	<div class="card card-body bg-dark text-center" *ngIf="!requesting && !periodization">
+		<h5  class="text-white m-3">
+			No tiene datos registrados
+		</h5>
+	</div>
 </section>

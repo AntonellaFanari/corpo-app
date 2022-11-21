@@ -39,7 +39,14 @@ export class MemberEditComponent implements OnInit {
 ngOnInit() {
   this.requesting = true;
   this.formMember.getMemberUpdate(this.id);
+  console.log("step: ", this.step);
 }
+
+ionViewWillEnter(){
+  console.log("step: ", this.step);
+  this.step = 1;
+}
+
 
 
 
@@ -68,7 +75,7 @@ return () {
   if (valid) {
     var memberUpdate = this.formMember.createMember();
     console.log(memberUpdate);
-    this.memberService.update(this.id, memberUpdate).subscribe(
+    this.memberService.update(memberUpdate).subscribe(
       result => {
         console.log("guarde cambios");
         this.router.navigate(['/my-account']);

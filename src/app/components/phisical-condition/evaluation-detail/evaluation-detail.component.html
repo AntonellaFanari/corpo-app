@@ -6,7 +6,7 @@
 	</ion-buttons>
 	<ion-title> Resultados</ion-title>
 </ion-toolbar>
-<section class="wrapper" *ngIf="resultAnamnesis">
+<section class="wrapper" *ngIf="!requesting && resultAnamnesis">
 	<div class="card card-header div-header text-center">
 		<h4 class="text-white">Evalución de Condición Física</h4>
 	</div>
@@ -236,3 +236,4 @@
 		</div>
 	</div>
 </section>
+<ion-spinner *ngIf="requesting"></ion-spinner>

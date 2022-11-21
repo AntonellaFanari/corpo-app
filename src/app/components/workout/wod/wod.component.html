@@ -110,31 +110,11 @@
 			<ion-button expand="block" color="medium" class="main-center" (click)="goBack()">Cancelar</ion-button>
 			<ion-button expand="block" color="success" class="main-center" (click)="save()">
 				Guardar</ion-button>
-			<ion-button [disabled]="wod.wod.rest > 0" expand="block" color="primary" class="main-center"
-				(click)="restDisplay()">Hs Descanso</ion-button>
+			
 		</div>
 	</div>
 
-<div *ngIf="displayRest" class="wod-container wrapper">
-	<div class="">
-		<h6 class="text-center text-white">Tiempo de Descanso</h6>
-	</div>
-	<div class="card">
-		<div class="card-body row justify-content-center aling-items-center">
-			<div class="col-4 text-center">
-				<label class="label-goal">Horas:</label>
-				<input type="number" class="form-control" [(ngModel)]="rest" />
-			</div>
-		</div>
-	</div>
 
-	<div class="mt-4">
-		<ion-button expand="block" color="medium" class="main-center" (click)="cancelRest()">Cancelar</ion-button>
-
-		<ion-button expand="block" color="success" class="main-center" (click)="saveRest()">
-			Guardar</ion-button>
-	</div>
-</div>
 
 
 </div>

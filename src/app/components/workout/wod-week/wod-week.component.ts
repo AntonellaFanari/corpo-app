@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CalendarComponentOptions, CalendarModalOptions, DayConfig } from 'ion2-calendar';
 import * as moment from 'moment';
 import { Wod, WodGroup } from 'src/app/domain/workout/wod';
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { WodService } from 'src/app/services/wod.service';
 
 @Component({
@@ -25,17 +26,21 @@ export class WodWeekComponent implements OnInit {
   wodDates: string[] = [];
   weekNumber: number;
   displayWod = false;
+  displayRest: boolean;
+  rest = 0;
+  wodId: number;
 
   constructor(private wodService: WodService,
-    private route: ActivatedRoute) {
-      this.route.queryParams.subscribe(params => {
-        let display = params['displayWod']
-        this.displayWod = (display == 'false')? false: true; 
-    console.log("display wod: ", this.displayWod);
-    
-    this.getAllWod();
-  })
-     }
+    private route: ActivatedRoute,
+    private customAlertService: CustomAlertService) {
+    this.route.queryParams.subscribe(params => {
+      let display = params['displayWod']
+      this.displayWod = (display == 'false') ? false : true;
+      console.log("display wod: ", this.displayWod);
+
+      this.getAllWod();
+    })
+  }
 
   ngOnInit() {
 
@@ -47,7 +52,7 @@ export class WodWeekComponent implements OnInit {
     this.requesting = true;
     this.wodService.getAll().subscribe((data: any) => {
       this.requesting = false;
-      if(data.result != null){
+      if (data.result != null) {
         this.result = data.result;
         console.log("wod recibidos: ", this.result);
         var wodMembers = data.result;
@@ -55,15 +60,16 @@ export class WodWeekComponent implements OnInit {
           this.wods.push({
             wod: this.getWodMember(w),
             date: "",
-            wodNumber: w.wodNumber
+            wodNumber: w.wodNumber,
+            rest: w.rest
           });
           console.log("wodMember:", w)
           //   this.wods.push(this.getDayConfig(wod.date))
           //   this.wodDates.push(moment(wod.date).locale('es').format("dddd DD"));
-  
-  
+
+
         });
-      }     
+      }
       // this.days = this.getCurrentWeek();
 
       // this.setupWods();
@@ -122,7 +128,7 @@ export class WodWeekComponent implements OnInit {
       wodGroup.exercises = exercises;
       wodGroup.id = wodMember.wodGroupsMember.find(x => x.groupIndex == i).id;
       wodGroup.groupIndex = i,
-      wodGroup.detail = wodMember.wodGroupsMember.find(x => x.groupIndex == i).detail;
+        wodGroup.detail = wodMember.wodGroupsMember.find(x => x.groupIndex == i).detail;
       wodGroup.rounds = wodMember.wodGroupsMember.find(x => x.groupIndex == i).rounds;
       wodGroup.series = wodMember.wodGroupsMember.find(x => x.groupIndex == i).series;
       wodGroup.modality = wodMember.wodGroupsMember.find(x => x.groupIndex == i).modality.name;
@@ -225,6 +231,44 @@ export class WodWeekComponent implements OnInit {
     this.wod = this.wods[i];
     this.displayWod = true;
   }
+
+  restDisplay(id) {
+    this.displayRest = true;
+    this.wodId = id;
+  }
+
+  cancelRest() {
+    this.displayRest = false;
+  }
+
+  saveRest() {
+    this.wodService.updateRest(this.wodId, this.rest).subscribe(
+      response => {
+        console.log("hs de descanso guardadas");
+        this.displayRest = false;
+        this.getAllWod();
+      },
+      error => {
+        console.error(error);
+        if (error.status == 400) {
+          this.customAlertService.display("Gestión de Wods", error.error.errores);
+        } if (error.status == 500) {
+          this.customAlertService.display("Gestión de Wods", ["Error al intentar guardar el tiempo de descanso."]);
+        }
+      })
+  }
+
+  increaseUnit(){
+    this.rest ++;
+  }
+
+  dencreaseUnit(){
+    if(this.rest > 0){
+
+      this.rest --;
+    }
+  }
+
 }
 
 

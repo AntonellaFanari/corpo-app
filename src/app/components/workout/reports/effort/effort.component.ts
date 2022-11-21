@@ -22,6 +22,7 @@ export class EffortComponent {
   lineChart: any;
   periodizationWeek: PeriodizationWeek;
   displayChart: boolean;
+  requesting = false;
 
   constructor(private periodizationService: PeriodizationService,
     private wodService: WodService) {
@@ -112,12 +113,14 @@ export class EffortComponent {
 
 
   getPeriodization() {
+    this.requesting = true;
     this.periodizationService.get().subscribe(
       response => {
         console.log("periodization: ", response.result);
         this.periodization = response.result;
+        this.requesting = false;
       },
-      error => console.error(error)
+      error => this.requesting = false
     )
   }
 

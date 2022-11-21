@@ -18,8 +18,7 @@ export class WodComponent implements OnInit {
 
   @Input() wod: any;
   @Output() wodEventEmitter = new EventEmitter();
-  displayRest: boolean;
-  rest = 0;
+
   send: boolean;
   time: number;
   rounds: number;
@@ -122,13 +121,7 @@ export class WodComponent implements OnInit {
     return goals.split("-");
   }
 
-  restDisplay() {
-    this.displayRest = true;
-  }
 
-  cancelRest() {
-    this.displayRest = false;
-  }
 
   save() {
     this.requesting = true;
@@ -142,22 +135,7 @@ export class WodComponent implements OnInit {
     )
   }
 
-  saveRest() {
-    this.wodService.updateRest(this.wod.wod.id, this.rest).subscribe(
-      response => {
-        console.log("hs de descanso guardadas");
-        this.goBack();
-        this.displayRest = false;
-      },
-      error => {
-        console.error(error);
-        if (error.status == 400) {
-          this.customAlertService.display("Gestión de Wods", error.error.errores);
-        } if (error.status == 500) {
-          this.customAlertService.display("Gestión de Wods", ["Error al intentar guardar el tiempo de descanso."]);
-        }
-      })
-  }
+
 
   getResultsTime(result, exerciseId, groupIndex) {
     let resultsExercise = this.resultsWodGroupExercise.find(x => x.exerciseId == exerciseId);

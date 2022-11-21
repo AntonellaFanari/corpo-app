@@ -38,9 +38,8 @@ export class MemberService {
     return this.http.post<any>(this.url + 'api/member/add', newMember, httpOptions);
   }
 
-  public update(id: number, memberUpdate: Member) {
-    console.log(memberUpdate);
-    return this.http.put<DomainResponse<any>>(this.url + 'api/member/update?id=' + id, memberUpdate, httpOptions);
+  public update(memberUpdate: Member) {
+    return this.http.put<DomainResponse<any>>(this.url + 'api/member/update', memberUpdate, httpOptions);
   }
 
   public delete(id: number) {

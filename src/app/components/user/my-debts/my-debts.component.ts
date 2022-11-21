@@ -97,7 +97,7 @@ export class MyDebtsComponent implements OnInit {
   getDetailsSale(id) {
     this.saleService.getSaleDetail(id).subscribe(
       result => {
-        console.log(result);
+        console.log("detalle: ", result);
         document.getElementById("trigger-button").click();
         this.detailsSale = result;
       },

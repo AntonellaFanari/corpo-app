@@ -16,6 +16,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
   previusStep: number;
   nextStep: number;
   currentQuestion = "";
+  results = false;
  
   currentlyPhysicalActivity = null;
  
@@ -94,7 +95,7 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
       (response) => {
         console.log("resultados: ", response.result);
         if (response.result != null) {
-          this.displayResult = true;
+          this.results = true;
           this.getLevel();
           this.getExistsTestPending();
         } else {
@@ -114,6 +115,8 @@ export class AnamnesisPhisicalConditionComponent implements OnInit {
         this.requesting = false;
         console.log("nivel: ", response.result);
         this.level = response.result.level;
+        
+        this.displayResult = true;
       },
       (error) => {
         console.error(error);

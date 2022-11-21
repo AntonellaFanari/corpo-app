@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { DomainResponse } from '../domain/domain-response';
 import { Shift } from '../domain/shift';
 
 
@@ -21,7 +22,7 @@ export class ShiftService {
     this.url = url;
   }
 
-  public getAll(from: string, to: string, classId: number) {
+  public getAll(from: string, to: any, classId: number) {
     return this.http.get<any>(this.url + 'api/shift/getAll?from=' + from + '&to=' + to + '&classId=' + classId);
   }
 
@@ -41,5 +42,9 @@ export class ShiftService {
 
   public getById(id: number) {
     return this.http.get<any>(this.url + 'api/shift/getById?id=' + id);
+  }
+
+  public getByDay(day:string, id: number) {
+    return this.http.get<DomainResponse<any>>(this.url + 'api/shift/by-day?day='+ day + '&classId=' + id);
   }
 }

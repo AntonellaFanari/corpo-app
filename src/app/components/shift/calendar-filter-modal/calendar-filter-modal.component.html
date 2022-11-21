@@ -1,22 +1,38 @@
-<ion-content>
-  <ion-button fill="solid" class="text-white pull-rigth" (click)="close()">x</ion-button>
-  
-  <ion-item>
-    <ion-label>Filtrar por clases:</ion-label>
-    <ion-select [interfaceOptions]="customActionSheetOptions" cancelText="Cancelar" okText="Ok" (ionChange)="selectClass($event)">
+<ion-content *ngIf="displayCalendar">
+
+
+  <ion-item class="row">
+    <ion-label class="col-4">Clases:</ion-label>
+    <ion-select class="col-6" [interfaceOptions]="customActionSheetOptions" cancelText="Cancelar" okText="Ok"
+      placeholder="Seleccionar" [(ngModel)]="selectedClass" (ionChange)="selectClass($event)">
       <ion-select-option value="0">Todas</ion-select-option>
       <ion-select-option *ngFor="let class of classes" value="{{class.id}}">{{class.name}}</ion-select-option>
     </ion-select>
+    <ion-button fill="solid" class="text-white pull-rigth col-2" (click)="close()">x</ion-button>
+
   </ion-item>
-<ion-calendar
-	[(ngModel)]="this.dateRange"
-	(change)="onChange($event)"
-	[options]="option"
-	type="string"
-	format="YYYY-MM-DD"
->
-</ion-calendar>
-<div class="text-center">
-	<ion-button class="mt-2" color="success" (click)="filterResults()">Filtrar</ion-button>
-</div>
+  <ion-item>
+    <ion-radio-group class="row" [(ngModel)]="selectedOption" (ionChange)="
+    selectOption($event.detail.value)">
+      <ion-item class="col-6 pe-0">
+        <ion-label>Fecha</ion-label>
+        <ion-radio color="success" value="date"></ion-radio>
+      </ion-item>
+
+      <ion-item class="col-6 ps-0">
+        <ion-label>Rango de Fechas</ion-label>
+        <ion-radio color="success" value="dateRange"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-item>
+
+  <ion-calendar [class.d-none]="filterRange" [(ngModel)]="date"  (select)="selectDay($event)"
+    [options]="optionDate" type="string" format="YYYY-MM-DD">
+  </ion-calendar>
+  <ion-calendar [class.d-none]="!filterRange" [(ngModel)]="this.dateRange" (change)="selectDayRanger($event)" [options]="optionDateRange"
+    type="string" format="YYYY-MM-DD">
+  </ion-calendar>
+  <div class="text-center">
+    <ion-button class="mt-2" color="success" (click)="filterResults()">Filtrar</ion-button>
+  </div>
 </ion-content>

@@ -6,10 +6,8 @@
 			<section id="no-more-tables" *ngIf="balances.length > 0">
 				<div class="row">
 					<div class="d-inline-flex align-items-center total-container">
-						<label class="form-label" class="text-white label-total"
-							>Total:</label
-						>
-						<input type="text" class="form-control" [value]="total" readonly />>
+						<label class="form-label" class="text-white label-total">Total $:</label>
+						<input type="text" class="form-control total-width" [value]="total" readonly />>
 					</div>
 				</div>
 
@@ -25,28 +23,22 @@
 					<tbody>
 						<tr class="scrollme" *ngFor="let balance of balances">
 							<td data-title="Concepto" class="row-title">
-								<span *ngIf="balance.transaction == 1">Venta</span
-								><span *ngIf="balance.transaction == 2">Cuota</span>
+								<span *ngIf="balance.transaction == 1">Venta</span><span
+									*ngIf="balance.transaction == 2">Cuota</span>
 							</td>
 							<td data-title="Fecha">
 								<span>{{ balance.date | date: "dd/MM/yyyy h:mm:ss a" }}</span>
 							</td>
 							<td data-title="Detalle">
 								<span>
-									<ion-button
-										expand="block"
-										color="success"
-										class="main-center"
-										(click)="getTransaction(balance)"
-										>detalle</ion-button
-									>
+									<ion-button expand="block" color="success" class="main-center"
+										(click)="getTransaction(balance)">detalle</ion-button>
 								</span>
 							</td>
 							<td data-title="Saldo">
-								<span *ngIf="balance.balance > 0">{{ balance.balance - balance.pay }}</span
-								><span *ngIf="balance.balance < 0"
-									>{{ (balance.balance - balance.pay) * -1 }} (a favor)</span
-								>
+								<span *ngIf="balance.balance > 0">${{ balance.balance - balance.pay }}</span><span
+									*ngIf="balance.balance < 0">${{ (balance.balance - balance.pay) * -1 }} (a
+									favor)</span>
 							</td>
 						</tr>
 					</tbody>
@@ -54,11 +46,14 @@
 			</section>
 		</div>
 	</div>
+	<ion-spinner *ngIf="requesting"></ion-spinner>
+	<div class="card card-body bg-dark text-center" *ngIf="!requesting && balances.length == 0">
+		<h5  class="text-white m-3">
+			No hay deudas registradas
+		</h5>
+	</div>
 </section>
-<ion-spinner *ngIf="requesting"></ion-spinner>
-<h5 *ngIf="!requesting && balances.length == 0" class="text-white m-3">
-	No hay deudas registradas.
-</h5>
+
 
 <ion-button id="trigger-button" class="d-none">Click to open modal</ion-button>
 <ion-modal trigger="trigger-button">
@@ -66,9 +61,7 @@
 		<ion-content>
 			<section id="no-more-tables" *ngIf="displayFee">
 				<div class="table-wrapper-scroll-y my-custom-scrollbar content-modal">
-					<table
-						class="table table-bordered table-condensed cf scrollme detail-table"
-					>
+					<table class="table table-bordered table-condensed cf scrollme detail-table">
 						<thead class="cf">
 							<tr>
 								<th>Plan</th>
@@ -104,14 +97,10 @@
 								<td class="td-title" data-title="Creditos">
 									{{ fee.credits }}
 								</td>
-								<td
-									*ngIf="fee.promotionId"
-									class="td-title"
-									data-title="Promoción"
-								>
-									{{ fee.promotion.name }}
+								<td *ngIf="fee.promotionId" class="td-title" data-title="Promoción">
+									${{ fee.promotion.name }}
 								</td>
-								<td class="td-title" data-title="Total">{{ fee.total }}</td>
+								<td class="td-title" data-title="Total">${{ fee.total }}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -120,17 +109,15 @@
 
 			<section id="no-more-tables" *ngIf="displaySale">
 				<div class="table-wrapper-scroll-y my-custom-scrollbar content-modal">
-					<table
-						class="table table-bordered table-condensed cf scrollme detail-table"
-					>
+					<table class="table table-bordered table-condensed cf scrollme detail-table">
 						<thead class="cf">
 							<tr>
 								<th colspan="2">
 									Fecha: {{ sale.date | date: "dd/MM/yyyy h:mm:ss a" }}
 								</th>
 								<th colspan="2" *ngIf="status">
-									Estado: <span *ngIf="status == 1">Vigente</span
-									><span *ngIf="status == 2">Cancelada</span>
+									Estado: <span *ngIf="status == 1">Vigente</span><span
+										*ngIf="status == 2">Cancelada</span>
 								</th>
 							</tr>
 							<tr>
@@ -143,14 +130,14 @@
 						<tbody>
 							<tr *ngFor="let detail of detailsSale" class="scrollme">
 								<td class="td-title row-title" data-title="Descripcion">
-									{{ detail.description }}
+									{{ detail.product.description }}
 								</td>
 								<td class="td-title" data-title="Cantidad">
 									{{ detail.quantity }}
 								</td>
-								<td class="td-title" data-title="Precio">{{ detail.price }}</td>
+								<td class="td-title" data-title="Precio">${{ detail.price }}</td>
 								<td class="td-title" data-title="Total">
-									{{ detail.quantity * detail.price }}
+									${{ detail.quantity * detail.price }}
 								</td>
 							</tr>
 						</tbody>
@@ -158,14 +145,8 @@
 				</div>
 			</section>
 
-			<ion-button
-				expand="block"
-				color="medium"
-				class="main-center"
-				id="trigger-button"
-				(click)="close()"
-				>Volver</ion-button
-			>
+			<ion-button expand="block" color="medium" class="main-center" id="trigger-button" (click)="close()">Volver
+			</ion-button>
 		</ion-content>
 	</ng-template>
 </ion-modal>

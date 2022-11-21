@@ -44,7 +44,7 @@ export class MyReservationComponent implements OnInit {
   dateType = "reserves";
   member: MemberView;
   requestingReserve: boolean;
-
+  displayFilter = false;
 
   constructor(private attendanceService: AttendanceService,
     private accountService: AccountService,
@@ -67,15 +67,15 @@ export class MyReservationComponent implements OnInit {
     this.getMember();
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getMember();
   }
 
 
-  getMember(){
+  getMember() {
     this.requesting = true;
     this.memberService.getById().subscribe(
-      response =>{
+      response => {
         console.log("socio: ", response.result);
         this.member = response.result;
         this.getAllReservations();
@@ -147,6 +147,7 @@ export class MyReservationComponent implements OnInit {
       result => {
         console.log("turnos disponibles esta semana:", result);
         this.getShiftsList(result.result);
+        this.displayFilter = false;
       },
       error => {
         console.error(error);
@@ -167,7 +168,7 @@ export class MyReservationComponent implements OnInit {
       shiftList.available = shift.available;
       shiftList.classId = shift.class.id;
       shiftList.className = shift.class.name;
-      let reserved = this.reservations.find(x => x.shiftId == shift.id);
+      let reserved = this.reservations.find(x => x.shiftId == shift.id && x.status == 1);
       if (reserved) { shiftList.reserved = true } else { shiftList.reserved = false };
       console.log(shiftList);
       this.shifts.push(shiftList);
@@ -176,6 +177,7 @@ export class MyReservationComponent implements OnInit {
   }
 
   filterModal() {
+    console.log("filtro");
     if (!this.openCalendarFilter) {
       this.openFilterModal();
     } else {
@@ -184,31 +186,41 @@ export class MyReservationComponent implements OnInit {
   }
 
   async openFilterModal() {
-    this.openCalendarFilter = true;
+    this.openCalendarFilter = true;    
+    this.displayFilter = true;
     const modal = await this.modalController.create({
       component: CalendarFilterModalComponent,
       componentProps: {
-        'dateType': this.dateType
+        'dateType': this.dateType,
+        'displayCalendar': true
       },
       animated: true,
       cssClass: 'my-custom-modal-calendar-filter'
     });
 
     modal.onDidDismiss().then((modalDataResponse) => {
-      if (this.dateType == "reserves") {
-        if (modalDataResponse.data.result.length > 0) {
-          console.log("recibido: ", modalDataResponse);
-          console.log('reservaciones recibidas : ', modalDataResponse.data.result);
-          this.getReservationsFilter(modalDataResponse.data.result);
+      if(modalDataResponse.data != null){
+        if (this.dateType == "reserves") {
+          if (modalDataResponse.data.result.length > 0) {
+            console.log("recibido: ", modalDataResponse);
+            console.log('reservaciones recibidas : ', modalDataResponse.data.result);
+            this.getReservationsFilter(modalDataResponse.data.result);
+          }else{
+            this.reservations = [];
+          }
+        } else {
+          if (modalDataResponse.data.result.length > 0) {
+            console.log('turnos recibidos : ', modalDataResponse.data.result);
+            this.getShiftFilter(modalDataResponse.data.result);
+          } else {
+            this.shifts = [];
+          }
         }
-      } else {
-        if(modalDataResponse.data.result.length > 0){
-        console.log('turnos recibidos : ', modalDataResponse.data.result);
-        this.getShiftFilter(modalDataResponse.data.result)}
       }
+   
 
 
-      this.openCalendarFilter = modalDataResponse.data.open;
+       this.openCalendarFilter = false;
     });
     return await modal.present();
   }
@@ -253,6 +265,14 @@ export class MyReservationComponent implements OnInit {
     this.getAllShift();
   }
 
+  goBack() {
+    if (!this.displayFilter) {
+      this.viewReserve();
+    } else {
+      this.viewShifts();
+    }
+  }
+
   viewReserve() {
     this.displayShifts = false;
     this.dateType = "reserves";
@@ -261,6 +281,7 @@ export class MyReservationComponent implements OnInit {
   }
 
   reserve(id, className) {
+    console.log("estado del socio: ", this.member.status);
     // document.getElementById("trigger-button").click();
     this.openModal = true;
     this.selectedShiftId = id;
@@ -301,7 +322,7 @@ export class MyReservationComponent implements OnInit {
       this.credit.negative = this.credit.negative + 1;
     }
   }
- 
+
   add() {
     this.requestingReserve = true;
     let attendance = this.createAttendance();

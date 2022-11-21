@@ -14,76 +14,97 @@
 </ion-content>
 -->
 
-<section class="wrapper" [class.d-none]="displayWod">
-	<!-- <div class="card">
-
-        <table class="table table-bordered table-condensed cf">
-            <tbody>
-                <tr *ngFor="let day of days" [class.active-day]="day == getActiveDay()">
-                    <td data-title="{{day}}" class="align-middle">
-                        {{day}}
-                    </td>
-                    <td data-title="{{day}}">
-                        <button class="btn btn-success w-100" (click)="viewWod(day)">ver</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-       
-	</div> -->
-	<div *ngIf="!requesting && wods.length > 0">
-		<div class="">
-			<h6 class="text-center text-white">Semana Nº {{ weekNumber }}</h6>
-		</div>
-		<div class="card" *ngIf="wods.length > 0">
-			<table class="table bg-light table-bordered table-condensed cf">
+<div *ngIf="!displayRest">
+	<section class="wrapper" [class.d-none]="displayWod">
+		<!-- <div class="card">
+	
+			<table class="table table-bordered table-condensed cf">
 				<tbody>
-					<tr *ngFor="let wod of wods; index as i">
-						<td data-title="wod.wodNumber" class="align-middle">
-							<strong>Dia Nº {{ wod.wodNumber }}</strong>
+					<tr *ngFor="let day of days" [class.active-day]="day == getActiveDay()">
+						<td data-title="{{day}}" class="align-middle">
+							{{day}}
 						</td>
-						<td data-title="{{ wod.attended }}">
-							<ion-button
-								expand="block"
-								color="success"
-								class="main-center"
-								(click)="viewWod(i)"
-								[class.d-none]="wod.wod.attended == 'true'"
-								>ver</ion-button
-							>
-							<ion-button
-							expand="block"
-							color="success"
-							class="main-center"
-							[routerLink]="['/wod-resultados']" [queryParams]="{id: wod.wod.id}"
-							[class.d-none]="wod.wod.attended != 'true'"
-							>resultados</ion-button
-						>
+						<td data-title="{{day}}">
+							<button class="btn btn-success w-100" (click)="viewWod(day)">ver</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+		   
+		</div> -->
+		<div *ngIf="!requesting && wods.length > 0">
+			<div class="">
+				<h6 class="text-center text-white">Semana Nº {{ weekNumber }}</h6>
+			</div>
+			<div class="card" *ngIf="wods.length > 0">
+				<table class="table bg-light table-bordered table-condensed cf">
+					<tbody>
+						<tr *ngFor="let wod of wods; index as i">
+							<td data-title="wod.wodNumber" class="align-middle">
+								<strong>Dia Nº {{ wod.wodNumber }}</strong>
+							</td>
+							<td data-title="{{ wod.attended }}">
+								<ion-button expand="block" color="success" class="main-center" (click)="viewWod(i)"
+									[class.d-none]="wod.wod.attended == 'true'">ver</ion-button>
+								<ion-button expand="block" color="success" class="main-center"
+									[routerLink]="['/wod-resultados']" [queryParams]="{id: wod.wod.id}"
+									[class.d-none]="wod.wod.attended != 'true'">resultados</ion-button>
+								<ion-button expand="block" color="primary" class="main-center" (click)="restDisplay(wod.wod.id)"
+									[class.d-none]="wod.rest > 0 || wod.wod.attended != 'true'">Hs Descanso</ion-button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<div *ngIf="!requesting && wods.length == 0" class="card-body text-center bg-dark">
+			<h6 class="text-white">No exite planificación para esta semana.</h6>
+		</div>
+
+		<div class="mt-4" *ngIf="!requesting">
+			<div class="mt-1">
+				<ion-button expand="block" color="success" class="main-center" [routerLink]="['/periodization']">
+					Periodización</ion-button>
+			</div>
+		</div>
+	</section>
+
+	<app-wod [wod]="wod" [class.d-none]="!displayWod" (wodEventEmitter)="closeWod()"></app-wod>
+
+</div>
+
+
+
+<div *ngIf="displayRest" class="wod-container wrapper">
+	<div class="">
+		<h6 class="text-center text-white">Tiempo de Descanso</h6>
+	</div>
+	<div class="card bg-dark">
+		<div class="card-body row justify-content-center aling-items-center">
+			<div class="form-group mt-3 row">
+				<label class="control-label col-5">Horas</label>
+				<div class="col-7 row">
+					<div class="arrow-button col-3" (click)="dencreaseUnit()">
+						<div class="down"> </div>
+					</div>
+					<div class="formValidators col-5 ps-0 pe-0">
+						<input type="text" class="form-control" [(ngModel)]="rest">
+						<!--<p *ngIf="validationError && !time">* el campo es requerido.</p>-->
+					</div>
+					<div class="arrow-button col-3" (click)="increaseUnit()">
+						<div class="up"> </div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
-	<div *ngIf="!requesting && wods.length == 0" class="card-body text-center bg-dark">
-		<h6 class="text-white">No exite planificación para esta semana.</h6>
-	</div>
+	<div class="mt-4">
+		<ion-button expand="block" color="medium" class="main-center" (click)="cancelRest()">Cancelar</ion-button>
 
-	<div
-		class="mt-4"
-		*ngIf="!requesting"
-	>
-		<div class="mt-1">
-			<ion-button
-				expand="block"
-				color="success"
-				class="main-center"
-				[routerLink]="['/periodization']"
-				>Periodización</ion-button
-			>
-		</div>
+		<ion-button expand="block" color="success" class="main-center" (click)="saveRest()">
+			Guardar</ion-button>
 	</div>
-</section>
-
-<app-wod [wod]="wod" [class.d-none]="!displayWod" (wodEventEmitter)="closeWod()"></app-wod>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarComponentOptions, DayConfig } from 'ion2-calendar';
+import { CalendarComponentOptions, CalendarModalOptions, DayConfig } from 'ion2-calendar';
 import { AttendanceService } from 'src/app/services/attendance.service';
 
 
@@ -15,9 +15,10 @@ import { AttendanceService } from 'src/app/services/attendance.service';
 export class AttendanceComponent implements OnInit {
   date: string;
   type: 'string';
-  options: CalendarComponentOptions;
+  options: CalendarModalOptions;
   attendance: DayConfig[] = [];
   month: number = 0;
+  dateMulti: string[] = [];
   constructor(private attendanceService: AttendanceService) {
 
 
@@ -34,7 +35,9 @@ export class AttendanceComponent implements OnInit {
       console.log("llego: ", data.result );
       data.result.forEach(date => {
         if(date.status == 3){
-          this.attendance.push(this.getDayConfigAttended(date.dateShift))
+          this.attendance.push(this.getDayConfigAttended(date.dateShift));
+          this.dateMulti.push(date.dateShift);
+          console.log("fechas de asistencias: ", this.dateMulti);
         }if(date.status == 4)
         this.attendance.push(this.getDayConfigNoAttended(date.dateShift))
       });
@@ -44,10 +47,12 @@ export class AttendanceComponent implements OnInit {
 
   setupAttendance(){
     this.options = {
-      color: "red",
       weekdays: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-      showMonthPicker: true,
-      daysConfig: this.attendance
+      daysConfig: this.attendance,
+      pickMode: 'multi',
+      canBackwardsSelected: false,
+      color: 'secondary',
+      disableWeeks: [0],
     }      
   }
 
@@ -82,4 +87,6 @@ export class AttendanceComponent implements OnInit {
       cssClass: "no-attended"
     }
   }
+
+
 }

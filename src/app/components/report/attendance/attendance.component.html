@@ -1,7 +1,7 @@
 <corpo-header>Asistencias</corpo-header>
 <ion-content>
     <ion-calendar 
-        [(ngModel)]="date" 
+    [(ngModel)]="dateMulti"
         (change)="onChange($event)" 
         [type]="type" 
         (monthChange)="onChangeMonth($event.newMonth.months)"

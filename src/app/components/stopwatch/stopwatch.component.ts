@@ -75,7 +75,8 @@ export class StopwatchComponent implements OnInit {
     return this.seconds < 10;
   }
 
-  reset() {
+  reset() {    
+    this.initiated = false;
     if (!this.countdownTime) {
       this.seconds = 0;
       this.minutes = 0;
@@ -117,5 +118,6 @@ export class StopwatchComponent implements OnInit {
       this.getTime.emit();
 
     }
+    this.reset();
   }
 }

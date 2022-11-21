@@ -54,6 +54,7 @@ export class MyTestsComponent implements OnInit {
           this.toTest = false;
         }
         else{
+          this.toTest = true;
           this.id = response.result.id;
         }
       },
@@ -64,7 +65,6 @@ export class MyTestsComponent implements OnInit {
   hideTests(){
     this.displayTests = false;
     this.getTest();
-    this.getTestHistory();
   }
 
 

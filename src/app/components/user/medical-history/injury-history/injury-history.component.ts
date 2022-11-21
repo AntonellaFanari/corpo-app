@@ -191,6 +191,7 @@ export class InjuryHistoryComponent implements OnInit {
 
   toGo() {
     console.log("nuevo: ", this.memberService.newMember);
+    console.log("socio nuevo: ", localStorage.getItem('newUser'))
     let newUser = localStorage.getItem('newUser');
     if (newUser == 'false') {
      this.router.navigate(['/my-account']);
