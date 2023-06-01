@@ -20,7 +20,7 @@
         (click)="goToStopwatch('timeWork')">
         Cronómetro
       </ion-button>
-  <app-stopwatch [class.d-none]="timeType != 'timeWork'" [tabata]="'false'" [countdownTime]="timeWork" [countdown]="countdown" (getTime)="hideStopwatch()"> </app-stopwatch>
+  <app-stopwatch [class.d-none]="timeType != 'timeWork'" [tabata]="'true'" [countdownTime]="timeWork" [countdown]="countdown" (getTime)="hideStopwatch()"> </app-stopwatch>
 </div>
 <div>
   <label class="control-label col-5 text-black"><small>Time Rest</small></label>
@@ -28,5 +28,5 @@
         (click)="goToStopwatch('timeRest')">
         Cronómetro
       </ion-button>
-  <app-stopwatch [class.d-none]="timeType != 'timeRest'" [tabata]="'false'" [countdownTime]="timeRest" [countdown]="countdown" (getTime)="hideStopwatch()"> </app-stopwatch>
+  <app-stopwatch [class.d-none]="timeType != 'timeRest'" [tabata]="'true'" [countdownTime]="timeRest" [countdown]="countdown" (getTime)="hideStopwatch()"> </app-stopwatch>
 </div>

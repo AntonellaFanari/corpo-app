@@ -55,6 +55,11 @@
 									[unitType]="exerciseItem.unitType"
 									(getResults)="getResultsTimers($event, exerciseItem.id, group.groupIndex)">
 								</app-timers>
+								<app-tabata [class.d-none]="group.modality != 'Tabata'"
+									[timeWork]="20" [timeRest]="10"
+									[unitType]="exerciseItem.unitType"
+									(getResults)="getResultsTabata($event, exerciseItem.id, group.groupIndex)">
+								</app-tabata>
 
 
 							</td>

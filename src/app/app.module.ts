@@ -58,6 +58,7 @@ import { AmrapComponent } from './components/workout/wod-modality/amrap/amrap.co
 import { TimersComponent } from './components/workout/wod-modality/timers/timers.component';
 import { StaggeredComponent } from './components/workout/wod-modality/staggered/staggered.component';
 import { EmomComponent } from './components/workout/wod-modality/emom/emom.component';
+import { TabataComponent } from './components/workout/wod-modality/tabata/tabata.component';
 
 //import { MatSliderModule } from '@angular/material/slider'; 
 
@@ -109,7 +110,8 @@ import { EmomComponent } from './components/workout/wod-modality/emom/emom.compo
     AmrapComponent,
     TimersComponent,
     StaggeredComponent,
-    EmomComponent
+    EmomComponent,
+    TabataComponent
   //  MatSliderModule
   ],
   entryComponents: [MyDebtsComponent],

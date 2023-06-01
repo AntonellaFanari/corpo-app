@@ -58,6 +58,12 @@
 										exerciseItem.id, 'amount', null)}} {{exerciseItem.unitType}}.</small></label>
 
 							</div>
+							
+							<div class="form-group mt-3 row" [class.d-none]="group.modality !='Tabata'">
+								<label class="control-label col-5 text-black"><small class="result-text">{{getResultExercise(group.groupIndex,
+										exerciseItem.id, 'amount', null)}} {{exerciseItem.unitType}}.</small></label>
+
+							</div>
 
 						</td>
 					</tr>

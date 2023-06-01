@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
   styleUrls: ['./stopwatch.component.scss'],
 })
 export class StopwatchComponent implements OnInit {
-  @Input()countdownTime: number;
+  @Input() countdownTime: number;
   minutes: number = 0;
   seconds = 0;
   timer: any;
@@ -15,6 +15,7 @@ export class StopwatchComponent implements OnInit {
   time: number;
   initiated = false;
   @Input() countdown = false;
+  @Input() tabata: string;
 
 
   constructor() { }
@@ -22,18 +23,29 @@ export class StopwatchComponent implements OnInit {
   ngOnInit() {
     // this.lessThanMinutes();
     // this.lessThanSeconds();
-    if(this.countdown) this.getCountdownTime();
+
+    if (this.countdown) this.getCountdownTime();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(this.countdown) this.getCountdownTime();
+ 
+    if (this.countdown) this.getCountdownTime();
   }
 
   getCountdownTime() {
-    this.minutes = this.countdownTime;
+    console.log("tabata11: ", this.tabata);
+    if (this.tabata == 'true') {
+      this.minutes = 0
+      this.seconds = this.countdownTime;
 
-    this.minutes--;
-    this.seconds = 59;
+    } else {
+
+      this.minutes = this.countdownTime;
+
+      this.minutes--;
+      this.seconds = 59;
+
+    }
   }
 
   play() {
@@ -57,7 +69,7 @@ export class StopwatchComponent implements OnInit {
           this.minutes--;
           this.seconds = 59;
           this.play();
-        } else if (this.minutes == 0 && this.seconds == 0){
+        } else if (this.minutes == 0 && this.seconds == 0) {
           this.save();
         }
 
@@ -75,7 +87,7 @@ export class StopwatchComponent implements OnInit {
     return this.seconds < 10;
   }
 
-  reset() {    
+  reset() {
     this.initiated = false;
     if (!this.countdownTime) {
       this.seconds = 0;
@@ -104,17 +116,17 @@ export class StopwatchComponent implements OnInit {
   }
 
   save() {
-    if(!this.countdown){
+    if (!this.countdown) {
 
       this.time = this.seconds + (this.minutes * 60);
       console.log("tiempo en segundos: ", this.time);
       this.reset();
       this.initiated = false;
       this.getTime.emit(this.time);
-      
-    }else{
-      
-    this.initiated = false;
+
+    } else {
+
+      this.initiated = false;
       this.getTime.emit();
 
     }

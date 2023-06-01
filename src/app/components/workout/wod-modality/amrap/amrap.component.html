@@ -20,7 +20,7 @@
       (click)="goToStopwatch()">
       Cronómetro
     </ion-button>
-    <app-stopwatch [class.d-none]="!displayStopwatch" [countdownTime]="time" [countdown]="countdown" (getTime)="hideStopwatch()" (hideDisplayStopwatch)="hideStopwatch()"> </app-stopwatch>
+    <app-stopwatch [class.d-none]="!displayStopwatch" [tabata]="'false'" [countdownTime]="time" [countdown]="countdown" (getTime)="hideStopwatch()" (hideDisplayStopwatch)="hideStopwatch()"> </app-stopwatch>
   
   </div>
 </div>

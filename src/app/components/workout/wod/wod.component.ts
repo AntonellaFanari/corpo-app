@@ -198,4 +198,25 @@ export class WodComponent implements OnInit {
     console.log("grupo: ", this.resultsWodGroup.find(x => x.groupIndex == groupIndex))
   }
 
+  getResultsTabata(result, exerciseId, groupIndex) {
+    let resultGroup = this.resultsWodGroup.find(x => x.groupIndex == groupIndex);
+    if (result.operation == '++') {
+      this.resultsWodGroupExercise.find(x => x.exerciseId == exerciseId).amount++;
+      resultGroup.repetitions++;
+      this.getRepetitionsGroup(groupIndex);
+    } else if (result.operation == '--') {
+      this.resultsWodGroupExercise.find(x => x.exerciseId == exerciseId).amount--;
+      resultGroup.repetitions--;
+      this.getRepetitionsGroup(groupIndex);
+    } else {
+      let resultsExercise = this.resultsWodGroupExercise.find(x => x.exerciseId == exerciseId);
+      resultGroup.repetitions = resultGroup.repetitions - resultsExercise.amount + parseInt(result.units);
+      resultsExercise.amount = parseInt(result.units);
+      this.getRepetitionsGroup(groupIndex);
+    }
+    console.log("ejercicio: ", this.resultsWodGroupExercise.find(x => x.exerciseId == exerciseId));
+    console.log("grupo: ", this.resultsWodGroup.find(x => x.groupIndex == groupIndex))
+
+  }
+
 }
