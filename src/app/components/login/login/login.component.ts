@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   open = false;
   canDismiss = false;
   @Output() logged = new EventEmitter(); 
+  error: {};
 
   constructor(private formBuilder: FormBuilder,
     private accountService: AccountService,
@@ -74,6 +75,7 @@ export class LoginComponent implements OnInit {
         error => {
           this.requesting = false;
           console.error(error);
+          this.error= error;
           if (error.status === 400) {
             this.customAlertService.display("Gestión de Autenticación de Usuarios", error.error.errores);
           }
